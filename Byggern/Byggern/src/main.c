@@ -40,11 +40,11 @@ int main (void)
 	board_init();
 	
 	// Testing MCU functionality, PIN toggle
-	DDRB = (1 << PINB0);
+	DDRC = (1 << PINC0);
 	while(1)
 	{
-		PORTB ^= (1 << PINB0);
-		_delay_ms(100);
+		PORTC ^= (1 << PINC0);
+		_delay_ms(1000);
 	}
 	return 0;
 }
