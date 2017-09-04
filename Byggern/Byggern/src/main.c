@@ -10,17 +10,6 @@ int main (void)
 	UART0_Init();
 	led_init();
 	
-	while(1)
-	{
-		led_toggle();
-		UART0_Transmit('1');
-		//UART0_Transmit('2');
-		//UART0_Transmit('3');
-		UART0_Transmit('\n');	
-		
-		UART0_Receive();
-		_delay_ms(100);
-	}
 		
 	return 0;
 }
