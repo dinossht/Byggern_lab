@@ -36,23 +36,36 @@
 #include <util/delay.h>
 #include "drivers/uart.h"
 
-void led_toggle()
-{
-	PORTC ^= (1 << PINC0);	
-}
+void led_init(void);
+void led_toggle(void);
 
 int main (void)
 {
 	board_init();
 	UART0_Init();
-	DDRC = (1 << PINC0);
+	led_init();
 	
 	while(1)
 	{
 		led_toggle();
-		UART0_Transmit('R');	
+		UART0_Transmit('1');
+		//UART0_Transmit('2');
+		//UART0_Transmit('3');
+		UART0_Transmit('\n');	
+		
+		UART0_Receive();
 		_delay_ms(100);
 	}
 		
 	return 0;
+}
+
+void led_init(void)
+{
+	DDRC = (1 << PINC0);	
+}
+
+void led_toggle()
+{
+	PORTC ^= (1 << PINC0);
 }

@@ -35,16 +35,8 @@ void UART0_Init()
 // UART transmission routine
 void UART0_Transmit(unsigned char data)
 {
-	uint8_t cnt = 0;
-	int meh = 0;
-	
 	/* Wait for empty transmit buffer */
-	while (!(UCSR0A & (1 << UDRE0))){
-// 		if(cnt++ > 1000){
-// 			meh = 1;	
-// 			break;
-// 		}
-	}
+	while (!(UCSR0A & (1 << UDRE0)));
 	
 	/* Put data into buffer, sends the data */
 	UDR0 = data;
