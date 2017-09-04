@@ -9,10 +9,8 @@
 #ifndef UART_H_
 #define UART_H_
 
-#include <asf.h>
-
-void UART0_Init(void);
-void UART0_Transmit(unsigned char data);
-unsigned char UART0_Receive(void);
+void uart0_init(void);
+void uart0_putchar(unsigned char data);
+unsigned char uart0_getchar(void);
 
 #endif /* UART_H_ */

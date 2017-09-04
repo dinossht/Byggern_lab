@@ -5,35 +5,32 @@
  *  Author: dinossht
  */ 
 
+#include <asf.h>
 
-#include "settings.h"
 #include "uart.h"
+#include "../settings.h"
+#include "stdio.h"
 
 #define BAUD 9600
-#define MYUBRR F_CPU / 16 / BAUD - 1 // Baud Rate Register Setting
 
 // UART0 Initialization routine
-void UART0_Init()
+void uart0_init()
 {
 	/* Set UART baudrate */
-	UBRR0H = (unsigned char)(MYUBRR >> 8);
-	UBRR0L = (unsigned char)MYUBRR;
+	UBRR0L = (F_CPU / 16 / BAUD - 1);
 	
 	/* Enable reciever and transimitter */
 	UCSR0B = (1 << TXEN0) | (1 << RXEN0);
 	
 	/* Frame format: 8data */
-	UCSR0C = (1 << URSEL0) | (1 << UCSZ01) | (1 << UCSZ00);
+	UCSR0C |= (1 << URSEL0) | (1 << UCSZ01) | (1 << UCSZ00);
 	
-	/* 2 stop bit */
-	// UCSR0C |= (1 << USBS0);
-	
-	/* Clock polarity must be set to 0 for asynchronous mode */
-	UCSR0C &= ~(1 << UCPOL0);
+	/* Enable STDIO */
+	fdevopen((void*)uart0_putchar, (void*)uart0_getchar);
 }
 
 // UART transmission routine
-void UART0_Transmit(unsigned char data)
+void uart0_putchar(unsigned char data)
 {
 	/* Wait for empty transmit buffer */
 	while (!(UCSR0A & (1 << UDRE0)));
@@ -43,7 +40,7 @@ void UART0_Transmit(unsigned char data)
 }
 
 // UART recieve routine
-unsigned char UART0_Receive()
+unsigned char uart0_getchar()
 {
 	/* Wait for data to be received */
 	while (!(UCSR0A & (1 << RXC0)));

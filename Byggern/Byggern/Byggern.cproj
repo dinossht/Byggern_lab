@@ -200,12 +200,31 @@
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
     <Folder Include="src\drivers" />
+    <Folder Include="src\exercises" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\drivers\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\led.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\uart.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex01.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex01.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\hardware_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\hardware_init.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\settings.h">
