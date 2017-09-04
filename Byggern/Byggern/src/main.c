@@ -1,6 +1,3 @@
- 
-#include "settings.h"
- 
 #include <asf.h>
 #include <avr/io.h>
 #include <util/delay.h>
