@@ -5,15 +5,14 @@
  */ 
 
 #include "led.h"
-
-#include <avr/io.h>
+#include "pio.h"
 
 void led_init(void)
 {
-	DDRC = (1 << PINC0);
+	pio_enable(&DDRC, PINC0);
 }
 
 void led_toggle()
 {
-	PORTC ^= (1 << PINC0);
+	pio_toggle(&PORTC, PINC0);
 }
