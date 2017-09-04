@@ -5,6 +5,9 @@
  *  Author: Lars
  */ 
 
+#include "ex01.h"
+
+#include "settings.h"
 #include "drivers/led.h"
 
 #include <asf.h>
