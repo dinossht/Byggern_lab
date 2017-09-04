@@ -233,6 +233,12 @@
     <Compile Include="src\exercises\ex01.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\exercises\ex02.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex02.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\hardware_init.c">
       <SubType>compile</SubType>
     </Compile>
