@@ -38,7 +38,7 @@ int main (void)
 
 	board_init();
 	
-	// Testing PIN toggles
+	// Testing MCU functionality, PIN toggle
 	DDRB = (1 << PINB0);
 	while(1)
 	{

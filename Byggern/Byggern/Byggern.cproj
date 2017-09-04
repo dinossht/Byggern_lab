@@ -186,8 +186,12 @@
     <Folder Include="src\ASF\mega\utils\assembler\" />
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\UART_driver" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\UART_driver\UART_driver.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\asf.h">
       <SubType>compile</SubType>
     </None>
