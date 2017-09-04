@@ -23,7 +23,7 @@ void UART0_Init()
 	UCSR0B = (1 << TXEN0) | (1 << RXEN0);
 	
 	/* Frame format: 8data */
-	UCSR0C = (1 << URSEL0) | (1 << UCSZ00) | (1 << UCSZ01);
+	UCSR0C = (1 << URSEL0) | (1 << UCSZ01) | (1 << UCSZ00);
 	
 	/* 2 stop bit */
 	UCSR0C |= (1 << USBS0);
@@ -36,7 +36,7 @@ void UART0_Init()
 void UART0_Transmit(unsigned char data)
 {
 	/* Wait for empty transmit buffer */
-	while (!(UCSR0C & (1 << UDRE0)));
+	while (!(UCSR0A & (1 << UDRE0)));
 	
 	/* Put data into buffer, sends the data */
 	UDR0 = data;
@@ -46,7 +46,7 @@ void UART0_Transmit(unsigned char data)
 unsigned char UART0_Receive()
 {
 	/* Wait for data to be received */
-	while (!(UCSR0C & (1 << RXC0)));
+	while (!(UCSR0A & (1 << RXC0)));
 	
 	/* Get and return received data from buffer */
 	return UDR0;
