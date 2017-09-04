@@ -203,6 +203,18 @@
     <Folder Include="src\exercises" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\drivers\latch.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\latch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\pio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\pio.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\led.c">
       <SubType>compile</SubType>
     </Compile>
