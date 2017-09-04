@@ -1,5 +1,5 @@
 /*
- * UART_driver.c
+ * uart.c
  *
  * Created: 04.09.2017 09:28:55
  *  Author: dinossht
@@ -7,7 +7,7 @@
 
 
 #include "settings.h"
-#include "UART_driver.h"
+#include "uart.h"
 
 #define BAUD 9600
 #define MYUBRR F_CPU / 16 / BAUD - 1 // Baud Rate Register Setting

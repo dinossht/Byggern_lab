@@ -34,17 +34,13 @@
 #include <asf.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "drivers/uart.h"
 
 int main (void)
 {
 	board_init();
+	UART0_Init();
 	
-	// Testing MCU functionality, PIN toggle
-	DDRC = (1 << PINC0);
-	while(1)
-	{
-		PORTC ^= (1 << PINC0);
-		_delay_ms(1000);
-	}
+	
 	return 0;
 }

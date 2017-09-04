@@ -199,16 +199,16 @@
     <Folder Include="src\ASF\mega\utils\assembler\" />
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
-    <Folder Include="src\UART_driver" />
+    <Folder Include="src\drivers" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\drivers\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\settings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\UART_driver\UART_driver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\UART_driver\UART_driver.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\asf.h">
