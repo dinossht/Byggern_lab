@@ -26,7 +26,7 @@ void UART0_Init()
 	UCSR0C = (1 << URSEL0) | (1 << UCSZ01) | (1 << UCSZ00);
 	
 	/* 2 stop bit */
-	UCSR0C |= (1 << USBS0);
+	// UCSR0C |= (1 << USBS0);
 	
 	/* Clock polarity must be set to 0 for asynchronous mode */
 	UCSR0C &= ~(1 << UCPOL0);
