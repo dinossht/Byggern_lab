@@ -28,14 +28,15 @@
  /**
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
+ 
+#include "settings.h"
+ 
 #include <asf.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
 int main (void)
 {
-	// Insert system clock initialization code here (sysclk_init()).
-
 	board_init();
 	
 	// Testing MCU functionality, PIN toggle
