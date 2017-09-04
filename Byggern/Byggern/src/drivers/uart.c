@@ -13,7 +13,7 @@
 
 #define BAUD 9600
 
-// UART0 Initialization routine
+// UART0 initialization routine
 void uart0_init()
 {
 	/* Set UART baudrate */
@@ -39,7 +39,7 @@ void uart0_putchar(unsigned char data)
 	UDR0 = data;
 }
 
-// UART recieve routine
+// UART receive routine
 unsigned char uart0_getchar()
 {
 	/* Wait for data to be received */
@@ -48,4 +48,3 @@ unsigned char uart0_getchar()
 	/* Get and return received data from buffer */
 	return UDR0;
 }
-
