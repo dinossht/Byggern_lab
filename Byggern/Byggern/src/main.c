@@ -40,7 +40,7 @@ int main (void)
 {
 	board_init();
 	UART0_Init();
-	
+	UART0_Transmit('R');	
 	
 	return 0;
 }
