@@ -36,8 +36,6 @@
 #include <util/delay.h>
 #include "drivers/uart.h"
 
-void led_init(void);
-void led_toggle(void);
 
 int main (void)
 {
@@ -60,12 +58,3 @@ int main (void)
 	return 0;
 }
 
-void led_init(void)
-{
-	DDRC = (1 << PINC0);	
-}
-
-void led_toggle()
-{
-	PORTC ^= (1 << PINC0);
-}
