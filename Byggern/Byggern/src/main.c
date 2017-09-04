@@ -29,12 +29,21 @@
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
+#include <avr/io.h>
+#include <util/delay.h>
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
 	board_init();
-
-	// Insert application code here, after the board has been initialized.
+	
+	// Testing PIN toggles
+	DDRB = (1 << PINB0);
+	while(1)
+	{
+		PORTB ^= (1 << PINB0);
+		_delay_ms(100);
+	}
+	return 0;
 }

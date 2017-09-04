@@ -30,3 +30,13 @@
 
 # Debug files
 *.dSYM/
+
+*.d
+
+*.srec
+
+Byggern/Byggern/Debug/Byggern\.lss
+
+*.map
+
+Byggern/Byggern/Debug/
