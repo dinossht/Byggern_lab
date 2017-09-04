@@ -2,13 +2,13 @@
 
 #include "hardware_init.h"
 
-#include "exercises/ex01.h"
+#include "exercises/ex02.h"
 
 int main (void)
 {
 	hardware_init();
 	
-	ex01();
-		
+	ex02();
+	
 	return 0;
 }
