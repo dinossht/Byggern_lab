@@ -16,5 +16,5 @@ void hardware_init()
 {
 	board_init();
 	uart0_init();
-	led_init();
+	//led_init();
 }
