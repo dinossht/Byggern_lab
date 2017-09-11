@@ -10,21 +10,24 @@
 #include "settings.h"
 #include "drivers/led.h"
 #include "drivers/latch.h"
+#include "drivers/sram.h"
+#include "drivers/pio.h"
+#include "drivers/address_solver.h"
 
 #include <asf.h>
 #include <stdio.h>
 #include <util/delay.h>
 
+
 void ex02(void)
 {
-	latch_init();
+	// Enable external memory
+	MCUCR |= (1 << SRE);
 	
 	while(1)
 	{
-		latch_write(0b00000000);
-		_delay_ms(100);
-		latch_write(0b00000001);
-		_delay_ms(100);
-		led_toggle();
+		address_solver_test();
+		//SRAM_test();	
 	}
 }
+
