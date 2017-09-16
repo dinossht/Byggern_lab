@@ -10,6 +10,12 @@
 #include "uart.h"
 #include "sram.h"
 
+void sram_init()
+{
+	// Enable external memory
+	MCUCR |= (1 << SRE);
+}
+
 /* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800, size: 2kB */
 void sram_write(uint8_t data, uint16_t memory_index)
 {
@@ -81,6 +87,7 @@ void sram_test(void)
 	}
 	printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
 }
+
  
 
 

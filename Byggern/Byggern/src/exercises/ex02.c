@@ -20,10 +20,7 @@
 
 
 void ex02(void)
-{
-	// Enable external memory
-	MCUCR |= (1 << SRE);
-	
+{	
 	while(1)
 	{
 		address_solver_test();
