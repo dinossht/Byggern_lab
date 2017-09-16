@@ -32,6 +32,16 @@ void sram_write(uint8_t data, uint16_t memory_index)
 	}
 }
 
+/* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800 */
+uint8_t sram_read(uint16_t memory_index)
+{
+	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
+	uint16_t ext_ram_size = 0x800;
+	
+	printf("Starting SRAM reading...\n");
+	ext_ram_size[memory_index];
+}
+
 void sram_test(void)
 {
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
