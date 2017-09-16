@@ -27,7 +27,7 @@ void ex02(void)
 	while(1)
 	{
 		address_solver_test();
-		//SRAM_test();	
+		//sram_test();	
 	}
 }
 

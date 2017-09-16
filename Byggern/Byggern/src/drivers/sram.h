@@ -9,7 +9,9 @@
 #ifndef SRAM_H_
 #define SRAM_H_
 
-void SRAM_test(void);
+#include <stdint.h>
 
+void sram_write(uint8_t data, uint16_t memory_index);
+void sram_test(void);
 
 #endif /* SRAM_H_ */
