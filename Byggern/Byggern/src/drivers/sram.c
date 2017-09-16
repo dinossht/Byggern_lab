@@ -10,22 +10,21 @@
 #include "uart.h"
 #include "sram.h"
 
-/* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800 */
+/* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800, size: 2kB */
 void sram_write(uint8_t data, uint16_t memory_index)
 {
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM	
-	uint16_t ext_ram_size = 0x800;
 	
 	uint16_t write_errors = 0;
 	
 	printf("Starting SRAM writing...\n");
-	ext_ram_size[memory_index] = data;
-	uint8_t retrieved_data = ext_ram_size[memory_index];
+	ext_ram[memory_index] = data;
+	uint8_t retrieved_data = ext_ram[memory_index];
 	
 	while(data != retrieved_data)
 	{
-		ext_ram_size[memory_index] = data;
-		retrieved_data = ext_ram_size[memory_index];
+		ext_ram[memory_index] = data;
+		retrieved_data = ext_ram[memory_index];
 		
 		printf("Write phase error: ext_ram[%4d] = %02X (should be %02X)\n", memory_index, retrieved_data, data);
 		write_errors++;
@@ -36,10 +35,9 @@ void sram_write(uint8_t data, uint16_t memory_index)
 uint8_t sram_read(uint16_t memory_index)
 {
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
-	uint16_t ext_ram_size = 0x800;
 	
 	printf("Starting SRAM reading...\n");
-	ext_ram_size[memory_index];
+	ext_ram[memory_index];
 }
 
 void sram_test(void)
