@@ -7,7 +7,7 @@
 
 #include "latch.h"
 
-void latch_enable(void);
+static void latch_enable(void);
 
 void latch_init()
 {
@@ -18,12 +18,13 @@ void latch_init()
 	latch_enable();
 }
 
-void latch_write(uint16_t val)
+/* Write 8-bit data to the latch */
+void latch_write(uint8_t val)
 {
 	PORTA = val;
 }
 
-void latch_enable()
+static void latch_enable()
 {
 	PORTE |= (1 << PINE1);
 }
