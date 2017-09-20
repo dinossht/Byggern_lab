@@ -23,8 +23,8 @@ void ex02(void)
 {	
 	while(1)
 	{
-		address_solver_test();
-		//sram_test();	
+		//address_solver_test();
+		sram_test();	
 	}
 }
 

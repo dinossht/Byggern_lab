@@ -9,6 +9,7 @@
 #include "stdio.h"
 #include "uart.h"
 #include "sram.h"
+#include <asf.h>
 
 void sram_init()
 {

@@ -12,6 +12,7 @@
 #include "drivers/led.h"
 #include "drivers/uart.h"
 #include "drivers/latch.h"
+#include "drivers/sram.h"
 
 void hardware_init()
 {

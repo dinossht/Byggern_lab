@@ -203,6 +203,18 @@
     <Folder Include="src\exercises" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\drivers\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\address_decoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\address_decoder.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\address_solver.c">
       <SubType>compile</SubType>
     </Compile>
@@ -249,6 +261,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\exercises\ex02.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex03.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex03.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\hardware_init.c">
