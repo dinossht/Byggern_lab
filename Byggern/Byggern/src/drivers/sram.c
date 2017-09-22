@@ -11,11 +11,7 @@
 #include "sram.h"
 #include <asf.h>
 
-void sram_init()
-{
-	// Enable external memory
-	MCUCR |= (1 << SRE);
-}
+
 
 /* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800, size: 2kB */
 void sram_write(uint8_t data, uint16_t memory_index)
