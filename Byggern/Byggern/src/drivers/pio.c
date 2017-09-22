@@ -17,9 +17,9 @@ uint8_t pio_read(volatile uint8_t* port, uint8_t pin)
 	return (*port & (1 << pin)) >> pin;
 }
 
-void pio_set(volatile uint8_t* port, uint8_t pin, uint8_t val)
+void pio_set(volatile uint8_t* port, uint8_t pin, pin_val_t val)
 {
-	if (val)
+	if (val == PIN_HIGH)
 		*port |= (1 << pin);
 	else
 		*port &= ~(1 << pin);
