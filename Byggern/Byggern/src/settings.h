@@ -9,6 +9,6 @@
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 
-#define F_CPU 4915200UL // Internal clock speed
+#define F_CPU 4915200UL // External clock speed
 
 #endif /* SETTINGS_H_ */
