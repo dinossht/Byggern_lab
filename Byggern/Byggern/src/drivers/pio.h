@@ -11,7 +11,7 @@
 
 #include <asf.h>
 
-#typedef enum{
+typedef enum{
 	PIN_LOW, PIN_HIGH	
 }pin_val_t;
 

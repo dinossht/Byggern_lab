@@ -33,7 +33,7 @@ void sram_write(uint8_t data, uint16_t memory_index)
 		
 		write_errors++;
 		if(write_errors > SRAM_TIMEOUT_COUNTER)
-			printf("Transfer timed out...")
+			printf("Transfer timed out...");
 			break;
 	}
 	printf("Data [%02X] is written", retrieved_data);
