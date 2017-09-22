@@ -14,7 +14,7 @@
 
 #include "address_decoder.h"
 
-// void address_decoder_send(device_t device, uint8_t data, uint16_t memory_index)
+void address_decoder_send(device_t device, uint8_t data, uint16_t memory_index)
 {
 	switch(device)
 	{

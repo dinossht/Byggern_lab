@@ -14,5 +14,4 @@
 void latch_init(void);
 void latch_write(uint8_t val);
 
-
 #endif /* LATCH_H_ */

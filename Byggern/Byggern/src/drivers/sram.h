@@ -11,6 +11,8 @@
 
 #include <stdint.h>
 
+#define SRAM_MEM_SIZE 0x800
+
 void sram_write(uint8_t data, uint16_t memory_index);
 uint8_t sram_read(uint16_t memory_index);
 void sram_test(void);

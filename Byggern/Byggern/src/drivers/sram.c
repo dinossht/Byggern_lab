@@ -11,7 +11,7 @@
 #include "sram.h"
 #include <asf.h>
 
-
+#define SRAM_TIMEOUT_COUNTER 10
 
 /* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800, size: 2kB */
 void sram_write(uint8_t data, uint16_t memory_index)
@@ -30,8 +30,13 @@ void sram_write(uint8_t data, uint16_t memory_index)
 		retrieved_data = ext_ram[memory_index];
 		
 		printf("Write phase error: ext_ram[%4d] = %02X (should be %02X)\n", memory_index, retrieved_data, data);
+		
 		write_errors++;
+		if(write_errors > SRAM_TIMEOUT_COUNTER)
+			printf("Transfer timed out...")
+			break;
 	}
+	printf("Data [%02X] is written", retrieved_data);
 }
 
 /* memory_loc is sram memory address index, [0, 2048] == 0x000->0x800 */
@@ -40,13 +45,17 @@ uint8_t sram_read(uint16_t memory_index)
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
 	
 	printf("Starting SRAM reading...\n");
-	ext_ram[memory_index];
+	
+	uint8_t retrieved_data = ext_ram[memory_index];
+	printf("Data [%02X] is read", retrieved_data);
+	
+	return retrieved_data;
 }
 
 void sram_test(void)
 {
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
-	uint16_t ext_ram_size = 0x800;
+	uint16_t ext_ram_size = SRAM_MEM_SIZE;
 	
 	uint16_t write_errors = 0;
 	uint16_t retrieval_errors = 0;
