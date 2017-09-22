@@ -9,8 +9,13 @@
 #ifndef EX03_H_
 #define EX03_H_
 
+#include <asf.h>
+#include <stdio.h>
 
-void ex03();
+#include "../drivers/adc.h"
+#include "drivers/uart.h"
 
+
+void ex03(void);
 
 #endif /* EX03_H_ */

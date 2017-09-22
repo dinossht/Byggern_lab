@@ -9,9 +9,17 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-void adc_init(void);
-uint8_t adc_read(uint16_t memory_index);
-void adc_write(uint8_t data, uint16_t memory_index);
+#include <asf.h>
+#include <util/delay.h>
+
+typedef enum {
+	CH_1 = 0x04,
+	CH_2 = 0x05,
+	CH_3 = 0x06,
+	CH_4 = 0x07,
+	}channel_t;
+
+uint8_t adc_read(channel_t ch);
 
 
 #endif /* ADC_H_ */
