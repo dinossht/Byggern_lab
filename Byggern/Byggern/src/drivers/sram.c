@@ -51,8 +51,10 @@ void sram_test(void)
 {
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
 	uint16_t ext_ram_size = 0x800;
+	
 	uint16_t write_errors = 0;
 	uint16_t retrieval_errors = 0;
+	
 	printf("Starting SRAM test...\n");
 	
 	// rand() stores some internal state, so calling this function in a loop will
