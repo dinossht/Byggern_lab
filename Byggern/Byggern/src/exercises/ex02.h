@@ -9,8 +9,6 @@
 #ifndef EX02_H_
 #define EX02_H_
 
-
 void ex02(void);
-
 
 #endif /* EX02_H_ */

@@ -5,26 +5,31 @@
  *  Author: Lars
  */ 
 
+#include <util/delay>
+#include "drivers/sram.h"
+#include "drivers/address_decoder.h"
 #include "ex02.h"
 
-#include "settings.h"
-#include "drivers/led.h"
-#include "drivers/latch.h"
-#include "drivers/sram.h"
-#include "drivers/pio.h"
-#include "drivers/address_solver.h"
+static void address_decoder_test(void);
 
-#include <asf.h>
-#include <stdio.h>
-#include <util/delay.h>
-
-
-void ex02(void)
+void ex02()
 {	
 	while(1)
 	{
-		//address_solver_test();
+		//address_decoder_test();
 		sram_test();	
 	}
+}
+
+static void address_decoder_test()
+{
+	address_decoder_enable(DEVICE_ADC);
+	_delay_ms(1000);
+	
+	address_decoder_enable(DEVICE_SRAM);
+	_delay_ms(1000);	
+	
+	address_decoder_enable(DEVICE_OLED);
+	_delay_ms(1000);
 }
 
