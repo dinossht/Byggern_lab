@@ -9,17 +9,17 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-#include <asf.h>
-#include <util/delay.h>
+#include <stdint.h>
 
-typedef enum {
+typedef enum 
+{
 	CH_1 = 0x04,
 	CH_2 = 0x05,
 	CH_3 = 0x06,
 	CH_4 = 0x07,
-	}channel_t;
+}
+channel_t;
 
 uint8_t adc_read(channel_t ch);
-
 
 #endif /* ADC_H_ */
