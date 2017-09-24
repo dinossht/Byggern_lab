@@ -7,11 +7,13 @@
 
 #include "pio.h"
 
+/* DDRX, PINXN */
 void pio_enable(volatile uint8_t* dir, uint8_t pin)
 {
 	*dir |= (1 << pin);
 }
 
+/* PORTX, PINXN */
 uint8_t pio_read(volatile uint8_t* port, uint8_t pin)
 {
 	return (*port & (1 << pin)) >> pin;
