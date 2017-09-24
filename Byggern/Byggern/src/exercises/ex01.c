@@ -5,16 +5,12 @@
  *  Author: Lars
  */ 
 
+#include <stdio.h>
+#include <util/delay.h>	  
+#include "drivers/led.h"
 #include "ex01.h"
 
-#include "settings.h"
-#include "drivers/led.h"
-
-#include <asf.h>
-#include <stdio.h>
-#include <util/delay.h>
-
-void ex01(void)
+void ex01()
 {
 	int cnt = 0;
 	while(1)
