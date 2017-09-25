@@ -276,6 +276,9 @@
     <Compile Include="src\hardware_init.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\fonts.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\multiboard\button.c">
       <SubType>compile</SubType>
     </Compile>
