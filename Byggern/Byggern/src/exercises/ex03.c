@@ -11,7 +11,7 @@
 #include "../multiboard/button.h"
 #include "ex03.h"
 
-#define POS
+//#define POS
 //#define DIR
 //#define BTN
 //#define SLIDER
@@ -32,7 +32,7 @@ void ex03()
 		
 		#ifdef DIR
 		int16_t joystick_dir = joystick_getDir();
-//		printf("Joystick direction: %8d\n",joystick_dir);
+		printf("Joystick direction: %8d\n",joystick_dir);
 		switch (joystick_dir)
 		{
 			case NEUTRAL:
