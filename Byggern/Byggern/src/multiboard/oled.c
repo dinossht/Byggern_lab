@@ -6,33 +6,70 @@
  */ 
 
 #include "oled.h"
+#include "../settings.h"
+#include <util/delay.h>
 
 
+#define OLED_CMD_ADDR		0x1000
+#define OLED_DATA_ADDR		0x1200
 
 void oled_init()
 {
-	/*
-	write_c(0xae); // display off
-	write_c(0xa1); //segment remap
-	write_c(0xda); //common pads hardware: alternative
-	write_c(0x12);
-	write_c(0xc8); //common output scan direction:com63~com0
-	write_c(0xa8); //multiplex ration mode:63
-	write_c(0x3f);
-	write_c(0xd5); //display divide ratio/osc. freq. mode
-	write_c(0x80);
-	write_c(0x81); //contrast control
-	write_c(0x50);
-	write_c(0xd9); //set pre-charge period
-	write_c(0x21);
-	write_c(0x20); //Set Memory Addressing Mode
-	write_c(0x02);
-	write_c(0xdb); //VCOM deselect level mode
-	write_c(0x30);
-	write_c(0xad); //master configuration
-	write_c(0x00);
-	write_c(0xa4); //out follows RAM content
-	write_c(0xa6); //set normal display
-	write_c(0xaf); // display on
-	*/
+	volatile char *ext_ram = (char *) 0x0000; 
+	//////////////////////////////////////////////////////////////////////////
+	
+	// Fundemental commands
+	ext_ram[OLED_CMD_ADDR] = (0xae); // display off
+	ext_ram[OLED_CMD_ADDR] = (0xa1); //segment remap
+	ext_ram[OLED_CMD_ADDR] = (0xda); //common pads hardware: alternative
+	ext_ram[OLED_CMD_ADDR] = (0x12);
+	ext_ram[OLED_CMD_ADDR] = (0xc8); //common output scan direction:com63~com0
+	ext_ram[OLED_CMD_ADDR] = (0xa8); //multiplex ration mode:63
+	ext_ram[OLED_CMD_ADDR] = (0x3f);
+	ext_ram[OLED_CMD_ADDR] = (0xd5); //display divide ratio/osc. freq. mode
+	ext_ram[OLED_CMD_ADDR] = (0x80);
+	ext_ram[OLED_CMD_ADDR] = (0x81); //contrast control
+	ext_ram[OLED_CMD_ADDR] = (0x50);
+	ext_ram[OLED_CMD_ADDR] = (0xd9); //set pre-charge period
+	ext_ram[OLED_CMD_ADDR] = (0x21);
+	//////////////////////////////////////////////////////////////////////////
+	
+	// Set Memory Addressing Mode
+	ext_ram[OLED_CMD_ADDR] = (0x20); // Page addressing mode
+	ext_ram[OLED_CMD_ADDR] = (0x02);
+	
+	// Set page start address
+	ext_ram[OLED_CMD_ADDR] = (0xB0);
+	
+	// Set lower start column address
+	ext_ram[OLED_CMD_ADDR] = (0x00);
+	
+	// Set higher start column address
+	ext_ram[OLED_CMD_ADDR] = (0x10);
+		
+	//////////////////////////////////////////////////////////////////////////
+	ext_ram[OLED_CMD_ADDR] = (0xdb); // VCOM deselect level mode
+	ext_ram[OLED_CMD_ADDR] = (0x30);
+	ext_ram[OLED_CMD_ADDR] = (0xad); // master configuration
+	ext_ram[OLED_CMD_ADDR] = (0x00);
+	ext_ram[OLED_CMD_ADDR] = (0xa4); // out follows RAM content
+	ext_ram[OLED_CMD_ADDR] = (0xa6); // set normal display
+	ext_ram[OLED_CMD_ADDR] = (0xaf); // display on
+	//////////////////////////////////////////////////////////////////////////
+}
+
+void oled_clear(void)
+{
+	volatile char *ext_ram = (char *) 0x0000; // Start address for the OLED
+	
+	for (int y = 0; y < 8; y++)
+	{
+		// Update page start address
+		ext_ram[OLED_CMD_ADDR] = (0xB0) + y;
+		
+		for (int x = 0; x < 127; x++)
+		{
+			ext_ram[OLED_DATA_ADDR] = 0x00;
+		}
+	}
 }

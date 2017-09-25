@@ -10,7 +10,6 @@
 #define OLED_H_
 
 void oled_init(void);
-
-
+void oled_clear(void);
 
 #endif /* OLED_H_ */
