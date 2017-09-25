@@ -10,6 +10,8 @@ int main (void)
 {
 	hardware_init();
 	
+	//ex01();
+	//ex02();
 	ex03();
 	
 	return 0;

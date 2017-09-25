@@ -11,10 +11,12 @@
 
 void ex03()
 {
+	joystick_calib();
 	while(1)
 	{
-		//joystick_getPosition();
-		//printf("X read from ADC is %8d \n", current_joystick_postion.X);
-		//printf("Y read from ADC is %8d \n", current_joystick_postion.Y);
+		int16_t x = joystick_getPos(POS_X);
+		int16_t y = joystick_getPos(POS_Y);
+		printf("X read from ADC is %8d \n", x);
+		printf("Y read from ADC is %8d \n", y);
 	}
 }
