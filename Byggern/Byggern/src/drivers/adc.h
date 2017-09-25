@@ -11,6 +11,8 @@
 
 #include <stdint.h>
 
+#define ADC_MAX 255
+
 typedef enum 
 {
 	CH_1 = 0x04,
