@@ -10,8 +10,8 @@
 void ex04(void)
 {
 	oled_init();
-	while(1)
-	{
-		oled_clear();	
-	}
+//	oled_clear();
+	oled_putChar();	
+	oled_putChar();
+	oled_putChar();
 }

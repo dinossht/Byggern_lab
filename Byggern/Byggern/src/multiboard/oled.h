@@ -11,5 +11,6 @@
 
 void oled_init(void);
 void oled_clear(void);
+void oled_putChar(void);
 
 #endif /* OLED_H_ */

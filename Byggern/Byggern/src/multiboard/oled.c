@@ -8,7 +8,8 @@
 #include "oled.h"
 #include "../settings.h"
 #include <util/delay.h>
-
+#include <avr/pgmspace.h>
+#include "fonts.h"
 
 #define OLED_CMD_ADDR		0x1000
 #define OLED_DATA_ADDR		0x1200
@@ -71,5 +72,15 @@ void oled_clear(void)
 		{
 			ext_ram[OLED_DATA_ADDR] = 0x00;
 		}
+	}
+}
+
+void oled_putChar()
+{
+	volatile char *ext_ram = (char *) 0x0000; // Start address for the OLED	
+	ext_ram[OLED_CMD_ADDR] = (0xB2);
+	for (int y = 0; y < 8; y++)
+	{
+		ext_ram[OLED_DATA_ADDR] = pgm_read_word(&font8['H' - 32][y]);
 	}
 }

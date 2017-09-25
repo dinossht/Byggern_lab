@@ -7,7 +7,6 @@
 #ifndef FONTS_H_
 #define FONTS_H_
 
-
 #include <avr/pgmspace.h>
 
 // Font 8x8 - Large
