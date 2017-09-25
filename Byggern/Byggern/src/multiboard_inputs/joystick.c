@@ -9,11 +9,10 @@
 #include <util/delay.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "adc.h"
+#include "../drivers/adc.h"
 #include "joystick.h"
 
-#define ADC_MAX 255
-#define CONV_FACT 100
+#define JOY_CONV_FACT 100
 
 int16_t offset_x = 0;
 int16_t offset_y = 0;
@@ -44,7 +43,7 @@ int16_t joystick_getPos(pos_t pos)
 			adcVal -=  offset_y; 
 			break; 
 	}
-	joystick_convertPos(&adcVal, ADC_MAX, CONV_FACT);
+	joystick_convertPos(&adcVal, ADC_MAX, JOY_CONV_FACT);
 	_delay_us(100);
 	return adcVal;
 }
