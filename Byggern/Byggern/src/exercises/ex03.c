@@ -6,17 +6,16 @@
  */ 
 
 #include <stdio.h>
-#include "../drivers/joystick.h"
+#include "../multiboard_inputs/joystick.h"
+#include "../multiboard_inputs/slider.h"
+#include "../multiboard_inputs/button.h"
 #include "ex03.h"
 
 void ex03()
 {
-	joystick_calib();
+	//joystick_calib();
 	while(1)
-	{
-		int16_t x = joystick_getPos(POS_X);
-		int16_t y = joystick_getPos(POS_Y);
-		printf("X read from ADC is %8d \n", x);
-		printf("Y read from ADC is %8d \n", y);
+	{	
+
 	}
 }
