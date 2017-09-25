@@ -5,9 +5,7 @@
  *  Author: dinossht
  */ 
 
-#include <asf.h>
-
-#include "adc.h"
+#include <stdint.h>
 
 typedef enum{
 	UP,
@@ -15,15 +13,15 @@ typedef enum{
 	LEFT,
 	RIGHT,
 	NEUTRAL,
-	}joystick_direction_t;
+}
+joystick_dir_t;
 
-struct joystick_postion{
-	int16_t X;
-	int16_t Y;
-	} current_joystick_postion;
-	
+typedef enum{
+	POS_X,
+	POS_Y	
+}pos_t;
 
-	
-	
-void joystick_getPosition(void);
-void joystick_getDirection(void);
+void joystick_calib(void);	
+int16_t joystick_getPos(pos_t pos);
+joystick_dir_t joystick_getDir(void);
+												  
