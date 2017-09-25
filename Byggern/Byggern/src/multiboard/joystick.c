@@ -34,12 +34,12 @@ int16_t joystick_getPos(pos_t pos)
 	switch(pos)
 	{
 		case POS_X:
-			adcVal = adc_read(CH_1);
+			adcVal = adc_read(CH_2);
 			adcVal -=  offset_x; 
 			break;
 			
 		case POS_Y:
-			adcVal = adc_read(CH_2);
+			adcVal = adc_read(CH_1);
 			adcVal -=  offset_y; 
 			break; 
 	}
