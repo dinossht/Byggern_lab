@@ -5,6 +5,7 @@
  *  Author: Lars
  */ 
 
+#include "settings.h"
 #include <stdio.h>
 #include <util/delay.h>	  
 #include "../drivers/led.h"

@@ -5,12 +5,14 @@
  *  Author: Lars
  */ 
 
+#include "settings.h"
 #include <util/delay.h>
 #include "drivers/sram.h"
 #include "drivers/address_decoder.h"
 #include "ex02.h"
 
 static void address_decoder_test(void);
+
 
 void ex02()
 {	
@@ -32,4 +34,5 @@ static void address_decoder_test()
 	address_decoder_enable(DEVICE_OLED);
 	_delay_ms(1000);
 }
+
 

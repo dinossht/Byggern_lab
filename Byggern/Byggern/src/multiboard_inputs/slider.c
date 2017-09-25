@@ -5,6 +5,7 @@
  *  Author: dinossht
  */ 
 
+#include "settings.h"
 #include <util/delay.h>
 #include "../drivers/adc.h"
 #include "slider.h"

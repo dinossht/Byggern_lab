@@ -5,6 +5,7 @@
  *  Author: dinossht
  */ 
 
+#include "settings.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <util/delay.h>
