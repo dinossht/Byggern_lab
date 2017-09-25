@@ -4,3 +4,14 @@
  * Created: 25.09.2017 11:49:09
  *  Author: dinossht
  */ 
+
+#include "ex04.h"
+
+void ex04(void)
+{
+	oled_init();
+	while(1)
+	{
+		oled_clear();	
+	}
+}

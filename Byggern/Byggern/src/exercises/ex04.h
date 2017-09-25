@@ -9,8 +9,9 @@
 #ifndef EX04_H_
 #define EX04_H_
 
+#include "../multiboard/oled.h"
 
-
+void ex04(void);
 
 
 #endif /* EX04_H_ */
