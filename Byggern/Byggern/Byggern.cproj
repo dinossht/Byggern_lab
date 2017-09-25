@@ -215,12 +215,6 @@
     <Compile Include="src\drivers\address_decoder.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\drivers\address_solver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\drivers\address_solver.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\drivers\joystick.c">
       <SubType>compile</SubType>
     </Compile>
