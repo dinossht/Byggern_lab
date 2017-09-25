@@ -6,9 +6,9 @@
  */ 
 
 #include <stdio.h>
-#include "../multiboard_inputs/joystick.h"
-#include "../multiboard_inputs/slider.h"
-#include "../multiboard_inputs/button.h"
+#include "../multiboard/joystick.h"
+#include "../multiboard/slider.h"
+#include "../multiboard/button.h"
 #include "ex03.h"
 
 void ex03()
@@ -16,6 +16,6 @@ void ex03()
 	//joystick_calib();
 	while(1)
 	{	
-
+		
 	}
 }

@@ -201,7 +201,7 @@
     <Folder Include="src\config\" />
     <Folder Include="src\drivers" />
     <Folder Include="src\exercises" />
-    <Folder Include="src\multiboard_inputs" />
+    <Folder Include="src\multiboard" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\drivers\adc.c">
@@ -264,28 +264,34 @@
     <Compile Include="src\exercises\ex03.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\exercises\ex04.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\exercises\ex04.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\hardware_init.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\hardware_init.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\button.c">
+    <Compile Include="src\multiboard\button.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\button.h">
+    <Compile Include="src\multiboard\button.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\joystick.c">
+    <Compile Include="src\multiboard\joystick.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\joystick.h">
+    <Compile Include="src\multiboard\joystick.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\slider.c">
+    <Compile Include="src\multiboard\slider.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\multiboard_inputs\slider.h">
+    <Compile Include="src\multiboard\slider.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\settings.h">
