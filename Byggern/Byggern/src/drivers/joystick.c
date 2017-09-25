@@ -8,6 +8,7 @@
 
 #include <util/delay.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "adc.h"
 #include "joystick.h"
 
@@ -27,29 +28,6 @@ void joystick_calib()
 	offset_y = joystick_getPos(POS_Y);
 	printf("Joystick is calibrated\n");
 }
-// 
-// int8_t joystick_getPos(pos_t pos)
-// {
-// 	switch(pos)
-// 	{
-// 		case POS_X:
-// 			int16_t data = adc_read(CH_2);
-// 			joystick_convertPos(-100, 100, int16_t* adc_val);
-// 			break;
-// 			
-// 		case POS_Y:
-// 			int16_t data = adc_read(CH_1);
-// 			joystick_convertPos(-100, 100, int16_t* adc_val);
-// 			break;
-// 	}	
-// }
-// 
-// joystick_dir_t joystick_getDir(void)
-// {
-// 	
-// }
-
-
 
 int16_t joystick_getPos(pos_t pos)
 {
@@ -57,12 +35,12 @@ int16_t joystick_getPos(pos_t pos)
 	switch(pos)
 	{
 		case POS_X:
-			adcVal = adc_read(CH_2);
+			adcVal = adc_read(CH_1);
 			adcVal -=  offset_x; 
 			break;
 			
 		case POS_Y:
-			adcVal = adc_read(CH_1);
+			adcVal = adc_read(CH_2);
 			adcVal -=  offset_y; 
 			break; 
 	}
@@ -71,11 +49,23 @@ int16_t joystick_getPos(pos_t pos)
 	return adcVal;
 }
 
-// 
-// void joystick_getDir()
-// {
-// 	//TODO
-// }
+#define NEUTRAL_RADIUS 5
+joystick_dir_t joystick_getDir()
+{
+	int16_t pos_x = joystick_getPos(POS_X);	
+	int16_t pos_y = joystick_getPos(POS_Y);
+	
+	if(abs(pos_x) < NEUTRAL_RADIUS && abs(pos_y) < NEUTRAL_RADIUS)
+		return NEUTRAL;
+	
+	else if(abs(pos_x) > abs(pos_y))
+		return pos_x > 0 ? RIGHT : LEFT;
+	
+	else if(abs(pos_x) < abs(pos_y))
+		return pos_y > 0 ? UP : DOWN;
+	
+	return NEUTRAL;
+}
 
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax)
 {

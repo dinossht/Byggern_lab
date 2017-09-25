@@ -7,7 +7,8 @@
 
 #include <stdint.h>
 
-typedef enum{
+typedef enum
+{
 	UP,
 	DOWN,
 	LEFT,
@@ -16,10 +17,12 @@ typedef enum{
 }
 joystick_dir_t;
 
-typedef enum{
+typedef enum
+{
 	POS_X,
 	POS_Y	
-}pos_t;
+}
+pos_t;
 
 void joystick_calib(void);	
 int16_t joystick_getPos(pos_t pos);
