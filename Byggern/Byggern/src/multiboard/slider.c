@@ -34,5 +34,5 @@ int16_t slider_getPos(slider_t slider)
 
 static void slider_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax)
 {
-	*rawVal = (*rawVal) * convValMax / rawValMax; 
+	(*rawVal) *= convValMax / rawValMax; 
 }

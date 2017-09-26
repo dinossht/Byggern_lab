@@ -14,8 +14,8 @@
 
 #define JOY_CONV_FACT 100
 
-int16_t offset_x = 0;
-int16_t offset_y = 0;
+int16_t calib_offset_x = 0;
+int16_t calib_offset_y = 0;
 
 
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax);
@@ -23,8 +23,10 @@ static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t conv
 void joystick_calib()
 {
 	printf("Don't touch! Joystick is calibrating...\n");
-	offset_x = joystick_getPos(POS_X);
-	offset_y = joystick_getPos(POS_Y);
+	
+	calib_offset_x = joystick_getPos(POS_X);
+	calib_offset_y = joystick_getPos(POS_Y);
+	
 	printf("Joystick is calibrated\n");
 }
 
@@ -34,17 +36,16 @@ int16_t joystick_getPos(pos_t pos)
 	switch(pos)
 	{
 		case POS_X:
-			adcVal = adc_read(CH_2);
-			adcVal -=  offset_x; 
+			adcVal = adc_read(CH_2) - calib_offset_x;  
 			break;
 			
 		case POS_Y:
-			adcVal = adc_read(CH_1);
-			adcVal -=  offset_y; 
+			adcVal = adc_read(CH_1) - calib_offset_y; 
 			break; 
 	}
 	joystick_convertPos(&adcVal, ADC_MAX, JOY_CONV_FACT);
 	_delay_us(100);
+	
 	return adcVal;
 }
 
@@ -68,6 +69,6 @@ joystick_dir_t joystick_getDir()
 
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax)
 {
-  	*rawVal -= rawValMax / 2; // Move offset 	 
-  	*rawVal = 2 * convValMax * (*rawVal) / rawValMax; // Convert 	
+  	(*rawVal) -= rawValMax / 2; // Move offset 	 				
+  	(*rawVal) *= 2 * convValMax / rawValMax; // Scale			 
 }
