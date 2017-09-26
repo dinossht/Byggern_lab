@@ -17,23 +17,21 @@
 void oled_init()
 {
 	volatile char *ext_ram = (char *) 0x0000; 
-	//////////////////////////////////////////////////////////////////////////
 	
 	// Fundemental commands
 	ext_ram[OLED_CMD_ADDR] = (0xae); // display off
-	ext_ram[OLED_CMD_ADDR] = (0xa1); //segment remap
-	ext_ram[OLED_CMD_ADDR] = (0xda); //common pads hardware: alternative
-	ext_ram[OLED_CMD_ADDR] = (0x12);
-	ext_ram[OLED_CMD_ADDR] = (0xc8); //common output scan direction:com63~com0
-	ext_ram[OLED_CMD_ADDR] = (0xa8); //multiplex ration mode:63
-	ext_ram[OLED_CMD_ADDR] = (0x3f);
-	ext_ram[OLED_CMD_ADDR] = (0xd5); //display divide ratio/osc. freq. mode
-	ext_ram[OLED_CMD_ADDR] = (0x80);
-	ext_ram[OLED_CMD_ADDR] = (0x81); //contrast control
-	ext_ram[OLED_CMD_ADDR] = (0x50);
-	ext_ram[OLED_CMD_ADDR] = (0xd9); //set pre-charge period
+	ext_ram[OLED_CMD_ADDR] = (0xa1); // segment remap
+	ext_ram[OLED_CMD_ADDR] = (0xda); // common pads hardware: alternative
+	ext_ram[OLED_CMD_ADDR] = (0x12);    
+	ext_ram[OLED_CMD_ADDR] = (0xc8); // common output scan direction:com63~com0
+	ext_ram[OLED_CMD_ADDR] = (0xa8); // multiplex ration mode:63
+	ext_ram[OLED_CMD_ADDR] = (0x3f);    
+	ext_ram[OLED_CMD_ADDR] = (0xd5); // display divide ratio/osc. freq. mode
+	ext_ram[OLED_CMD_ADDR] = (0x80);    
+	ext_ram[OLED_CMD_ADDR] = (0x81); // contrast control
+	ext_ram[OLED_CMD_ADDR] = (0x50);    
+	ext_ram[OLED_CMD_ADDR] = (0xd9); // set pre-charge period
 	ext_ram[OLED_CMD_ADDR] = (0x21);
-	//////////////////////////////////////////////////////////////////////////
 	
 	// Set Memory Addressing Mode
 	ext_ram[OLED_CMD_ADDR] = (0x20); // Page addressing mode
@@ -47,8 +45,8 @@ void oled_init()
 	
 	// Set higher start column address
 	ext_ram[OLED_CMD_ADDR] = (0x10);
-		
-	//////////////////////////////////////////////////////////////////////////
+	
+	// Fundemental commands	
 	ext_ram[OLED_CMD_ADDR] = (0xdb); // VCOM deselect level mode
 	ext_ram[OLED_CMD_ADDR] = (0x30);
 	ext_ram[OLED_CMD_ADDR] = (0xad); // master configuration
@@ -56,7 +54,6 @@ void oled_init()
 	ext_ram[OLED_CMD_ADDR] = (0xa4); // out follows RAM content
 	ext_ram[OLED_CMD_ADDR] = (0xa6); // set normal display
 	ext_ram[OLED_CMD_ADDR] = (0xaf); // display on
-	//////////////////////////////////////////////////////////////////////////
 }
 
 void oled_clear(void)

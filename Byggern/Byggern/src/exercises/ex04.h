@@ -13,5 +13,4 @@
 
 void ex04(void);
 
-
 #endif /* EX04_H_ */
