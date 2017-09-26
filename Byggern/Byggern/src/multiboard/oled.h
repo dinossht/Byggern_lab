@@ -9,16 +9,32 @@
 #ifndef OLED_H_
 #define OLED_H_
 
+#include <stdint.h>
+
+typedef enum
+{
+	OLED_ON,
+	OLED_OFF	
+}
+oled_state_t;
+
+void oled_turn(oled_state_t state);
 void oled_init(void);
-// void oled_clear(void);
-// void oled_putChar();
-// 
-// void oled_reset(void);
-// void oled_home(void);
-// void oled_goToline(uint8_t lineNr);
-// void oled_goToColumn(uint8t_t colNr);
-// void oled_clear_line(uint8_t lineNr);
-// void oled_pos(uint8_t rowNr, uint8_t colNr);
-// void oled_print(char* charr);
+
+void oled_goToline(uint8_t lineNr);
+void oled_goToColumn(uint8t_t colNr);
+void oled_pos(uint8_t lineNr, uint8_t colNr);
+
+void oled_clearLine(uint8_t lineNr);
+void oled_clear(void);
+
+void oled_setContrast(uint8_t contrastVal);
+
+void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr);
+void oled_print(char* string, uint8_lineNr, uint8_t colNr);
+
+// void oled_line(uin8t_t x1, uint8_t y1);
+
+// scroll menu function can be implemented if needed
 
 #endif /* OLED_H_ */
