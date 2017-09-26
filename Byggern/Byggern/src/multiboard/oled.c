@@ -14,6 +14,13 @@
 #define OLED_CMD_ADDR		0x1000
 #define OLED_DATA_ADDR		0x1200
 
+/* OLED info: */
+
+// * 128 X 64 pixel display 
+// * Segmented into 8 horisontal pages 
+// * Able to write minimum 8 pixels at a time
+// * Writes to 8 pixel in a column at once
+
 void oled_init()
 {
 	volatile char *ext_ram = (char *) 0x0000; 
