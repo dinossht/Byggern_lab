@@ -118,6 +118,7 @@ void oled_pos(uint8_t lineNr, uint8_t colNr)
 void oled_clearLine(uint8_t lineNr)
 {
 	oled_pos(lineNr, 0);
+	
 	for(uint8_t i = 0; i < OLED_PIXEL_WIDTH; i++)
 	{
 		ext_ram[OLED_DATA_ADDR] = 0x00;		
@@ -128,7 +129,7 @@ void oled_clear()
 {
 	for(uint8_t i = 0; i < OLED_NR_OF_PAGES; i++)
 	{
-		oled_clearLine(i);
+		oled_clearLine(i * 8);
 	}
 }
 
@@ -145,7 +146,7 @@ void oled_setContrast(uint8_t contrastVal)
 #define ASCHII_OFFSET -32
 void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr)
 {
-	oled_pos(lineNr, colNr * 8);
+	oled_pos(lineNr, colNr);
 	
 	volatile char *ext_ram = (char *) 0x0000; 
 	
@@ -162,10 +163,11 @@ void oled_print(char* string, uint8_t lineNr, uint8_t colNr)
 	
 	while(currentChar != '\0')
 	{
-		currentChar = string[index];
-		oled_putChar(currentChar, lineNr, colNr + index);
+		oled_putChar(currentChar, lineNr, (colNr + index) * FONT_WIDTH);
 			
 		index++;
+		
+		currentChar = string[index];
 	}
 }
 

@@ -17,7 +17,6 @@
 int16_t calib_offset_x = 0;
 int16_t calib_offset_y = 0;
 
-
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax);
 
 void joystick_calib()
