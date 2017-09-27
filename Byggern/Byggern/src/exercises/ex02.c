@@ -13,7 +13,6 @@
 
 static void address_decoder_test(void);
 
-
 void ex02()
 {	
 	while(1)
