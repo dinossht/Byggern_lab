@@ -69,6 +69,6 @@ joystick_dir_t joystick_getDir()
 
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax)
 {
-  	(*rawVal) -= rawValMax / 2; // Move offset 	 				
-  	(*rawVal) *= 2 * convValMax / rawValMax; // Scale			 
+	*rawVal -= rawValMax / 2; // Move offset
+	*rawVal = 2 * convValMax * (*rawVal) / rawValMax; // Convert 
 }
