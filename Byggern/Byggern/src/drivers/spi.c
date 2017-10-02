@@ -9,11 +9,15 @@
 #include "asf.h"
 #include "spi.h"
 
-#define DD_CLK PB7
-#define DD_MOSI PB5
-#define DD_MISO PB6
+// spi pin definitions
+#define DD_CLK DDB7
+#define DD_MOSI DDB5
+#define DD_MISO DDB6
 
+// SS active low, input on slave and output on master, needs to be user defined before transmission
+// Can be dangerous to put all other pins to inputs!!!!!!!!!!!!!!!!!!!!!
 
+// SS on atmega162 is pulled up 
 void spi_masterInit()
 {
 	/* Set MOSI and SCK output, all others input */
@@ -27,8 +31,7 @@ void spi_masterTransmit(char cData)
 	/* Start transmission */
 	SPDR = cData;
 	/* Wait for transmission complete */
-	while(!(SPSR & (1 << SPIF)))
-	;
+	while(!(SPSR & (1 << SPIF)));
 }
 
 void spi_slaveInit()
