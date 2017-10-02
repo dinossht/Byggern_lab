@@ -216,6 +216,12 @@
     <Compile Include="src\drivers\address_decoder.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\can_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\can_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\latch.c">
       <SubType>compile</SubType>
     </Compile>
