@@ -6,6 +6,7 @@
 #include "exercises/ex02.h"
 #include "exercises/ex03.h"
 #include "exercises/ex04.h"
+#include "exercises/ex05.h"
 
 int main (void)
 {
@@ -15,6 +16,7 @@ int main (void)
 	//ex02();
 	//ex03();
 	ex04();
+	//ex05();
 	
 	return 0;
 }

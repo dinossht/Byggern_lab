@@ -30,9 +30,6 @@ void ex04(void)
 	char slider[10];
 	while(1)
 	{
-		
-		
-		
 	
 		if(clicked){
 			oled_print(str, 4, 64);
