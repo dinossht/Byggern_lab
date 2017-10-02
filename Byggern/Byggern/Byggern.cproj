@@ -216,6 +216,12 @@
     <Compile Include="src\drivers\address_decoder.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\CAN.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\CAN.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\can_controller.c">
       <SubType>compile</SubType>
     </Compile>
@@ -226,6 +232,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\latch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\MCP2515.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\MCP2515.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\pio.c">
