@@ -36,9 +36,9 @@ void ex04(void)
 			clicked = 0;
 		}
 		
-		if(button_getStat(BUTTON_JOYSTICK))
+		if(button_getStat(BUTTON_JOYSTICK) || button_getStat(BUTTON_LEFT) || button_getStat(BUTTON_RIGHT))
 			clicked = 1;
-		
+			
 		joystick_dir_t dir = joystick_getDir();
 		
 		

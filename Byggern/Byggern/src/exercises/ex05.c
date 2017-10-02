@@ -12,7 +12,6 @@
 void ex05()
 {
 	spi_masterInit();	
-	spi_slaveInit();
 	
 	PORTB |= (1 << 4); // set as high !SS, this enables atmega162 to be the master, !SS low leads to it act as a slave
 	
