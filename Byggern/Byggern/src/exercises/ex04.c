@@ -23,6 +23,7 @@ void printDir(uint8_t dir);
 
 void ex04(void)
 {
+	joystick_calib();
 	oled_init();
 	oled_clear();
 	char str[6];
@@ -32,7 +33,7 @@ void ex04(void)
 		
 		
 		
-		//oled_print("current line: ", current_line, 0);
+	
 		if(clicked){
 			oled_print(str, 4, 64);
 			clicked = 0;
@@ -55,7 +56,7 @@ void ex04(void)
 			current_line++;		
 		}
 		current_line %= MAX_NR_OF_LINES;
-		int someInt = current_line;
+		
 		
 		
 		
@@ -68,14 +69,11 @@ void ex04(void)
 		///////////////////////////////////////////////////////////////
 		
 		printDir(joystick_getDir());
-		
+		int someInt = current_line;
 		sprintf(str, "Menu: %d", someInt);
 		display_total_menu();
-		display_total_pointer();
-		
+		display_total_pointer();		
 	}
-
-	
 }
 
 void display_total_menu(void)
