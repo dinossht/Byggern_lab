@@ -20,7 +20,8 @@ btn_stat_t;
 typedef enum
 {
 	BUTTON_LEFT,
-	BUTTON_RIGHT	
+	BUTTON_RIGHT,
+	BUTTON_JOYSTICK	
 }
 button_t;
 

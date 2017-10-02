@@ -18,6 +18,9 @@ btn_stat_t button_getStat(button_t btn)
 		case BUTTON_RIGHT:
 			return pio_read(&PIND, PIND2) ? PRESSED : RELEASED;
 			
+		case BUTTON_JOYSTICK:
+		return !pio_read(&PIND, PIND4) ? PRESSED : RELEASED; // Inverted due to pull up resistor 
+			
 		default:
 			return UNDEFINED;	
 	}

@@ -71,3 +71,4 @@ static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t conv
 	*rawVal -= rawValMax / 2; // Move offset
 	*rawVal = 2 * convValMax * (*rawVal) / rawValMax; // Convert 
 }
+

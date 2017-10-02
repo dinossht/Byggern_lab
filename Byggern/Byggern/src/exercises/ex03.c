@@ -85,4 +85,9 @@ static void button_test()
 	{
 		printf("Right button is pressed!\n");
 	}	
+	
+	if (button_getStat(BUTTON_JOYSTICK) == PRESSED)
+	{
+		printf("Joystick is pressed!\n");
+	}
 }
