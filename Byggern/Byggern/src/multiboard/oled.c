@@ -104,8 +104,8 @@ void oled_goToColumn(uint8_t colNr)
 {
 	volatile char *ext_ram = (char *) 0x0000;	
 
-	ext_ram[OLED_CMD_ADDR] = (0x10) | (colNr & LOWER_BITS_MASK);
-	ext_ram[OLED_CMD_ADDR] = (0x00) | (colNr & HIGHER_BITS_MASK >> 4);
+	ext_ram[OLED_CMD_ADDR] = (0x00) | (colNr & LOWER_BITS_MASK); // set lower bits
+	ext_ram[OLED_CMD_ADDR] = (0x10) | ((colNr & HIGHER_BITS_MASK) >> 4); // set higher bits	
 }
 
 /* row nr [0:63], col nr [0:127] */
@@ -131,7 +131,7 @@ void oled_clear()
 {
 	for(uint8_t i = 0; i < OLED_NR_OF_PAGES; i++)
 	{
-		oled_clearLine(i * 8);
+		oled_clearLine(i);
 	}
 }
 

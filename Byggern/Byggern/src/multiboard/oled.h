@@ -33,6 +33,7 @@ void oled_setContrast(uint8_t contrastVal);
 void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr);
 void oled_print(char* string, uint8_t lineNr, uint8_t colNr);
 
+
 // void oled_line(uin8t_t x1, uint8_t y1);
 
 // scroll menu function can be implemented if needed
