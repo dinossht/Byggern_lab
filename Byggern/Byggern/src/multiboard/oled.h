@@ -22,7 +22,7 @@ void oled_turn(oled_state_t state);
 void oled_init(void);
 
 void oled_goToline(uint8_t lineNr);
-void oled_goToColumn(uint8t_t colNr);
+void oled_goToColumn(uint8_t colNr);
 void oled_pos(uint8_t lineNr, uint8_t colNr);
 
 void oled_clearLine(uint8_t lineNr);
@@ -31,7 +31,7 @@ void oled_clear(void);
 void oled_setContrast(uint8_t contrastVal);
 
 void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr);
-void oled_print(char* string, uint8_lineNr, uint8_t colNr);
+void oled_print(char* string, uint8_t lineNr, uint8_t colNr);
 
 // void oled_line(uin8t_t x1, uint8_t y1);
 

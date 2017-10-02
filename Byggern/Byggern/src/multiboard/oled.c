@@ -100,7 +100,7 @@ void oled_goToline(uint8_t lineNr)
 }
 
 /* col nr [0:127] */
-void oled_goToColumn(uint8t_t colNr)
+void oled_goToColumn(uint8_t colNr)
 {
 	volatile char *ext_ram = (char *) 0x0000;	
 
@@ -118,6 +118,8 @@ void oled_pos(uint8_t lineNr, uint8_t colNr)
 void oled_clearLine(uint8_t lineNr)
 {
 	oled_pos(lineNr, 0);
+	
+	volatile char *ext_ram = (char *) 0x0000;	
 	
 	for(uint8_t i = 0; i < OLED_PIXEL_WIDTH; i++)
 	{
