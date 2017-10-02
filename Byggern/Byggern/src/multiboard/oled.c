@@ -90,13 +90,17 @@ void oled_init()
 	ext_ram[OLED_CMD_ADDR] = (0xaf); // display on
 }
 
-#define OLED_LINE_CMD_MASK 0x3F
+#define OLED_LINE_CMD_MASK 0x03
 /* line nr [0:63] */
 void oled_goToline(uint8_t lineNr)
 {
 	volatile char *ext_ram = (char *) 0x0000;
 	
-	ext_ram[OLED_CMD_ADDR] = (0x40) | (lineNr & OLED_LINE_CMD_MASK);			 
+	ext_ram[OLED_CMD_ADDR] = (0xB0) + lineNr;  
+	
+//	ext_ram[OLED_CMD_ADDR] = (0xB0) | (lineNr & OLED_LINE_CMD_MASK);	// set line		
+	
+			 
 }
 
 /* col nr [0:127] */
@@ -172,6 +176,8 @@ void oled_print(char* string, uint8_t lineNr, uint8_t colNr)
 		currentChar = string[index];
 	}
 }
+
+
 
 
 
