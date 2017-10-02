@@ -9,6 +9,7 @@
 #include "ex04.h"
 #include "../multiboard/joystick.h"
 #include "../multiboard/button.h"
+#include "../multiboard/slider.h"
 
 #include <stdio.h>
 
@@ -18,12 +19,14 @@ uint8_t clicked = 0;
 
 void display_total_menu(void);
 void display_total_pointer(void);
+void printDir(uint8_t dir);
 
 void ex04(void)
 {
 	oled_init();
 	oled_clear();
-	char str[1];
+	char str[6];
+	char slider[10];
 	while(1)
 	{
 		
@@ -31,9 +34,10 @@ void ex04(void)
 		
 		//oled_print("current line: ", current_line, 0);
 		if(clicked){
-			oled_print(str, 6, 64);
+			oled_print(str, 4, 64);
 			clicked = 0;
 		}
+		
 		if(button_getStat(BUTTON_JOYSTICK))
 			clicked = 1;
 		
@@ -53,7 +57,19 @@ void ex04(void)
 		current_line %= MAX_NR_OF_LINES;
 		int someInt = current_line;
 		
-		sprintf(str, "%d", someInt);
+		
+		
+		// Test slider////////////////////////////////////////
+		sprintf(slider, "L: %d", slider_getPos(SLIDER_LEFT) % 100);
+		oled_print(slider, 7, 0);
+		
+		sprintf(slider, "R: %d", slider_getPos(SLIDER_RIGHT) % 100);
+		oled_print(slider, 7, 120);
+		///////////////////////////////////////////////////////////////
+		
+		printDir(joystick_getDir());
+		
+		sprintf(str, "Menu: %d", someInt);
 		display_total_menu();
 		display_total_pointer();
 		
@@ -80,4 +96,27 @@ void display_total_pointer()
 		oled_putChar(result, i, 120);	
 	}
 	
+}
+
+void printDir(uint8_t dir)
+{
+	oled_print("DIR: ", 5, 0);
+	switch(dir)
+	{
+		case UP:
+			oled_print("UP", 5, 20);
+			break;
+		case DOWN:
+			oled_print("DN", 5, 20);
+			break;
+		case LEFT:
+			oled_print("LT", 5, 20);
+			break;
+		case RIGHT:
+			oled_print("RT", 5, 20);
+			break;
+		case NEUTRAL:
+			oled_print("NL", 5, 20);
+			break;
+	}	
 }
