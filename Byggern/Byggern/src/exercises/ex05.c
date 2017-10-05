@@ -9,6 +9,7 @@
 #include "ex05.h"
 #include "../drivers/spi.h"
 
+
 void ex05()
 {
 	spi_masterInit();	
@@ -23,5 +24,4 @@ void ex05()
 		//spi_masterTransmit('s');
 		//spi_masterTransmit('s');		
 	}
-	
 }

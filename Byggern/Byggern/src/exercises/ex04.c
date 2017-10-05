@@ -10,6 +10,7 @@
 #include "../multiboard/joystick.h"
 #include "../multiboard/button.h"
 #include "../multiboard/slider.h"
+#include "../multiboard/oled.h"
 
 #include <stdio.h>
 
