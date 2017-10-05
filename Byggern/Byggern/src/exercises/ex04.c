@@ -20,73 +20,39 @@
 
 #define MAX_NR_OF_LINES 4
 
-
-
+static void joystick_updateCurrentMenu(joystick_dir_t currentDir, uint8_t* currentLineNr);
 static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
-static void oled_displayMenus(void);
-static void oled_displayMenuArrow(void);
 
+static void oled_displayMenus(void);
+static void oled_displayMenuArrow(uint8_t currentMenuIndex);
+
+static void slider_displaySlidersPos(void);
+
+static void button_printCurrentMenuIndex(uint8_t currentMenuIndex);
 
 void ex04(void)
 {
 	oled_init();
 	oled_clear();
+	
 	joystick_calib();
-	joystick_dir_t current_dir = NEUTRAL;
-	uint8_t _current_line = 0;
-	uint8_t clicked = 0;
+	
+	joystick_dir_t currentDir = NEUTRAL;
+	uint8_t currentMenuIndex = 0;
+	uint8_t numberOfMenus = 4;
 
-	char str[6];
-	char slider[10];
 	while(1)
 	{
+		currentDir = joystick_getDir();
+		joystick_updateCurrentMenu(currentDir, currentMenuIndex);
+
+		joystick_printDir(currentDir, 5, 0);
+		
+		oled_displayMenus(); // display menus with cursor on current menu
+
+		slider_displaySlidersPos();
 	
-		if(clicked){
-			oled_print(str, 4, 64);
-			clicked = 0;
-		}
-		
-		if(button_getStat(BUTTON_JOYSTICK) || button_getStat(BUTTON_LEFT) || button_getStat(BUTTON_RIGHT))
-			clicked = 1;
-			
-		joystick_dir_t dir = joystick_getDir();
-		
-		
-		_delay_ms(1000);
-		
-		if(dir == UP)
-		{
-			current_line--;				
-		}
-		else if(dir == DOWN)
-		{
-			current_line++;		
-		}
-		current_line %= MAX_NR_OF_LINES;
-		
-		
-		
-		
-		// Test slider////////////////////////////////////////
-		sprintf(slider, "L: %d", slider_getPos(SLIDER_LEFT) % 100);
-		oled_print(slider, 7, 0);
-		
-		sprintf(slider, "R: %d", slider_getPos(SLIDER_RIGHT) % 100);
-		oled_print(slider, 7, 120);
-		///////////////////////////////////////////////////////////////
-		
-		// print current joystick direction
-		current_dir = joystick_getDir();
-		joystick_printDir(current_dir, 5, 0);
-		
-		// display menus with cursor on current menu
-		oled_displayMenus();
-		
-		int someInt = current_line;
-		sprintf(str, "Menu: %d", someInt);
-		
-		
-				
+		_delay_ms(1000);		
 	}
 }
 
@@ -124,13 +90,55 @@ static void oled_displayMenus()
 	oled_displayMenuArrow();
 }
 
-static void oled_displayMenuArrow()
+static void oled_displayMenuArrow(uint8_t currentIndex)
 {
 	char arrow = '<';
 	char blank = ' ';
 	for(uint8_t i = 0; i < MAX_NR_OF_LINES; i++)
 	{
-		char result = current_line == i ? arrow : blank;
+		char result = currentIndex == i ? arrow : blank;
 		oled_putChar(result, i, 120);
+	}
+}
+
+static void slider_displaySlidersPos()
+{
+	static char slider_pos[10];
+	
+	sprintf(slider_pos, "L: %d", slider_getPos(SLIDER_LEFT) % 100);
+	oled_print(slider_pos, 7, 0);	
+	
+	sprintf(slider_pos, "R: %d", slider_getPos(SLIDER_RIGHT) % 100);
+	oled_print(slider_pos, 7, 120);
+}
+
+static void joystick_updateCurrentMenu(joystick_dir_t current_dir, uint8_t* index)
+{
+	if(current_dir == UP)
+	{
+		*index--;
+	}
+	else if(current_dir == DOWN)
+	{
+		*index++;
+	}
+	*index %= MAX_NR_OF_LINES;		
+}
+
+static void button_printCurrentMenuIndex(uint8_t currentIndex)
+{
+	char num[6];
+	
+	if(
+	button_getStat(BUTTON_JOYSTICK) || 
+	button_getStat(BUTTON_LEFT) || 
+	button_getStat(BUTTON_RIGHT))
+	{
+		sprintf(num, "Menu: %d", currentIndex);
+		oled_print(num, 4, 64);	
+	}
+	else
+	{
+		oled_print("      ", 4, 64);	
 	}
 }
