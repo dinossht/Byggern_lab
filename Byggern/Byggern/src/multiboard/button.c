@@ -8,7 +8,7 @@
 #include <../drivers/pio.h>
 #include "button.h"
 
-btn_stat_t button_getStat(button_t btn)
+button_stat_t button_getStat(button_t btn)
 {
 	switch(btn)
 	{
@@ -19,7 +19,7 @@ btn_stat_t button_getStat(button_t btn)
 			return pio_read(&PIND, PIND3) ? PRESSED : RELEASED;
 			
 		case BUTTON_JOYSTICK:
-		return !pio_read(&PIND, PIND4) ? PRESSED : RELEASED; // Inverted due to pull up
+		return !pio_read(&PIND, PIND4) ? PRESSED : RELEASED; // Inverted due to active low
 			
 		default:
 			return UNDEFINED;	

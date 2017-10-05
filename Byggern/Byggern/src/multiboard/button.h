@@ -15,7 +15,7 @@ typedef enum
 	PRESSED,
 	UNDEFINED
 }
-btn_stat_t;
+button_stat_t;
 
 typedef enum
 {
@@ -25,6 +25,6 @@ typedef enum
 }
 button_t;
 
-btn_stat_t button_getStat(button_t btn);
+button_stat_t button_getStat(button_t btn);
 
 #endif /* BUTTON_H_ */
