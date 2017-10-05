@@ -5,14 +5,17 @@
  *  Author: dinossht
  */ 
 
-#include <util/delay.h>
-#include "ex04.h"
+#include "settings.h"
+#include <util/delay.h>	  
+#include <stdio.h>
+
 #include "../multiboard/joystick.h"
 #include "../multiboard/button.h"
 #include "../multiboard/slider.h"
 #include "../multiboard/oled.h"
 
-#include <stdio.h>
+#include "ex04.h"
+
 
 uint8_t current_line = 0;
 #define MAX_NR_OF_LINES 4
