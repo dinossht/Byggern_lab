@@ -23,8 +23,8 @@
 
 
 static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
-void display_total_menu(void);
-void display_total_pointer(void);
+static void oled_displayMenus(void);
+static void oled_displayMenuArrow(void);
 
 
 void ex04(void)
@@ -79,31 +79,15 @@ void ex04(void)
 		current_dir = joystick_getDir();
 		joystick_printDir(current_dir, 5, 0);
 		
+		// display menus with cursor on current menu
+		oled_displayMenus();
+		
 		int someInt = current_line;
 		sprintf(str, "Menu: %d", someInt);
-		display_total_menu();
-		display_total_pointer();		
+		
+		
+				
 	}
-}
-
-void display_total_menu(void)
-{
-	oled_print("Choice 1", 0, 0);
-	oled_print("Choice 2", 1, 0);
-	oled_print("Choice 3", 2, 0);
-	oled_print("Choice 4", 3, 0);
-}
-
-void display_total_pointer()
-{
-	char arrow = '<';
-	char blank = ' ';
-	for(uint8_t i = 0; i < MAX_NR_OF_LINES; i++)
-	{
-		char result = current_line == i ? arrow : blank;
-		oled_putChar(result, i, 120);	
-	}
-	
 }
 
 static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
@@ -128,4 +112,25 @@ static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
 			oled_print("NL", 5, colNr + 20);
 			break;
 	}	
+}
+
+static void oled_displayMenus()
+{
+	oled_print("Menu 0", 0, 0);
+	oled_print("Menu 1", 1, 0);
+	oled_print("Menu 2", 2, 0);
+	oled_print("Menu 3", 3, 0);
+	
+	oled_displayMenuArrow();
+}
+
+static void oled_displayMenuArrow()
+{
+	char arrow = '<';
+	char blank = ' ';
+	for(uint8_t i = 0; i < MAX_NR_OF_LINES; i++)
+	{
+		char result = current_line == i ? arrow : blank;
+		oled_putChar(result, i, 120);
+	}
 }
