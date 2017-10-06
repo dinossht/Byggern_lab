@@ -168,6 +168,14 @@ uint8_t mcp2515_init(void);
 void mcp2515_reset(void);
 uint8_t mcp2515_read(uint8_t address);
 
+void mcp2515_write(uint8_t address, uint8_t data);
+void mcp2515_bitModify(uint8_t address, uint8_t bitMask, uint8_t data);
+void mcp2515_requestToSend(uint8_t transmitBufferAddress);
+uint8_t mcp2515_readStatus(void);
+
+void mcp2515_readRX(uint8_t address, uint8_t* bufferRX, uint8_t length);
+void mcp2515_loadTX(uint8_t address, uint8_t* bufferTX, uint8_t length);
+
 
 #endif /* MCP2515_H_ */
 
