@@ -13,6 +13,11 @@ void pio_enable(volatile uint8_t* dir, uint8_t pin)
 	*dir |= (1 << pin);
 }
 
+void pio_disable(volatile uint8_t* dir, uint8_t pin)
+{
+	*dir &= ~(1 << pin);
+}
+
 /* PORTX, PINXN */
 uint8_t pio_read(volatile uint8_t* input_reg, uint8_t pin)
 {
