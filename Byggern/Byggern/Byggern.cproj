@@ -202,6 +202,7 @@
     <Folder Include="src\drivers" />
     <Folder Include="src\exercises" />
     <Folder Include="src\multiboard" />
+    <Folder Include="src\drivers_wrapper" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\drivers\adc.c">
@@ -226,6 +227,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\can_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\fonts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\latch.c">
@@ -304,9 +308,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\hardware_init.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\fonts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\multiboard\button.c">

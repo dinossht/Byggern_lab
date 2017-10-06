@@ -9,7 +9,7 @@
 #include "../settings.h"
 #include <util/delay.h>
 #include <avr/pgmspace.h>
-#include "fonts.h"
+#include "../drivers/fonts.h"
 
 /* OLED info: */
 
