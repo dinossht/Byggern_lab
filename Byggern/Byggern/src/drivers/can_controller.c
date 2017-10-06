@@ -5,4 +5,10 @@
  *  Author: hermansu
  */ 
 
+//#include "MCP2515.h"
 #include "can_controller.h"
+
+void can_controller_init(void)
+{
+	
+}

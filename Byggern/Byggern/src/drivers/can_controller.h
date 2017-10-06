@@ -9,10 +9,7 @@
 #ifndef CAN_CONTROLLER_H_
 #define CAN_CONTROLLER_H_
 
-void can_controller_init(void)
-{
-	
-}
+void can_controller_init(void);
 
 
 
