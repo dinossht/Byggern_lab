@@ -9,7 +9,7 @@
 #ifndef CAN_H_
 #define CAN_H_
 
-
+#include "asf.h"
 struct can_message{
 		unsigned int id;
 		uint8_t length;
