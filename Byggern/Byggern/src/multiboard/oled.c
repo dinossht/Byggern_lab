@@ -165,7 +165,7 @@ void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr)
 void oled_print(char* string, uint8_t lineNr, uint8_t colNr)
 {
 	uint8_t index = 0;
-	char* currentChar = string[index];
+	char currentChar = string[index];
 	
 	while(currentChar != '\0')
 	{
