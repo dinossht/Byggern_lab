@@ -234,10 +234,10 @@
     <Compile Include="src\drivers\latch.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\drivers\MCP2515.c">
+    <Compile Include="src\drivers\mcp2515.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\drivers\MCP2515.h">
+    <Compile Include="src\drivers\mcp2515.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\pio.c">

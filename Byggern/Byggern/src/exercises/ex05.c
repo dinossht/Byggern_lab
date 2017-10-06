@@ -6,22 +6,31 @@
  */ 
 
 #include <asf.h>
-#include "ex05.h"
-#include "../drivers/spi.h"
+#include "../settings.h"
+#include <util/delay.h>
 
+#include "ex05.h"
+#include "../drivers/mcp2515.h"
+#include "../drivers/spi.h"
+#include <stdio.h>
+
+
+#define CAN_PORT PORTB
+#define CAN_CS PINB4
 
 void ex05()
 {
-	spi_masterInit();	
+
 	
-	PORTB |= (1 << 4); // set as high !SS, this enables atmega162 to be the master, !SS low leads to it act as a slave
+	mcp2515_init();	
 	
+
 	while(1)
 	{
-		spi_masterTransmit('i');	
-		spi_masterTransmit('0');	
-		spi_masterTransmit('k');	
-		//spi_masterTransmit('s');
-		//spi_masterTransmit('s');		
-	}
+		CAN_PORT &= ~(1 << CAN_CS); // Select CAN-controller
+		_delay_us(500);
+		spi_masterTransmit(4);	
+		CAN_PORT |= (1 << CAN_CS); // Deselect CAN-controller
+ 		_delay_us(500);	
+	}	
 }
