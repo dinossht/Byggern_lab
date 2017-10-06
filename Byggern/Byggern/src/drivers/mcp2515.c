@@ -44,21 +44,21 @@ uint8_t mcp2515_init()
 void mcp2515_reset()
 {	
 	CAN_PORT &= ~(1 << CAN_CS); // Select CAN-controller
-	
-	spi_masterTransmit(MCP_RESET); // Send read command	
 
+	spi_masterTransmit(MCP_RESET); // Send read command
+	
 	CAN_PORT |= (1 << CAN_CS); // Deselect CAN-controller
-	_delay_us(15);
 }
 
 uint8_t mcp2515_read(uint8_t address)
 {
 	uint8_t result;
-	
+
 	CAN_PORT &= ~(1 << CAN_CS); // Select CAN-controller
 	
 	spi_masterTransmit(MCP_READ); // Send read command
 	spi_masterTransmit(address); // Send address
+	
 	result = (uint8_t)spi_slaveReceive(); // Read result
 	
 	CAN_PORT |= (1 << CAN_CS); // Deselect CAN-controller
