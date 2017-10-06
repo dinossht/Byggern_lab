@@ -15,9 +15,6 @@
 #define DD_CLK DDB7
 #define DD_MOSI DDB5
 #define DD_MISO DDB6
-
-// SS active low (on atmega162 is pulled up), 
-// input on slave and output on master, needs to be user defined before transmission
  
 void spi_masterInit()
 {
@@ -25,33 +22,23 @@ void spi_masterInit()
 	DDRB = (1 << DD_CLK) | (1 << DD_MOSI) | (1 << PINB4); 
 
 	/* Enable SPI, Master, set clock rate fck/16 */
-	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0);
-	
+	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0); //  
+//	SPCR |= (1 << DORD); // to set LSB transmit first
+//	SPCR |= (1 << SPIE); // enable SPI interrupt, 
 }
 
-
-void spi_masterTransmit(char cData)
+void spi_trancieve(uint8_t* tx_buffer, uint8_t* rx_buffer, int length)
 {
-	/* Start transmission */
-	SPDR = cData;
-	/* Wait for transmission complete */
-	while(!(SPSR & (1 << SPIF)));
-}
-
-void spi_slaveInit()
-{
-	/* Set MISO output, all others input */
-	DDRB = (1 << DD_MISO);
-	/* Enable SPI */
-	SPCR = (1 << SPE);
-}
-
-char spi_slaveReceive()
-{
-	spi_masterTransmit(0xFF);
-	/* Wait for reception complete */
-	while(!(SPSR & (1 << SPIF)));
-	/* Return data register */
-	return SPDR;
+	for(int i = 0; i < length; i++) 
+	{
+		SPDR = tx_buffer[i];
+		
+		// Wait for word transmission to complete
+		while (!(SPSR & (1 << SPIF)));
+		
+		if (rx_buffer != NULL) {
+			rx_buffer[i] = SPDR;
+		}
+	}
 }
 
