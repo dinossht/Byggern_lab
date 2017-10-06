@@ -9,15 +9,16 @@
 #include "asf.h"
 #include "spi.h"
 
+/* NOTE: In PORTB, all the unused pins are set to input during initialization */
+
 // spi pin definitions
 #define DD_CLK DDB7
 #define DD_MOSI DDB5
 #define DD_MISO DDB6
 
-// SS active low, input on slave and output on master, needs to be user defined before transmission
-// Can be dangerous to put all other pins to inputs!!!!!!!!!!!!!!!!!!!!!
-
-// SS on atmega162 is pulled up 
+// SS active low (on atmega162 is pulled up), 
+// input on slave and output on master, needs to be user defined before transmission
+ 
 void spi_masterInit()
 {
 	/* Set MOSI and SCK output, all others input */
