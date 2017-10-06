@@ -9,6 +9,8 @@
 #ifndef MCP2515_H_
 #define MCP2515_H_
 
+#include <stdint.h>
+
 /*
 mcp2515.h
 
@@ -162,7 +164,9 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_WAKIF		0x40
 #define MCP_MERRF		0x80
 
-void mcp2515_init(void);
+uint8_t mcp2515_init(void);
+void mcp2515_reset(void);
+uint8_t mcp2515_read(uint8_t address);
 
 
 #endif /* MCP2515_H_ */
