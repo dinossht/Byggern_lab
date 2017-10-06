@@ -21,11 +21,14 @@
  
 void spi_masterInit()
 {
-	/* Set MOSI and SCK output, all others input */
-	DDRB = (1 << DD_CLK) | (1 << DD_MOSI);
+	/* Set SCK, MOSI and _SS output, all others input */
+	DDRB = (1 << DD_CLK) | (1 << DD_MOSI) | (1 << PINB4); 
+
 	/* Enable SPI, Master, set clock rate fck/16 */
 	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0);
+	
 }
+
 
 void spi_masterTransmit(char cData)
 {
@@ -45,6 +48,7 @@ void spi_slaveInit()
 
 char spi_slaveReceive()
 {
+	spi_masterTransmit(0xFF);
 	/* Wait for reception complete */
 	while(!(SPSR & (1 << SPIF)));
 	/* Return data register */
