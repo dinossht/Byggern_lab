@@ -25,14 +25,15 @@ uint8_t mcp2515_init()
 	
 	mcp2515_reset(); // Send reset-command
 	
+	_delay_us(15);
+
+	
 	// Self-test
 	val = mcp2515_read(MCP_CANSTAT);
 	
-	
-	if((val & MODE_MASK) != MODE_CONFIG) // 1110 0000 & val ==  1000 0000
+	if((val & MODE_MASK) != MODE_CONFIG)
 	{
-		printf("Recieved value: %02X\n", val);
-		printf("MCP2515 is NOT in configuration mode after reset!\n");
+		printf("MCP2515 is NOT in configuration mode after reset:  value: %02X\n", val);
 		return 1;
 	}
 	// More initialization
