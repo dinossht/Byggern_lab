@@ -20,10 +20,10 @@
 
 #define MAX_NR_OF_LINES 4
 
-static void joystick_updateCurrentMenu(joystick_dir_t currentDir, uint8_t* currentLineNr);
+static uint8_t joystick_updateCurrentMenu(joystick_dir_t currentDir, uint8_t currentLineNr);
 static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
 
-static void oled_displayMenus(void);
+static void oled_displayMenus(uint8_t currentIndex);
 static void oled_displayMenuArrow(uint8_t currentMenuIndex);
 
 static void slider_displaySlidersPos(void);
@@ -39,20 +39,22 @@ void ex04(void)
 	
 	joystick_dir_t currentDir = NEUTRAL;
 	uint8_t currentMenuIndex = 0;
-	uint8_t numberOfMenus = 4;
 
 	while(1)
 	{
 		currentDir = joystick_getDir();
-		joystick_updateCurrentMenu(currentDir, currentMenuIndex);
+
+		currentMenuIndex = joystick_updateCurrentMenu(currentDir, currentMenuIndex);
 
 		joystick_printDir(currentDir, 5, 0);
 		
-		oled_displayMenus(); // display menus with cursor on current menu
+		oled_displayMenus(currentMenuIndex); // display menus with cursor on current menu
 
 		slider_displaySlidersPos();
+		
+		button_printCurrentMenuIndex(currentMenuIndex);
 	
-		_delay_ms(1000);		
+		_delay_ms(200);		
 	}
 }
 
@@ -80,14 +82,14 @@ static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
 	}	
 }
 
-static void oled_displayMenus()
+static void oled_displayMenus(uint8_t currentIndex)
 {
 	oled_print("Menu 0", 0, 0);
 	oled_print("Menu 1", 1, 0);
 	oled_print("Menu 2", 2, 0);
 	oled_print("Menu 3", 3, 0);
 	
-	oled_displayMenuArrow();
+	oled_displayMenuArrow(currentIndex);
 }
 
 static void oled_displayMenuArrow(uint8_t currentIndex)
@@ -112,17 +114,18 @@ static void slider_displaySlidersPos()
 	oled_print(slider_pos, 7, 120);
 }
 
-static void joystick_updateCurrentMenu(joystick_dir_t current_dir, uint8_t* index)
+static uint8_t joystick_updateCurrentMenu(joystick_dir_t current_dir, uint8_t index)
 {
 	if(current_dir == UP)
 	{
-		*index--;
+		index--;
 	}
 	else if(current_dir == DOWN)
 	{
-		*index++;
+		index++;
 	}
-	*index %= MAX_NR_OF_LINES;		
+	index %= MAX_NR_OF_LINES;		
+	return index;
 }
 
 static void button_printCurrentMenuIndex(uint8_t currentIndex)
@@ -139,6 +142,6 @@ static void button_printCurrentMenuIndex(uint8_t currentIndex)
 	}
 	else
 	{
-		oled_print("      ", 4, 64);	
+		oled_print("       ", 4, 64);	
 	}
 }
