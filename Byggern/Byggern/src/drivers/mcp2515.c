@@ -37,8 +37,11 @@ uint8_t mcp2515_init(uint8_t mode)
 	// More initialization
 	printf("MCP2515 is in configuration mode after reset!\n");
 	
+	
+	
 	// set up filters, masks and transceiver bit timings
 	mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, mode);
+	mcp2515_write(MCP_RX_INT, MCP_RX_INT);
 	
 	return 0;	
 }
@@ -142,11 +145,7 @@ uint8_t mcp2515_readStatus()
 void mcp2515_loadTX(uint8_t address, uint8_t* bufferTX, uint8_t length)
 {
 	CAN_PORT &= ~(1 << CAN_CS); // Select CAN-controller
-	printf("buffer: ");
-	for(uint8_t i = 0; i < length; i++)
-	{
-		 printf("%X", bufferTX[i]);
-	}
+
 	uint8_t buffer[] =
 	{
 		MCP_WRITE,

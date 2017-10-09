@@ -16,11 +16,11 @@ void  can_init(void)
 	// Write to MCP_CANCTRL	
 	uint8_t mode = MODE_LOOPBACK;
 	mcp2515_init(mode);
-	mcp2515_printModeStatus(mcp2515_readStatus());
 	
 	//TODO
 	//Interrupts 
 	// CANINTE.RXnIE for interrupt when valid message has been received 
+	mcp2515_bitModify(MCP_CANINTE, 0x01, 1);
 }
 
 void can_message_send(struct can_message* message)

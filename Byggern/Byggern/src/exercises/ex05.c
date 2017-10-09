@@ -12,6 +12,8 @@
 #include "../drivers/mcp2515.h"
 #include "../drivers/spi.h"
 #include "../drivers/CAN.h"
+
+#include <avr/interrupt.h>
 #include "ex05.h"
 
 
@@ -28,33 +30,44 @@ void printMsg(struct can_message msg)
 	printf("\n");		
 }
 
+uint8_t recievedMsgFlag = 0;
 void ex05()
 {
+	 // turn on interrupts
+	EMCUCR &= ~(1 << ISC2); 
+	GICR |= (1 << INT2);
+	sei(); 
+	
+	can_init();
+	mcp2515_printModeStatus(mcp2515_readStatus());
+
+
 	struct can_message message = 
 	{
 		.id = 0x4,
 		.length = 0x3,
-		.data.u32[0] =  0xABC    // 
+		.data.u32[0] =  0xABC    
 	};
-	printMsg(message);
-	while(1);
-	can_init();
+
+
 	while(1)
 	{
 		can_message_send(&message);
-		_delay_ms(500);	
-	//	printf("status: %2X\n", mcp2515_readStatus());
-		struct can_message recievedMsg = can_message_recieve();
- 		
-
-	}
-	
-	
+		if(recievedMsgFlag){
+			struct can_message recievedMsg = can_message_recieve();
+			//set flag to zero
+			mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0);
+			recievedMsgFlag = 0;
+			GIFR |= (1<<INTF2);
+		}
+		_delay_ms(500);
+	}	
 }
-// ISR()
-// {
-// 	canreceived = True;
-// }
+ISR(INT2_vect)
+{
+	recievedMsgFlag = 1;
+
+}
 
 void mcp2515_printModeStatus(uint8_t status)
 {
@@ -81,6 +94,7 @@ void mcp2515_printModeStatus(uint8_t status)
 			printf("MODE CONFIG");
 			break;     
 	}
+	printf("MODE UNDEFINED");
 	printf("\n");
 }
 
