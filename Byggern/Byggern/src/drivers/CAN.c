@@ -58,12 +58,28 @@ void can_message_send(struct can_message* message)
 
 struct can_message can_message_recieve()
 {
-	mcp2515_requestToRead(MCP_READ_RX0);
 	struct can_message message;
-	message.id =  mcp2515_read(MCP_RXB0SIDH);
-	message.length = mcp2515_read(0x65);	
-	uint8_t *data = &message.data;
-	mcp2515_readRX(0x66, data, message.length);	
+	
+	uint8_t bufferN;
+	mcp2515_readRX(MCP_CANINTF, &bufferN, 1);
+	
+	if(bufferN & MCP_RX0IF)
+	{
+		mcp2515_requestToRead(MCP_READ_RX0);	
+		message.id =  mcp2515_read(MCP_RXB0SIDH);
+		message.length = mcp2515_read(0x65);
+		uint8_t *data = &message.data;
+		mcp2515_readRX(0x66, data, message.length);
+		
+	}
+	else if(bufferN & MCP_RX1IF)
+	{
+		mcp2515_requestToRead(MCP_READ_RX1);	
+		message.id =  mcp2515_read(MCP_RXB1SIDH);	
+		message.length = mcp2515_read(0x75);
+		uint8_t *data = &message.data;
+		mcp2515_readRX(0x76, data, message.length);
+	}
 	return message;
 }
 
