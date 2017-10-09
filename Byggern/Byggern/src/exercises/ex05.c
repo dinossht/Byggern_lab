@@ -6,25 +6,57 @@
  */ 
 
 #include <stdio.h>
+#include "settings.h"
+#include <util/delay.h>
 
 #include "../drivers/mcp2515.h"
 #include "../drivers/spi.h"
+#include "../drivers/CAN.h"
 #include "ex05.h"
 
 
-static void mcp2515_printModeStatus(uint8_t status);
-static void mcp2515_testReadAndLoadBuffer(void);
+void printMsg(struct can_message msg)
+{
+	printf("\n\nID: %2X\n", msg.id);	
+	printf("length: %d\n", msg.length);
+	printf("DATA: \n");
+	
+	for(uint8_t i = 0; i < msg.length; i++)
+	{
+		printf("%d", msg.data.u8[i]);		
+	}	
+	printf("\n");		
+}
 
 void ex05()
 {
-	mcp2515_init();	
-	// loop back mode for testing
-	mcp2515_printModeStatus(mcp2515_readStatus());
-	
-	mcp2515_testReadAndLoadBuffer();
-}
+	struct can_message message = 
+	{
+		.id = 0x4,
+		.length = 0x3,
+		.data.u32[0] =  0xABC    // 
+	};
+	printMsg(message);
+	while(1);
+	can_init();
+	while(1)
+	{
+		can_message_send(&message);
+		_delay_ms(500);	
+	//	printf("status: %2X\n", mcp2515_readStatus());
+		struct can_message recievedMsg = can_message_recieve();
+ 		
 
-static void mcp2515_printModeStatus(uint8_t status)
+	}
+	
+	
+}
+// ISR()
+// {
+// 	canreceived = True;
+// }
+
+void mcp2515_printModeStatus(uint8_t status)
 {
 	printf("Current mode: ");
 	switch(status)
@@ -52,7 +84,7 @@ static void mcp2515_printModeStatus(uint8_t status)
 	printf("\n");
 }
 
-static void mcp2515_testReadAndLoadBuffer()
+void mcp2515_testReadAndLoadBuffer()
 {
 	uint8_t bufferTX[] = {0xCA, 0xFF, 0xEE};  // ABCDEF
 	uint8_t bufferRX[3];

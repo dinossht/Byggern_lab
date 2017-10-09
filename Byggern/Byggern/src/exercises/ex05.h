@@ -12,4 +12,7 @@
 
 void ex05(void);
 
+void mcp2515_printModeStatus(uint8_t status);
+void mcp2515_testReadAndLoadBuffer(void);
+
 #endif /* EX05_H_ */
