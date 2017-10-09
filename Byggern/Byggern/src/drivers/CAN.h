@@ -10,10 +10,21 @@
 #define CAN_H_
 
 #include "asf.h"
+union Can_data_t{
+	uint64_t	u64;
+	int64_t		i64;
+	uint32_t	u32[2];
+	int32_t		i32[2];
+	uint16_t	u16[4];
+	int16_t		i16[4];
+	uint8_t		u8[8];
+	int8_t		i8[8];
+};
+
 struct can_message{
 		unsigned int id;
 		uint8_t length;
-		uint8_t data[8]	
+		union Can_data_t data;	
 	};
 	
 enum interrupt_flag{
@@ -26,6 +37,16 @@ enum interrupt_flag{
 	WAKIF,//Wake-up interrupt Flag
 	MERRF,//Message Error Interrupt Flag
 	}; 
+	
+	
+void  can_init(void);
+void can_message_send(struct can_message* message);
+struct can_message can_message_recieve();
+uint8_t can_error();
+uint8_t can_transmit_complete(void);
+
+	
+	
 
 
 #endif /* CAN_H_ */

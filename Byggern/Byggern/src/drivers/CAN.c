@@ -7,59 +7,64 @@
 
 #include "CAN.h"
 #include "mcp2515.h"
+#include "exercises/ex05.h"
+
+
 void  can_init(void)
 {
 	//Send config commands to MCP2515
 	// Write to MCP_CANCTRL	
+	uint8_t mode = MODE_LOOPBACK;
+	mcp2515_init(mode);
+	mcp2515_printModeStatus(mcp2515_readStatus());
 	
-	uint8_t config_msg = 0x00 | (1 << MODE_LOOPBACK) | (1 << CLKOUT_DISABLE) | (1 << CLKOUT_PS1); 
-	// write to MCP2515
-	
-// 	mcp2515_write(); // Write command
-// 	mcp2515_write(); // Address
-// 	mcp2515_write(); // send config msg
-	
-	//Interrupts
+	//TODO
+	//Interrupts 
 	// CANINTE.RXnIE for interrupt when valid message has been received 
-	
-	
-	
-	
-	
-	
 }
 
 void can_message_send(struct can_message* message)
 {
 	// Send message
+	
+	uint8_t ID = message->id;
+	uint8_t Length = message->length;
+	uint8_t *data = &message->data;
+	
+	// Request - to - send 
+
+	
+	// Write ID
+	mcp2515_write(0x31, ID);
+	//mcp2515_write(0x32, );
+	
+	// Write message length
+	
+	mcp2515_write(0x35, Length);
+	
+	// Write to TX buffer
+	
+	mcp2515_loadTX(0x36, data, Length);
+	
+	mcp2515_requestToSend(MCP_RTS_TX0);
+	
 	// At a minimum: TXBnSIDH, TXBnSIDL and TXBnDLC must be loaded
 	// For extended identifiers, TXBnEIDm must be loaded
 	// If data bytes are present in message, TXBnDm must be loaded and TXBnSIDL.EXIDE must be set
 	// TXBnCTRL.TXREQ must be clear
 	// Transmit Priority: TXBnCTRL.TXP <1:0>
 	// TXBnCTRL-TXREQ must be set for each buffer to request to transmit
-	
-	
-	
-// 	mcp2515_write(MCP_WRITE); 
-// 	mcp2515_write(); // ID buffer IDH
-// 	mcp2515_write(message->id); // High side of ID
-// 	
-// 	mcp2515_write(MCP_WRITE);
-// 	mcp2515_write(); // ID buffer IDL
-// 	mcp2515_write(message->id); // Low side of ID
-	
-	
-// 	mcp2515_write(message->length);
-// 	
-// 	for (uint8_t i =0; i<message->length; i++)
-// 	{
-// 		mcp2515_write(message->data[i]);
-// 	}
-// 	
-	// Use request to send
-	
-	
+}
+
+struct can_message can_message_recieve()
+{
+	mcp2515_requestToRead(MCP_READ_RX0);
+	struct can_message message;
+	message.id =  mcp2515_read(MCP_RXB0SIDH);
+	message.length = mcp2515_read(0x65);	
+	uint8_t *data = &message.data;
+	mcp2515_readRX(0x66, data, message.length);	
+	return message;
 }
 
 uint8_t can_error()
@@ -83,22 +88,28 @@ uint8_t can_transmit_complete()
 
 }
 
-// 
-// can_message can_data_receive(can_message* message)
-// {
-// 	
-// 	//Need which buffer to read
-// 	// Read CANINTF- bit 0 = buffer 0, bit 1 = buffer 1
-// 	// ID: RXBnSIDH & RXBnSIDL
-// 	// Data length: RXBnDLC
-// 	// Data RXBnDM
-// 	
-// 	
-// 	
-// 	
-// 	
-// 
-// }
+
+void can_data_receive(struct can_message* message)
+{
+	
+	//Need which buffer to read
+	// Read CANINTF- bit 0 = buffer 0, bit 1 = buffer 1
+	// ID: RXBnSIDH & RXBnSIDL
+	// Data length: RXBnDLC
+	// Data RXBnDM
+	
+	//Read ID buffer
+	
+	//Read Length buffer
+	
+	// Read Data buffer
+	
+	
+	
+	
+	
+
+}
 
 // interrupt_flag can_int_vect()
 // {
