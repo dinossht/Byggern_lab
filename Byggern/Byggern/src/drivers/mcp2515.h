@@ -164,13 +164,14 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_WAKIF		0x40
 #define MCP_MERRF		0x80
 
-uint8_t mcp2515_init(void);
+uint8_t mcp2515_init(uint8_t mode);
 void mcp2515_reset(void);
 uint8_t mcp2515_read(uint8_t address);
 
 void mcp2515_write(uint8_t address, uint8_t data);
 void mcp2515_bitModify(uint8_t address, uint8_t bitMask, uint8_t data);
-void mcp2515_requestToSend(uint8_t transmitBufferAddress);
+void mcp2515_requestToSend(uint8_t bufferNAddress);
+void mcp2515_requestToRead(uint8_t bufferNAddress);
 uint8_t mcp2515_readStatus(void);
 
 void mcp2515_readRX(uint8_t address, uint8_t* bufferRX, uint8_t length);
