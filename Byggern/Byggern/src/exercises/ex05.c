@@ -25,7 +25,7 @@ void printMsg(struct can_message msg)
 	
 	for(uint8_t i = 0; i < msg.length; i++)
 	{
-		printf("%d", msg.data.u8[i]);		
+		printf("%X", msg.data.u8[i]);		
 	}	
 	printf("\n");		
 }
@@ -33,28 +33,28 @@ void printMsg(struct can_message msg)
 uint8_t recievedMsgFlag = 0;
 void ex05()
 {
-	 // turn on interrupts
+	// turn on interrupts
 	EMCUCR &= ~(1 << ISC2); 
 	GICR |= (1 << INT2);
 	sei(); 
-	
+	//============================================//
 	can_init();
 	mcp2515_printModeStatus(mcp2515_readStatus());
-
-
 	struct can_message message = 
 	{
 		.id = 0x4,
 		.length = 0x3,
 		.data.u32[0] =  0xABC    
 	};
-
-
+	
 	while(1)
 	{
 		can_message_send(&message);
+		
 		if(recievedMsgFlag){
+			message.data.i8[0]++;
 			struct can_message recievedMsg = can_message_recieve();
+			printMsg(recievedMsg);
 			//set flag to zero
 			mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0);
 			recievedMsgFlag = 0;
@@ -92,9 +92,10 @@ void mcp2515_printModeStatus(uint8_t status)
 			
 		case MODE_CONFIG:
 			printf("MODE CONFIG");
-			break;     
+			break;   
+		default:
+			printf("UNDEFINED: %2X", status);  
 	}
-	printf("MODE UNDEFINED");
 	printf("\n");
 }
 

@@ -28,7 +28,6 @@ uint8_t mcp2515_init(uint8_t mode)
 	// Self-test
 	val = mcp2515_read(MCP_CANSTAT);
 	
-	
 	if((val & MODE_MASK) != MODE_CONFIG)
 	{
 		printf("MCP2515 is NOT in configuration mode after reset:  value: %02X\n", val);
@@ -37,11 +36,13 @@ uint8_t mcp2515_init(uint8_t mode)
 	// More initialization
 	printf("MCP2515 is in configuration mode after reset!\n");
 	
+		
+	// Enable recieve interrupt
+	mcp2515_bitModify(MCP_CANINTE, MCP_RX0IF, 1);
 	
-	
-	// set up filters, masks and transceiver bit timings
+	// Set mode
 	mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, mode);
-	mcp2515_write(MCP_RX_INT, MCP_RX_INT);
+	// set up filters, masks and transceiver bit timings
 	
 	return 0;	
 }
