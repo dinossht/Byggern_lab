@@ -8,6 +8,7 @@
 #include "exercises/ex04.h"
 #include "exercises/ex05.h"
 
+
 int main (void)
 {
 	hardware_init();

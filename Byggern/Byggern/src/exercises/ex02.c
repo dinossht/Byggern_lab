@@ -11,7 +11,8 @@
 #include "drivers/address_decoder.h"
 #include "ex02.h"
 
-static void address_decoder_test(void);
+
+static void ex02_addressDecoderTest(void);
 
 void ex02()
 {	
@@ -22,7 +23,7 @@ void ex02()
 	}
 }
 
-static void address_decoder_test()
+static void ex02_addressDecoderTest()
 {
 	address_decoder_enable(DEVICE_ADC);
 	_delay_ms(1000);
