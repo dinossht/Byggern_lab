@@ -4,11 +4,11 @@
  * Created: 25.09.2017 11:49:09
  *  Author: dinossht
  */ 
-
-#include "settings.h"
-#include <util/delay.h>	  
+ 
 #include <stdio.h>
 #include <stdint.h>
+#include "settings.h"
+#include <util/delay.h>
 
 #include "../multiboard/joystick.h"
 #include "../multiboard/button.h"
