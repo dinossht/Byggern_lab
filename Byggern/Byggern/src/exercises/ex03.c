@@ -12,24 +12,24 @@
 #include "ex03.h"
 
 
-static void joystick_test(void);
-static void joystick_dirTest(void);
-static void	slider_test(void);
-static void button_test(void);
+static void ex03_joystickPosTest(void);
+static void ex03_joystickDirTest(void);
+static void	ex03_sliderTest(void);
+static void ex03_buttonTest(void);
 
 void ex03()
 {
 	joystick_calib();
 	while(1)
 	{
-		//joystick_test();
-		//joystick_dirTest();
-		//slider_test();
-		//button_test();	
+		//ex03_joystickPosTest();
+		//ex03_joystickDirTest();
+		//ex03_sliderTest();
+		//ex03_buttonTest();	
 	}	
 }
 
-static void joystick_test()
+static void ex03_joystickPosTest()
 {	
 	int16_t joystick_x = joystick_getPos(POS_X);
 	printf("Joystick X value: %8d\n", joystick_x);
@@ -38,7 +38,7 @@ static void joystick_test()
 	printf("Joystick Y value: %8d\n", joystick_y);	
 }
 
-static void joystick_dirTest()
+static void ex03_joystickDirTest()
 {
 	int16_t joystick_dir = joystick_getDir();
 	printf("Joystick direction: ");
@@ -66,7 +66,7 @@ static void joystick_dirTest()
 	}
 }
 
-static void	slider_test()
+static void	ex03_sliderTest()
 {
 	int16_t slider_r = slider_getPos(SLIDER_RIGHT);
 	printf("Right slider value: %8d\n", slider_r );	
@@ -75,7 +75,7 @@ static void	slider_test()
 	printf("Left slider value: %8d\n", slider_l );
 }
 
-static void button_test()
+static void ex03_buttonTest()
 {
 	if (button_getStat(BUTTON_LEFT) == PRESSED)
 	{
