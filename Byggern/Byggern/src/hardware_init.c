@@ -5,14 +5,13 @@
  *  Author: Lars
  */ 
 
-#include "hardware_init.h"
-
 #include <asf.h>
-
 #include "drivers/led.h"
 #include "drivers/uart.h"
 #include "drivers/latch.h"
 #include "drivers/sram.h"
+#include "hardware_init.h"
+
 
 void hardware_init()
 {

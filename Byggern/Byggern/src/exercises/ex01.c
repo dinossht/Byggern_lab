@@ -5,11 +5,12 @@
  *  Author: Lars
  */ 
 
-#include "settings.h"
 #include <stdio.h>
+#include "settings.h"
 #include <util/delay.h>	  
 #include "../drivers/led.h"
 #include "ex01.h"
+
 
 void ex01()
 {
