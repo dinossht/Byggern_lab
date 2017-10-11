@@ -18,7 +18,9 @@ void ex01()
 	while(1)
 	{
 		led_toggle();
+		
 		printf("BYGGERNBOiZ %i\n", cnt++);
+		
 		_delay_ms(500);
 	}
 }
