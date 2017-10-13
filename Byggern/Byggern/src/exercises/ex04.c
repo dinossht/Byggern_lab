@@ -18,12 +18,12 @@
 #include "ex04.h"
 
 
-#define MAX_NR_OF_LINES 4
+#define MAX_NR_OF_MENUS 4
 
 static void ex04_updateCurrentMenu(joystick_dir_t currentDir, uint8_t* currentMenuIndex);
 static void ex04_printJoystickDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
 static void ex04_displayMenus(uint8_t currentMenuIndex);
-static void ex04_displaycurrentMenuCursor(uint8_t currentMenuIndex);
+static void ex04_displayCurrentMenuCursor(uint8_t currentMenuIndex);
 static void ex04_displaySlidersPos(uint8_t sliderLeftPos,  uint8_t sliderRightPos);
 static void ex04_printCurrentMenuIndex(uint8_t currentMenuIndex, uint8_t lineNr, uint8_t colNr);
 
@@ -33,29 +33,43 @@ void ex04(void)
 	oled_clear();
 	
 	joystick_calib();
-	
 	joystick_dir_t currentDir = NEUTRAL;
+	
+	uint8_t sliderLeftPos = 0;
+	uint8_t sliderRightPos = 0;
+	
 	uint8_t currentMenuIndex = 0;
 
 	while(1)
 	{
+		sliderLeftPos = slider_getPos(SLIDER_LEFT);
+		sliderRightPos = slider_getPos(SLIDER_RIGHT);
+		ex04_displaySlidersPos(sliderLeftPos, sliderRightPos);
+		
 		currentDir = joystick_getDir();
+		ex04_updateCurrentMenu(currentDir, &currentMenuIndex);
 
-		currentMenuIndex = joystick_updateCurrentMenu(currentDir, currentMenuIndex);
-
-		joystick_printDir(currentDir, 5, 0);
+		ex04_printJoystickDir(currentDir, 5, 0);
 		
-		oled_displayMenus(currentMenuIndex); // display menus with cursor on current menu
+		ex04_displayMenus(currentMenuIndex); // display menus with cursor on current menu
 
-		slider_displaySlidersPos();
-		
-		button_printCurrentMenuIndex(currentMenuIndex);
-	
+		if(
+			button_getStat(BUTTON_JOYSTICK) ||
+			button_getStat(BUTTON_LEFT) ||
+			button_getStat(BUTTON_RIGHT))
+		{
+			ex04_printCurrentMenuIndex(currentMenuIndex, 4, 64);	
+		}
+		else
+		{
+			oled_print("       ", 4, 64);	
+		}
+
 		_delay_ms(200);		
 	}
 }
 
-static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
+static void ex04_printJoystickDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
 {
 	oled_print("DIR: ", lineNr, colNr);
 
@@ -79,66 +93,55 @@ static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
 	}	
 }
 
-static void oled_displayMenus(uint8_t currentIndex)
+static void ex04_displayMenus(uint8_t currentMenuIndex)
 {
 	oled_print("Menu 0", 0, 0);
 	oled_print("Menu 1", 1, 0);
 	oled_print("Menu 2", 2, 0);
 	oled_print("Menu 3", 3, 0);
 	
-	oled_displayMenuArrow(currentIndex);
+	ex04_displayCurrentMenuCursor(currentMenuIndex);
 }
 
-static void oled_displayMenuArrow(uint8_t currentIndex)
+static void ex04_displayCurrentMenuCursor(uint8_t currentIndex)
 {
 	char arrow = '<';
 	char blank = ' ';
-	for(uint8_t i = 0; i < MAX_NR_OF_LINES; i++)
+	for(uint8_t i = 0; i < MAX_NR_OF_MENUS; i++)
 	{
 		char result = currentIndex == i ? arrow : blank;
 		oled_putChar(result, i, 120);
 	}
 }
 
-static void slider_displaySlidersPos()
+static void ex04_displaySlidersPos(uint8_t sliderLeftPos,  uint8_t sliderRightPos)
 {
 	static char slider_pos[10];
 	
-	sprintf(slider_pos, "L: %d", slider_getPos(SLIDER_LEFT) % 100);
+	sprintf(slider_pos, "L: %d", sliderLeftPos % 100);
 	oled_print(slider_pos, 7, 0);	
 	
-	sprintf(slider_pos, "R: %d", slider_getPos(SLIDER_RIGHT) % 100);
+	sprintf(slider_pos, "R: %d", sliderRightPos % 100);
 	oled_print(slider_pos, 7, 120);
 }
 
-static uint8_t joystick_updateCurrentMenu(joystick_dir_t current_dir, uint8_t index)
+static void ex04_updateCurrentMenu(joystick_dir_t currentDir, uint8_t* currentMenuIndex)
 {
-	if(current_dir == UP)
+	if(currentDir == UP)
 	{
-		index--;
+		*currentMenuIndex--;
 	}
-	else if(current_dir == DOWN)
+	else if(currentDir == DOWN)
 	{
-		index++;
+		*currentMenuIndex++;
 	}
-	index %= MAX_NR_OF_LINES;		
-	return index;
+	*currentMenuIndex %= MAX_NR_OF_MENUS;		
 }
 
-static void button_printCurrentMenuIndex(uint8_t currentIndex)
+static void ex04_printCurrentMenuIndex(uint8_t currentMenuIndex, uint8_t lineNr, uint8_t colNr)
 {
-	char num[6];
+	char num[8];
 	
-	if(
-	button_getStat(BUTTON_JOYSTICK) || 
-	button_getStat(BUTTON_LEFT) || 
-	button_getStat(BUTTON_RIGHT))
-	{
-		sprintf(num, "Menu: %d", currentIndex);
-		oled_print(num, 4, 64);	
-	}
-	else
-	{
-		oled_print("       ", 4, 64);	
-	}
+	sprintf(num, "Menu: %d", currentMenuIndex);
+	oled_print(num, lineNr, colNr);
 }
