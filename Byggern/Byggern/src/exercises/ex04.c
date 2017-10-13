@@ -20,15 +20,12 @@
 
 #define MAX_NR_OF_LINES 4
 
-static uint8_t joystick_updateCurrentMenu(joystick_dir_t currentDir, uint8_t currentLineNr);
-static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
-
-static void oled_displayMenus(uint8_t currentIndex);
-static void oled_displayMenuArrow(uint8_t currentMenuIndex);
-
-static void slider_displaySlidersPos(void);
-
-static void button_printCurrentMenuIndex(uint8_t currentMenuIndex);
+static void ex04_updateCurrentMenu(joystick_dir_t currentDir, uint8_t* currentMenuIndex);
+static void ex04_printJoystickDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr);
+static void ex04_displayMenus(uint8_t currentMenuIndex);
+static void ex04_displaycurrentMenuCursor(uint8_t currentMenuIndex);
+static void ex04_displaySlidersPos(uint8_t sliderLeftPos,  uint8_t sliderRightPos);
+static void ex04_printCurrentMenuIndex(uint8_t currentMenuIndex, uint8_t lineNr, uint8_t colNr);
 
 void ex04(void)
 {
