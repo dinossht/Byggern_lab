@@ -6,14 +6,14 @@
  */ 
 
 #include <stdio.h>
+#include <avr/interrupt.h>
 #include "settings.h"
 #include <util/delay.h>
 
-#include "../drivers/mcp2515.h"
 #include "../drivers/spi.h"
+#include "../drivers/mcp2515.h"
 #include "../drivers/CAN.h"
 
-#include <avr/interrupt.h>
 #include "ex05.h"
 
 
