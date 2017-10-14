@@ -12,7 +12,8 @@
 #include "asf.h"
 
 
-union Can_data_t{
+union Can_data_t
+{
 	uint64_t	u64;
 	int64_t		i64;
 	uint32_t	u32[2];
@@ -23,13 +24,15 @@ union Can_data_t{
 	int8_t		i8[8];
 };
 
-struct can_message{
-	unsigned int id;
+struct can_message
+{
+	uint16_t id;
 	uint8_t length;
 	union Can_data_t data;	
 };
 	
-enum interrupt_flag{
+enum interrupt_flag
+{
 	RXOIF,//Receive Buffer 0 interrupt flag
 	RX1IF,//Receive Buffer 1 interrupt flag
 	TX0IF,//Transmit Buffer 0 interrupt flag
