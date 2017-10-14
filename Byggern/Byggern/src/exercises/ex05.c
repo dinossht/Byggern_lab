@@ -33,10 +33,11 @@ void printMsg(struct can_message msg)
 uint8_t recievedMsgFlag = 0;
 void ex05()
 {
+	cli();
 	// turn on interrupts
-	EMCUCR &= ~(1 << ISC2); 
-	GICR |= (1 << INT2);
-	sei(); 
+	EMCUCR &= ~(1 << ISC2); // Falling edge on INT2 triggers interrupt
+	GICR |= (1 << INT2); // External Interrupt Request 2 Enable
+	sei(); // Set global interrupt flag
 	//============================================//
 	can_init();
 	mcp2515_printModeStatus(mcp2515_readStatus());
@@ -66,7 +67,6 @@ void ex05()
 ISR(INT2_vect)
 {
 	recievedMsgFlag = 1;
-
 }
 
 void mcp2515_printModeStatus(uint8_t status)
