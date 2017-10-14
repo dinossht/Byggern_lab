@@ -25,26 +25,19 @@ void  can_init(void)
 
 void can_message_send(struct can_message* message)
 {
-	// Send message
+	// Setup TX buffer 0
+	mcp2515_bitModify(MCP_TXB0CTRL, 0x03, 0x03); // 
 	
-	uint8_t ID = message->id;
-	uint8_t Length = message->length;
-	uint8_t *data = &message->data;
-	
-	// Request - to - send 
-
-	
-	// Write ID
-	mcp2515_write(0x31, ID);
-	//mcp2515_write(0x32, );
+	mcp2515_write(0x31, (message->id >> 3) & 0xFF); // high
+	mcp2515_write(0x32, (message->id << 5) & 0xE0); //low    
 	
 	// Write message length
 	
-	mcp2515_write(0x35, Length);
+	mcp2515_write(0x35, message->length);
 	
 	// Write to TX buffer
 	
-	mcp2515_loadTX(0x36, data, Length);
+	mcp2515_loadTX(0x36, &message->data, message->length);
 	
 	mcp2515_requestToSend(MCP_RTS_TX0);
 	
@@ -66,7 +59,10 @@ struct can_message can_message_recieve()
 	if(bufferN & MCP_RX0IF)
 	{
 		mcp2515_requestToRead(MCP_READ_RX0);	
-		message.id =  mcp2515_read(MCP_RXB0SIDH);
+			
+ 		message.id = mcp2515_read(0x62) >> 5;      
+ 		message.id |= ((uint16_t)mcp2515_read(MCP_RXB0SIDH)) << 3;    
+
 		message.length = mcp2515_read(0x65);
 		uint8_t *data = &message.data;
 		mcp2515_readRX(0x66, data, message.length);
