@@ -25,6 +25,7 @@ void  can_init(void)
 
 void can_message_send(struct can_message* message)
 {
+	while(mcp2515_read(MCP_TXB0CTRL) & 0x03); // wait until buffer is pending transmission
 	// Setup TX buffer 0
 	mcp2515_bitModify(MCP_TXB0CTRL, 0x03, 0x03); // 
 	
