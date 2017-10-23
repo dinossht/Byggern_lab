@@ -19,7 +19,8 @@
 
 void printMsg(struct can_message msg)
 {
-	printf("\n\nID: %2X\n", msg.id);	
+	printf("\nNode 1 ffs!");
+	printf("\nID: %2X\n", msg.id);	
 	printf("length: %d\n", msg.length);
 	printf("DATA: \n");
 	

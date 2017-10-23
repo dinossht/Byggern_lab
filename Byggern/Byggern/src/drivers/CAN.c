@@ -14,7 +14,7 @@ void  can_init(void)
 {
 	//Send config commands to MCP2515
 	// Write to MCP_CANCTRL	
-	mcp2515_init(MODE_LOOPBACK);
+	mcp2515_init(MODE_NORMAL);
 	
 	//TODO
 	//Interrupts 
