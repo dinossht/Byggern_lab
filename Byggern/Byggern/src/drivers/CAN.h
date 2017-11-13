@@ -41,9 +41,8 @@ enum interrupt_flag{
 	
 void  can_init(void);
 void can_message_send(struct can_message* message);
-struct can_message can_message_recieve();
-uint8_t can_error();
-uint8_t can_transmit_complete(void);
+struct can_message can_message_recieve(void);
+
 
 	
 	
