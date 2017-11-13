@@ -177,7 +177,19 @@ void oled_print(char* string, uint8_t lineNr, uint8_t colNr)
 	}
 }
 
+void oled_pixel(uint8_t x, uint8_t y)
+{
+	oled_pos(y / 8, x);	
+	volatile char *ext_ram = (char *) 0x0000; 
+	ext_ram[OLED_DATA_ADDR] = y % 8 + 1;
+}
 
+
+
+// 50, 50
+// 128 X 64
+// x = colnr
+// y = y / 8   = row nr
 
 
 

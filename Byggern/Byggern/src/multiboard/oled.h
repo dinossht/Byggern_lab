@@ -32,6 +32,7 @@ void oled_setContrast(uint8_t contrastVal);
 
 void oled_putChar(char charr, uint8_t lineNr, uint8_t colNr);
 void oled_print(char* string, uint8_t lineNr, uint8_t colNr);
+void oled_pixel(uint8_t x, uint8_t y);
 
 // should implement graphics functions such as draw line etc.
 
