@@ -10,7 +10,7 @@
 
 #include "FSM.h"
 #include "drivers/CAN.h"
-#include "CAN_messages.h"
+#include "CAN/CAN_messages.h"
 
 
 static FSM_stateMachine_t node1_stateMachine;
@@ -21,8 +21,8 @@ static void FSM_setNode1State(FSM_states new_state){
 }
 
 static void FSM_setNode2State(FSM_states new_state){
-//	FSM_setNode2State_message.data.u8[0] = new_state;
-//	can_message_send(&FSM_setNode2State_message);
+	FSM_setNode2State_message.data.u8[0] = new_state;
+	can_message_send(&FSM_setNode2State_message);
 }
 
 
