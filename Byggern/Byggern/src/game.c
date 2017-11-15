@@ -35,23 +35,31 @@ char* game_getUser(void){
 void game_setScore(uint8_t currentScore){
 	game_settings.score = currentScore;
 }
-
 uint8_t game_getScore(void){
 	return game_settings.score;
 }
 
 
-void game_setParameters(uint8_t* currentParameters){
-	for (uint8_t i = 0; i < 3; i++){ game_settings.parameters[i] = currentParameters[i]; }
+void game_setLives(uint8_t currentLives){
+	game_settings.lives = currentLives;
+}
+uint8_t game_getLives(void){
+	return game_settings.lives;
 }
 
+
+void game_setParameters(uint8_t* currentParameters){
+	for (uint8_t i = 0; i < 3; i++)
+	{ 
+		game_settings.parameters[i] = currentParameters[i]; 
+	}
+}
 uint8_t* game_getParameters(void){
 	return game_settings.parameters;
 }
 
 
 
- 
  void game_transmitControllerInput(){
 	//TODO Add timer interrupts
 	joystick_message.data.i8[0] = joystick_getPos(POS_X);
@@ -73,3 +81,9 @@ uint8_t* game_getParameters(void){
 	
 	_delay_ms(10);
  }
+
+
+
+void game_transmitParameters(){
+		
+}

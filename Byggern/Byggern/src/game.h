@@ -11,21 +11,12 @@
 
 #include <stdint.h>
 
-/*
-typedef enum{
-	MENU,
-	PLAYING,
-	GAMEOVER,
-	LOGGING,
-	TUNING,
-}FSM_states;
-*/
-
 
 typedef struct{
 	//uint8_t gameState;
 	char* user;
 	uint8_t score;
+	uint8_t lives;
 	uint8_t parameters[2];
 } settings_t;
 
@@ -36,11 +27,15 @@ char* game_getUser(void);
 void game_setScore(uint8_t currentScore);
 uint8_t game_getScore(void);
 
+void game_setLives(uint8_t currentScore);
+uint8_t game_getLives(void);
+
 void game_setParameters(uint8_t* currentParameters);
 uint8_t* game_getParameters(void);
 
 void game_transmitControllerInput(void);
 
+void game_transmitParameters(void);
 
 
 #endif /* GAME_H_ */
