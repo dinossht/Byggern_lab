@@ -23,6 +23,8 @@ void oled_init(void);
 
 void oled_updateScreen(void);
 
+void oled_clearScreen(void);
+
 void oled_setContrast(uint8_t contrastVal);
 
 void oled_drawPixel(uint8_t x, uint8_t y);

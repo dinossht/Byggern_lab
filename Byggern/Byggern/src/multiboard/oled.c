@@ -139,6 +139,22 @@ void oled_updateScreen()
 	}
 }
 
+void oled_clearScreen()
+{
+	volatile char *ext_ram = (char *) 0x0000;
+	
+	for(uint8_t row = 0; row < OLED_NR_OF_PAGES; row++)
+	{
+		oled_goToRow(row);
+		
+		for(uint8_t col = 0; col < OLED_PIXEL_WIDTH; col++)
+		{	
+			sram_write(0x00, OLED_PIXEL_WIDTH * row + col);
+		}
+	}
+	
+}
+
 /* val [0:255] */
 void oled_setContrast(uint8_t contrastVal)
 {
@@ -189,7 +205,6 @@ void oled_print(char* string, uint8_t row, uint8_t col)
 		currentChar = string[index];
 	}
 }
-
 
 
 

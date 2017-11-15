@@ -33,7 +33,6 @@ static void button_printCurrentMenuIndex(uint8_t currentMenuIndex);
 void ex04(void)
 {
 	oled_init();
-	oled_clear();
 	
 	joystick_calib();
 	
@@ -99,7 +98,7 @@ static void oled_displayMenuArrow(uint8_t currentIndex)
 	for(uint8_t i = 0; i < MAX_NR_OF_LINES; i++)
 	{
 		char result = currentIndex == i ? arrow : blank;
-		oled_putChar(result, i, 120);
+		//oled_putChar(result, i, 120);
 	}
 }
 
