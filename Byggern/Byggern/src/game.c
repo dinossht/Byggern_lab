@@ -21,8 +21,15 @@
  
   #include "game.h"
  
-static settings_t game_settings = {
-	.lives = 3, // DEBUG
+static settings_t game_settings = { //defaults
+	.user = "User1",
+	#warning Random name
+	.score = 0,
+	.lives = 3,
+	.parameters[0] = 1,
+	.parameters[1] = 0,
+	.parameters[2] = 0,
+	.controller = MULTIBOARD,
 };
 
 void game_init(){
@@ -63,6 +70,14 @@ void game_setParameters(uint8_t* currentParameters){
 uint8_t* game_getParameters(void){
 	return game_settings.parameters;
 }
+
+void game_setController(controller_t currentController){
+	game_settings.controller = currentController;
+}
+controller_t game_getController(void){
+	return game_settings.controller;
+}
+
 
 
 
