@@ -39,16 +39,15 @@ int main (void)
 			break;
 
 			case PLAYING:
-			// game_init(); //Transmits game data to Node2
-			// while (lives!=0){
-			// 	game_transmitControllerInput();	
-			// }
+				// game_init(); //Transmits game data to Node2
+				// while (lives!=0){
+				// 	game_transmitControllerInput();	
+				// }
  		
-			// Retrieve score
-			// Draw game over screen
-			// Save username and score to SRAM
- 			// FSM_setGlobalState(MENU);
-
+				// Retrieve score
+				// Draw game over screen
+				// Save username and score to SRAM
+ 				// FSM_setGlobalState(MENU);
 			break;
 						
 			case LOGGING:
