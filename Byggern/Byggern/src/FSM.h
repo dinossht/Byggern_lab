@@ -10,6 +10,7 @@
 #define GAME_H_
 
 typedef enum{
+	MENU,
 	PLAYING,
 	GAMEOVER,
 	LOGGING,
