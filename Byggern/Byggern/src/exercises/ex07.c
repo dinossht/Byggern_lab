@@ -15,14 +15,17 @@
 #include <stdio.h>
 #include "settings.h"
 #include <util/delay.h>
+#include <math.h>
 
 #include "../drivers/mcp2515.h"
 #include "../drivers/spi.h"
 #include "../drivers/CAN.h"
+#include "../drivers/sram.h"
 #include "../multiboard/oled.h"
 #include "../multiboard/joystick.h"
 #include "../multiboard/slider.h"
 #include "../multiboard/button.h"
+#include "../drivers/menu.h"
 
 
 #include <avr/interrupt.h>
@@ -32,7 +35,7 @@
 struct can_message joystick_message =
 {
 	.id = 0x10,
-	.length = 3,
+	.length = 2,
 };
 
 struct can_message slider_message =
@@ -44,8 +47,28 @@ struct can_message slider_message =
 struct can_message button_message =
 {
 	.id = 0x12,
-	.length = 2
+	.length = 4,
+	.data.u32[0] = 0
 };
+
+
+void circle(int x,int y,int radius) {
+    int i = 0, j = radius ;
+	menu_clearScreen();
+    while (i<=j) {
+        menu_placePixel(x+i,y-j) ;
+        menu_placePixel(x+j,y-i) ;
+        menu_placePixel(x+i,y+j) ;
+        menu_placePixel(x+j,y+i) ;
+        menu_placePixel(x-i,y-j) ;
+        menu_placePixel(x-j,y-i) ;
+        menu_placePixel(x-i,y+j) ;
+        menu_placePixel(x-j,y+i) ;
+        i++ ;
+        j = (int)(sqrt(radius*radius - i*i) + 0.5) ;
+		
+    }
+}
 
 
 
@@ -54,50 +77,65 @@ void ex07()
 	can_init();
 	joystick_calib();
 	oled_init();
-	oled_clear();
-	
-	int x = 0;
-	int y = 0;
+	oled_clear();	
+//	oled_print("Hallo", 8, 0);		
+	//oled_setContrast(255);
+	menu_clearScreen();
+	int r = 30; // radius
+	int ox = 64, oy = 32; // origin
+
 	while(1)
-	{
-		joystick_message.data.i8[0] = joystick_getPos(POS_X);
-		joystick_message.data.i8[1] = joystick_getPos(POS_Y); 
-		joystick_message.data.u8[2] = button_getStat(BUTTON_JOYSTICK);
-		can_message_send(&joystick_message);
-		//printf("%d\n", joystick_message.data.i8[0]);
+	{		
+		_delay_ms(500);
 		
-		_delay_ms(10);
-		
-		slider_message.data.u8[0] = slider_getPos(SLIDER_LEFT);
-		slider_message.data.u8[1] = slider_getPos(SLIDER_RIGHT);
-		can_message_send(&slider_message);
-		printf("%d\n", slider_message.data.u8[1]);	
-		
-		_delay_ms(10);
-		
-		button_message.data.u8[0] = button_getStat(BUTTON_LEFT);
-		button_message.data.u8[1] = button_getStat(BUTTON_RIGHT);
 		can_message_send(&button_message);
-//		printf("%d\n", button_message.data.u8[0]);
+	//	button_message.data.u32[0] = 0;
 		
-		oled_print("Hei", 0, 0);
-		oled_setContrast(255);
+	//	can_message_send(&button_message);
+		button_message.data.u32[0] = 0xFFFF;
 		
+		//button_message.data.u32[0];
 		
-		
-// 		x++;
-// 
-// 		if(x == 127)
+// 		for(uint8_t i = 0; i < 64; i++)
 // 		{
-// 			x = 0;
-// 			y++;
+// 			for(uint8_t j = 0; j < 128; j++)
+// 			{
+// 				menu_placePixel(j, i);
+// 			}
 // 		}
-// 		
-// 		
-// 		
-// 		oled_pixel(x, y);
+		circle(64, 32, (r++ % 30));
+// 		for (int x = -r; x < r ; x++)
+// 		{
+// 			int height = (int)sqrt(r * r - x * x);
+// 
+// 			for (int y = -height; y < height; y++)
+// 			{
+// 				menu_placePixel(x + ox, y + oy);
+// 				menu_updateScreen();
+// 			}
+// 		}
 		
 		
-		_delay_ms(10);
+
+		
+
+//		menu_placePixel(1, 1);
+//		menu_putPixel(x, y);
+		menu_updateScreen();
+// 		if(col < 128)
+// 			row++;
+// 		oled_putPixelColumn(/*sram_read(128 * i + j)*/0xFF, 0, row);
+// 		_delay_ms(100);
+		
+		
+		
+		
+		
+		//oled_pixel(x, y);
+		//menu_putPixel(x, y);
+		//menu_updateScreen();
+		
+		
+		//_delay_ms(500);
 	}	
 }
