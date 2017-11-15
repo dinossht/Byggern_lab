@@ -21,11 +21,11 @@
 #include "../drivers/spi.h"
 #include "../drivers/CAN.h"
 #include "../drivers/sram.h"
+#include "../drivers/menu.h"
 #include "../multiboard/oled.h"
 #include "../multiboard/joystick.h"
 #include "../multiboard/slider.h"
 #include "../multiboard/button.h"
-#include "../drivers/menu.h"
 
 
 #include <avr/interrupt.h>
@@ -48,27 +48,9 @@ struct can_message button_message =
 {
 	.id = 0x12,
 	.length = 4,
-	.data.u32[0] = 0
+	.data.u8[0] = 1
 };
 
-
-void circle(int x,int y,int radius) {
-    int i = 0, j = radius ;
-	menu_clearScreen();
-    while (i<=j) {
-        menu_placePixel(x+i,y-j) ;
-        menu_placePixel(x+j,y-i) ;
-        menu_placePixel(x+i,y+j) ;
-        menu_placePixel(x+j,y+i) ;
-        menu_placePixel(x-i,y-j) ;
-        menu_placePixel(x-j,y-i) ;
-        menu_placePixel(x-i,y+j) ;
-        menu_placePixel(x-j,y+i) ;
-        i++ ;
-        j = (int)(sqrt(radius*radius - i*i) + 0.5) ;
-		
-    }
-}
 
 
 
@@ -77,65 +59,45 @@ void ex07()
 	can_init();
 	joystick_calib();
 	oled_init();
-	oled_clear();	
-//	oled_print("Hallo", 8, 0);		
-	//oled_setContrast(255);
-	menu_clearScreen();
-	int r = 30; // radius
-	int ox = 64, oy = 32; // origin
-
+	menu_init();
+	//menu_initEntries(%gameM, gameEntries);
 	while(1)
-	{		
-		_delay_ms(500);
-		
-		can_message_send(&button_message);
-	//	button_message.data.u32[0] = 0;
-		
-	//	can_message_send(&button_message);
-		button_message.data.u32[0] = 0xFFFF;
-		
-		//button_message.data.u32[0];
-		
-// 		for(uint8_t i = 0; i < 64; i++)
-// 		{
-// 			for(uint8_t j = 0; j < 128; j++)
-// 			{
-// 				menu_placePixel(j, i);
-// 			}
-// 		}
-		circle(64, 32, (r++ % 30));
-// 		for (int x = -r; x < r ; x++)
-// 		{
-// 			int height = (int)sqrt(r * r - x * x);
-// 
-// 			for (int y = -height; y < height; y++)
-// 			{
-// 				menu_placePixel(x + ox, y + oy);
-// 				menu_updateScreen();
-// 			}
-// 		}
-		
-		
-
-		
-
-//		menu_placePixel(1, 1);
-//		menu_putPixel(x, y);
-		menu_updateScreen();
-// 		if(col < 128)
-// 			row++;
-// 		oled_putPixelColumn(/*sram_read(128 * i + j)*/0xFF, 0, row);
-// 		_delay_ms(100);
+	{	
+		oled_clearScreen();
+		joystick_dir_t direction = joystick_getDir();
 		
 		
 		
+		switch(direction)
+		{
+			case UP:
+				menu_scrollEntry(SCROLL_UP);
+			break;
+			
+			case DOWN:
+				menu_scrollEntry(SCROLL_DOWN);
+			break;
+			
+			case RIGHT:
+				menu_navigateToCurrentEntry();
+			break;
+			
+			case LEFT:
+				menu_navigateToPreviusMenu();
+			break;
+		}
 		
 		
-		//oled_pixel(x, y);
-		//menu_putPixel(x, y);
-		//menu_updateScreen();
+		//oled_print("Hei", x / 12, 0);
+		//menu_draw(&mainM);
+		//mainM.currentEntryIndex = x;
 		
+		//menu_navigateToPreviusMenu(&tunePidM);
 		
-		//_delay_ms(500);
+		menu_draw();
+		
+		oled_updateScreen();
+		_delay_ms(100);
+		//while(1);
 	}	
 }
