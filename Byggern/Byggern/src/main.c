@@ -29,6 +29,7 @@ int main (void)
 	
 	while(1)
 	{
+		//Should create a function that does everything tied to updating states, both reading CAN and reading multiboard
 		CAN_wrapper_updateStates();
 		switch(FSM_getGlobalState())
 		{
