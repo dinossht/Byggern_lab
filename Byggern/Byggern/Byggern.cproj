@@ -203,15 +203,22 @@
     <Folder Include="src\exercises" />
     <Folder Include="src\multiboard" />
     <Folder Include="src\drivers_wrapper" />
+    <Folder Include="src\CAN" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\CAN_definitions.h">
+    <Compile Include="src\CAN\CAN_definitions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN_messages.c">
+    <Compile Include="src\CAN\CAN_messages.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN_messages.h">
+    <Compile Include="src\CAN\CAN_messages.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\CAN\CAN_wrapper.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\CAN\CAN_wrapper.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\adc.c">

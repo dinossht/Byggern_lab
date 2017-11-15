@@ -10,7 +10,7 @@
 #define CAN_MESSAGES_H_
 
 #include "CAN_definitions.h"
-#include "drivers/CAN.h"
+#include "../drivers/CAN.h"
 
 
 //Multiboard
