@@ -1,8 +1,5 @@
-#include "settings.h"
-
 #include <asf.h>
 #include <stdio.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 
 #include "hardware_init.h"
@@ -19,7 +16,6 @@
 #include "multiboard/button.h"
 
 #include "CAN/CAN_wrapper.h"
-#include "CAN/CAN_messages.h"
 
 
 int main (void)
