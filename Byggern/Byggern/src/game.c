@@ -25,6 +25,10 @@ static settings_t game_settings = {
 	.lives = 3, // DEBUG
 };
 
+void game_init(){
+	
+	can_message_send(&game_setLives_message);
+}
 
 void game_setUser(char* currentUser){
 	game_settings.user = currentUser;

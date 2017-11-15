@@ -20,6 +20,7 @@ typedef struct{
 	uint8_t parameters[2];
 } settings_t;
 
+void game_init(void);
 
 void game_setUser(char* currentUser);
 char* game_getUser(void);
