@@ -26,6 +26,7 @@ int main (void)
 	
 	while(1)
 	{
+		FSM_setGlobalState(PLAYING); //DEBUG
 		//Should create a function that does everything tied to updating states, both reading CAN and reading multiboard
 		CAN_wrapper_updateStates();
 		switch(FSM_getGlobalState())
@@ -39,10 +40,10 @@ int main (void)
 			break;
 
 			case PLAYING:
-				// game_init(); //Transmits game data to Node2
-				// while (lives!=0){
-				// 	game_transmitControllerInput();	
-				// }
+				//game_init(); //Transmits game data to Node2
+				while (game_getLives() > 0) {
+					game_transmitControllerInput();	
+				}
  		
 				// Retrieve score
 				// Draw game over screen
@@ -62,7 +63,6 @@ int main (void)
 				// FSM_setGlobalState(MENU);
 			break;
 		}
-		
 	}	
 	return 0;
 }

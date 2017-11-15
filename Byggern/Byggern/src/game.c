@@ -21,8 +21,10 @@
  
   #include "game.h"
  
-static settings_t game_settings;
-  
+static settings_t game_settings = {
+	.lives = 3,
+};
+
 
 void game_setUser(char* currentUser){
 	game_settings.user = currentUser;
