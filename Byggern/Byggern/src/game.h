@@ -11,13 +11,17 @@
 
 #include <stdint.h>
 
+typedef enum {
+	MULTIBOARD,
+	PS3,
+}controller_t;
 
 typedef struct{
-	//uint8_t gameState;
 	char* user;
 	uint8_t score;
 	uint8_t lives;
-	uint8_t parameters[2];
+	uint8_t parameters[3];
+	controller_t controller;
 } settings_t;
 
 void game_init(void);
@@ -33,6 +37,10 @@ uint8_t game_getLives(void);
 
 void game_setParameters(uint8_t* currentParameters);
 uint8_t* game_getParameters(void);
+
+void game_setController(controller_t currentController);
+controller_t game_getController(void);
+
 
 void game_transmitControllerInput(void);
 
