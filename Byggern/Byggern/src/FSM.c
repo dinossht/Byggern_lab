@@ -5,9 +5,6 @@
  *  Author: dinos
  */ 
 
-#ifndef FSM_H_
-#define FSM_H_
-
 #include "FSM.h"
 #include "drivers/CAN.h"
 #include "CAN/CAN_messages.h"
@@ -36,5 +33,3 @@ void FSM_setGlobalState(FSM_states new_state){
 	FSM_setNode1State(new_state);
 	FSM_setNode2State(new_state);
 }
-
-#endif /* FSM_H_ */
