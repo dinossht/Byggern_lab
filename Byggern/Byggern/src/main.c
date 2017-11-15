@@ -40,7 +40,7 @@ int main (void)
 			break;
 
 			case PLAYING:
-				//game_init(); //Transmits game data to Node2
+				game_init(); //Transmits game data to Node2
 				while (game_getLives() > 0) {
 					game_transmitControllerInput();	
 				}
