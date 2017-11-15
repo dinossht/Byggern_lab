@@ -8,34 +8,44 @@
 
 
 //Multiboard
-struct can_message joystick_message =
+struct can_message multiboard_joystick_message =
 {
-	 .id = CAN_MULTIBOARD_JOYSTICK_ID,
-	 .length = 3,
+	.id = CAN_MULTIBOARD_JOYSTICK_ID,
+	.length = 3,
 };
 
-struct can_message slider_message =
+struct can_message multiboard_slider_message =
 {
-	 .id = CAN_MULTIBOARD_SLIDER_ID,
-	 .length = 2,
+	.id = CAN_MULTIBOARD_SLIDER_ID,
+	.length = 2,
 };
 
-struct can_message button_message =
+struct can_message multiboard_button_message =
 {
-	 .id = CAN_MULTIBOARD_BUTTON_ID,
-	 .length = 2,
+	.id = CAN_MULTIBOARD_BUTTON_ID,
+	.length = 2,
 };
+
+
 
 //States
 struct can_message FSM_setNode2State_message =
 {
-	 .id = CAN_STATE_FROMNODE1_ID,
-	 .length = 1,
+	.id = CAN_STATE_FROMNODE1_ID,
+	.length = 1,
 };
 
+
+
 //Data
-struct can_message game_parameterTuning =
+struct can_message game_parameterTuning_message =
 {
-	 .id = CAN_PID_TUNING_ID,
-	 .length = 3,
+	.id = CAN_PID_TUNING_ID,
+	.length = 3,
+};
+
+struct can_message game_setLives_message = 
+{
+	.id = CAN_SET_LIVES_ID,
+	.length = 1,
 };

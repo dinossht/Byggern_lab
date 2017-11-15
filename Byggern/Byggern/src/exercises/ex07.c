@@ -37,24 +37,24 @@ void ex07()
 	int y = 0;
 	while(1)
 	{
-		joystick_message.data.i8[0] = joystick_getPos(POS_X);
-		joystick_message.data.i8[1] = joystick_getPos(POS_Y); 
-		joystick_message.data.u8[2] = button_getStat(BUTTON_JOYSTICK);
-		can_message_send(&joystick_message);
+		multiboard_joystick_message.data.i8[0] = joystick_getPos(POS_X);
+		multiboard_joystick_message.data.i8[1] = joystick_getPos(POS_Y); 
+		multiboard_joystick_message.data.u8[2] = button_getStat(BUTTON_JOYSTICK);
+		can_message_send(&multiboard_joystick_message);
 		//printf("%d\n", joystick_message.data.i8[0]);
 		
 		_delay_ms(10);
 		
-		slider_message.data.u8[0] = slider_getPos(SLIDER_LEFT);
-		slider_message.data.u8[1] = slider_getPos(SLIDER_RIGHT);
-		can_message_send(&slider_message);
-		printf("%d\n", slider_message.data.u8[1]);	
+		multiboard_slider_message.data.u8[0] = slider_getPos(SLIDER_LEFT);
+		multiboard_slider_message.data.u8[1] = slider_getPos(SLIDER_RIGHT);
+		can_message_send(&multiboard_slider_message);
+		printf("%d\n", multiboard_slider_message.data.u8[1]);	
 		
 		_delay_ms(10);
 		
-		button_message.data.u8[0] = button_getStat(BUTTON_LEFT);
-		button_message.data.u8[1] = button_getStat(BUTTON_RIGHT);
-		can_message_send(&button_message);
+		multiboard_button_message.data.u8[0] = button_getStat(BUTTON_LEFT);
+		multiboard_button_message.data.u8[1] = button_getStat(BUTTON_RIGHT);
+		can_message_send(&multiboard_button_message);
 //		printf("%d\n", button_message.data.u8[0]);
 		
 		oled_print("Hei", 0, 0);
