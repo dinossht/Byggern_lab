@@ -12,7 +12,6 @@
 typedef enum{
 	MENU,
 	PLAYING,
-	GAMEOVER,
 	LOGGING,
 	TUNING,
 }FSM_states;
