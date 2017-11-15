@@ -34,7 +34,11 @@ int main (void)
 			case MENU:
 				// Draw current menu
 				// Read menu choices
-				// if (choice == play){ FSM_setGlobalState(PLAYING) }
+
+				// if (choice == play){ 
+				// Update game_settings
+				// FSM_setGlobalState(PLAYING)
+				// }
 				// else if (choice == logging){ FSM_setGlobalState(PLAYING) }
 				// else if (choice == tuning){ FSM_setGlobalState(TUNING) }
 			break;
