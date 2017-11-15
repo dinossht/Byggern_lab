@@ -21,12 +21,35 @@
  
   #include "game.h"
  
- settings_t game_settings;
+static settings_t game_settings;
   
 
 void game_setUser(char* currentUser){
 	game_settings.user = currentUser;
 }
+char* game_getUser(void){
+	return game_settings.user;
+}
+
+
+void game_setScore(uint8_t currentScore){
+	game_settings.score = currentScore;
+}
+
+uint8_t game_getScore(void){
+	return game_settings.score;
+}
+
+
+void game_setParameters(uint8_t* currentParameters){
+	for (uint8_t i = 0; i < 3; i++){ game_settings.parameters[i] = currentParameters[i]; }
+}
+
+uint8_t* game_getParameters(void){
+	return game_settings.parameters;
+}
+
+
 
  
  void game_transmitControllerInput(){

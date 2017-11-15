@@ -26,12 +26,7 @@ typedef struct{
 	//uint8_t gameState;
 	char* user;
 	uint8_t score;
-	
-//	struct parameters_t{
-//		uint8_t Kp,
-//		uint8_t Ki,
-//		uint8_t Kd,
-//		}parameters;
+	uint8_t parameters[2];
 } settings_t;
 
 
@@ -41,8 +36,8 @@ char* game_getUser(void);
 void game_setScore(uint8_t currentScore);
 uint8_t game_getScore(void);
 
-void game_setParameters(uint8_t currentParameters);
-uint8_t game_getParameters(void);
+void game_setParameters(uint8_t* currentParameters);
+uint8_t* game_getParameters(void);
 
 void game_transmitControllerInput(void);
 
