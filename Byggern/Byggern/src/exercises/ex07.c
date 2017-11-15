@@ -23,7 +23,7 @@
 #include "../multiboard/joystick.h"
 #include "../multiboard/slider.h"
 #include "../multiboard/button.h"
-#include "../CAN_messages.h"
+#include "../CAN/CAN_messages.h"
 
 
 #include <avr/interrupt.h>
