@@ -26,5 +26,8 @@ void CAN_wrapper_updateStates()
 	case CAN_STATE_FROMNODE2_ID:
 		FSM_setGlobalState(recieveMessage.data.u8[0]);
 	break;
+	case CAN_REMAINING_LIVES_ID:
+		game_setLives(recieveMessage.data.u8[0]);
 	}
+	
 }
