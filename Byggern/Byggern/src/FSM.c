@@ -31,7 +31,7 @@ FSM_states FSM_getGlobalState(){
 }
 
 
-void FSM_game_setGlobalState(FSM_states new_state){
+void FSM_setGlobalState(FSM_states new_state){
 	FSM_setNode1State(new_state);
 	FSM_setNode2State(new_state);
 }
