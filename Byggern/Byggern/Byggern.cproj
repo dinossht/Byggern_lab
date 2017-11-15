@@ -205,6 +205,9 @@
     <Folder Include="src\drivers_wrapper" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\CAN_definitions.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\adc.c">
       <SubType>compile</SubType>
     </Compile>
