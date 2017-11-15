@@ -10,19 +10,19 @@
  //Multiboard
  struct can_message joystick_message =
  {
-	 .id = CAN_JOYSTICK_ID,
+	 .id = CAN_MULTIBOARD_JOYSTICK_ID,
 	 .length = 3,
  };
 
  struct can_message slider_message =
  {
-	 .id = CAN_SLIDER_ID,
+	 .id = CAN_MULTIBOARD_SLIDER_ID,
 	 .length = 2,
  };
 
  struct can_message button_message =
  {
-	 .id = CAN_BUTTON_ID,
+	 .id = CAN_MULTIBOARD_BUTTON_ID,
 	 .length = 2,
  };
 
