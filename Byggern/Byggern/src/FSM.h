@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef GAME_H_
-#define GAME_H_
+#ifndef FSM_H_
+#define FSM_H_
 
 typedef enum{
 	MENU,
@@ -37,4 +37,4 @@ FSM_states FSM_getGlobalState(void);
 // case play game: set state(playing);
 // case tuning: set state(tuning); //kanskje flett inn i playback
 
-#endif /* GAME_H_ */
+#endif /* FSM_H_ */
