@@ -22,7 +22,7 @@
   #include "game.h"
  
 static settings_t game_settings = {
-	.lives = 3,
+	.lives = 3, // DEBUG
 };
 
 
