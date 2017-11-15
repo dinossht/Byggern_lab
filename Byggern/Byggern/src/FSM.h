@@ -22,7 +22,7 @@ typedef struct{
 	FSM_states FSM_current_state;
 } FSM_stateMachine_t;
 
-void FSM_game_setGlobalState(FSM_states new_state);
+void FSM_setGlobalState(FSM_states new_state);
 
 FSM_states FSM_getGlobalState(void);
 
