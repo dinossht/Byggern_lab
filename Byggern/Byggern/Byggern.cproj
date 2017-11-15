@@ -244,6 +244,12 @@
     <Compile Include="src\drivers\mcp2515.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\menu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\menu.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\pio.c">
       <SubType>compile</SubType>
     </Compile>
