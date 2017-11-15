@@ -322,6 +322,12 @@
     <Compile Include="src\exercises\ex07.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\FSM.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\FSM.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\hardware_init.c">
       <SubType>compile</SubType>
     </Compile>
