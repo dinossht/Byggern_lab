@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef CAN_HEADER_H_
-#define CAN_HEADER_H_
+#ifndef CAN_DEFINITIONS_H_
+#define CAN_DEFINITIONS_H_
 
 //ID[10..8]
 #define CAN_NODE_1_ID					0x100
@@ -54,4 +54,4 @@
 
 
 
-#endif /* CAN_HEADER_H_ */
+#endif /* CAN_DEFINITIONS_H_ */
