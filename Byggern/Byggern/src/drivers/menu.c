@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include "../multiboard/oled.h"
 #include "menu.h"
+#include "../FSM.h"
+#include "../game.h"
 
 
 // struct menu_t
@@ -281,7 +283,7 @@ void menu_draw()
 static void menu_setCurrentMenu(menu_t* menu)
 {
 	if(menu != NULL)
-		currentMenu = menu;		
+		currentMenu = menu;	
 }
 
 void menu_navigateToPreviusMenu()
@@ -321,6 +323,8 @@ static void game_navigateToCurrentEntry()
 	{		
 		case 2:
 			menu_setCurrentMenu(&gameScreenM);
+			//FSM_setGlobalState(PLAYING);
+			#warning May cause strange behaviour
 		break;
 	}	
 }
@@ -388,7 +392,40 @@ void menu_selectCurrentEntry()
 	uint8_t index = currentMenu->currentEntryIndex;
 	if(currentMenu->entries[index].isModifiableEntry == 1)
 	{
-		currentMenu->entrySelected = currentMenu->entrySelected == 1 ? 0 : 1;	
+		currentMenu->entrySelected = currentMenu->entrySelected == 1 ? 0 : 1;
+		
+		if (currentMenu->id == 1)
+		{
+			if (currentMenu->currentEntryIndex == 0 && currentMenu->entrySelected == 1)
+			{
+				//Gi muligheten for å bla opp og ned i brukere
+				#warning Should be implemented
+			}
+			else if (currentMenu->currentEntryIndex == 1 && currentMenu->entrySelected == 1)
+			{
+				//Gi muligheten for å bla opp og ned mellom inputs
+				#warning Should be implemented
+			}
+		}
+		else if(currentMenu->id == 2)
+		{
+			if(currentMenu->entrySelected == 1)
+			{
+				FSM_setGlobalState(TUNING);
+			}
+		}
+		
+		else if(currentMenu->id == 3){
+			if(currentMenu->currentEntryIndex == 0 && currentMenu->entrySelected == 1)
+			{
+				FSM_setGlobalState(LOGGING);
+			}
+			else if(currentMenu->currentEntryIndex == 1 && currentMenu->entrySelected == 1)
+			{
+				//Gi muligheten for å spille av log
+				#warning Should be implemented
+			}			
+		}
 	}	
 }
 
