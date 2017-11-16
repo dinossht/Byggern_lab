@@ -5,6 +5,9 @@
  *  Author: dinossht
  */ 
 
+#ifndef JOYSTICK_H_
+#define JOYSTICK_H_
+
 #include <stdint.h>
 
 typedef enum
@@ -27,4 +30,5 @@ pos_t;
 void joystick_calib(void);	
 int16_t joystick_getPos(pos_t pos);
 joystick_dir_t joystick_getDir(void);
-												  
+				
+#endif //JOYSTICK_H_								  
