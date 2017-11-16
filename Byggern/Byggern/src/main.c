@@ -51,7 +51,9 @@ int main (void)
  		
 				// Retrieve score
 				// Draw game over screen
-				// if highscore: Save username and score to SRAM
+				if (game_insertHighscore()){
+					//Save username and score to SRAM
+				}
  				// FSM_setGlobalState(MENU);
 			break;
 						
