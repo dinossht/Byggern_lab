@@ -49,3 +49,9 @@ struct can_message game_setLives_message =
 	.id = CAN_SET_LIVES_ID,
 	.length = 1,
 };
+
+struct can_message game_setController_message =
+{
+	.id = CAN_SET_CONTROLLER_ID,
+	.length = 1,
+};
