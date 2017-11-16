@@ -7,7 +7,7 @@
 
 #include "FSM.h"
 #include "drivers/CAN.h"
-#include "CAN_messages.h"
+#include "CAN/CAN_messages.h"
 
 
 
