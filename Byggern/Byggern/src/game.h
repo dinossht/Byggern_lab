@@ -10,6 +10,7 @@
 #define GAME_H_
 
 #include <stdint.h>
+#include "multiboard/joystick.h"
 
 typedef enum {
 	MULTIBOARD,
@@ -33,6 +34,22 @@ typedef struct{
 } settings_t;
 
 
+struct multiboard_states_t
+{
+	int8_t joystickPositionX;
+	int8_t joystickPositionY;
+	uint8_t joystickPressed;
+	
+	uint8_t	sliderLeftPosition;
+	uint8_t sliderRightPosition;
+
+	uint8_t leftButtonPressed;
+	uint8_t rightButtonPressed;
+
+	joystick_dir_t joystickDirection;
+//	uint8_t inUse;
+} multiboardStates;
+#warning This should probably be moved
 
 
 void game_init(void);
@@ -56,6 +73,9 @@ controller_t game_getController(void);
 
 uint8_t game_insertHighscore(void);
 
+
+
+void game_updateControllerInput(void);
 
 //Transmit
 void game_transmitControllerInput(void);

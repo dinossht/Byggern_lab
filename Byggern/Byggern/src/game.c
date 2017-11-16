@@ -15,7 +15,6 @@
  #include "CAN/CAN_messages.h"
  
  #include "multiboard/oled.h"
- #include "multiboard/joystick.h"
  #include "multiboard/slider.h"
  #include "multiboard/button.h"
  
@@ -108,6 +107,24 @@ uint8_t game_insertHighscore(){
 		return ( i + 1 );
 	}
 }
+
+
+void game_updateControllerInput(){
+	
+	multiboardStates.joystickPositionX = joystick_getPos(POS_X);
+	multiboardStates.joystickPositionY = joystick_getPos(POS_Y);
+	multiboardStates.joystickPressed = button_getStat(BUTTON_JOYSTICK);
+	
+	multiboardStates.sliderLeftPosition  = slider_getPos(SLIDER_LEFT);
+	multiboardStates.sliderRightPosition = slider_getPos(SLIDER_RIGHT);
+	
+	multiboardStates.leftButtonPressed  = button_getStat(BUTTON_LEFT);
+	multiboardStates.rightButtonPressed = button_getStat(BUTTON_RIGHT);
+	
+	multiboardStates.joystickDirection = joystick_getDir();
+//	multiboardStates.inUse = !game_settings.controller;
+}
+
 
 
  void game_transmitControllerInput(){
