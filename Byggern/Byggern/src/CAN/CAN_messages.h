@@ -23,10 +23,10 @@ struct can_message FSM_setNode2State_message;
 
 //Data
 struct can_message game_parameterTuning_message;
-
 struct can_message game_setLives_message;
-
 struct can_message game_setController_message;
+
+
 
 
 #endif /* CAN_MESSAGES_H_ */
