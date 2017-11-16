@@ -22,8 +22,7 @@
   #include "game.h"
  
 static settings_t game_settings = { //defaults
-	.user = "User1",
-	#warning Random name
+	.user = PLAYER1,
 	.score = 0,
 	.lives = 3,
 	.parameters[0] = 1,
@@ -32,15 +31,19 @@ static settings_t game_settings = { //defaults
 	.controller = MULTIBOARD,
 };
 
+uint8_t highscorePoints[5] = { 0 };
+uint8_t highscoreNames[5] = { 0 };
+
+
 void game_init(){
 	
 	can_message_send(&game_setLives_message);
 }
 
-void game_setUser(char* currentUser){
+void game_setUser(user_t currentUser){
 	game_settings.user = currentUser;
 }
-char* game_getUser(void){
+user_t game_getUser(void){
 	return game_settings.user;
 }
 
@@ -79,6 +82,22 @@ controller_t game_getController(void){
 }
 
 
+void game_insertHighscore(){
+	//uint8_t index;
+	uint8_t i;
+	for (i = 4; i >= 0; i--){ //compare
+		if (game_settings.score > highscorePoints[i]){
+			//index = i;
+			break;
+		}
+	}
+	for (uint8_t j = 3; j >= i; j--){
+		highscorePoints[ j + 1 ] = highscorePoints[ j ];
+		highscoreNames [ j + 1 ] = highscoreNames [ j ];
+	}
+	highscorePoints[ i ] = game_settings.score;
+	highscoreNames [ i ] = game_settings.user;
+}
 
 
  void game_transmitControllerInput(){
