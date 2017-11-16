@@ -274,6 +274,12 @@
     <Compile Include="src\drivers\sram.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\timer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\uart.c">
       <SubType>compile</SubType>
     </Compile>

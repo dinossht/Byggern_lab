@@ -12,12 +12,7 @@
 int main (void)
 {
 	hardware_init();
-	
-	//ex01();
-	//ex02();
-	//ex03();
-	//ex04();
-	//ex05();
+
 	ex07();
 	
 	return 0;
