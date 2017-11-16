@@ -45,22 +45,22 @@ void ex07()
 	{	
 		oled_clearScreen();
 
-		while(1)
-		{
-			static int i = 0;
-				
-			if(timer_isAFlagSet(EIGHT_KHZ_TIMER))
-			{	
-				if(i > 100)
-				{
-					oled_print("ks", 0, i / 100);
-				}
-
-				i++;
-				oled_updateScreen();
-				timer_reset(EIGHT_KHZ_TIMER);
-			}	
-		}
+// 		while(1)
+// 		{
+// 			static int i = 0;
+// 				
+// 			if(timer_isAFlagSet(EIGHT_KHZ_TIMER))
+// 			{	
+// 				if(i > 100)
+// 				{
+// 					oled_print("ks", 0, i / 100);
+// 				}
+// 
+// 				i++;
+// 				oled_updateScreen();
+// 				timer_reset(EIGHT_KHZ_TIMER);
+// 			}	
+// 		}
 
 	
 		
