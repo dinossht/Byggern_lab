@@ -31,6 +31,8 @@ void oled_drawPixel(uint8_t x, uint8_t y);
 
 void oled_print(char* string, uint8_t row, uint8_t col);
 
+void oled_displayLoading(uint8_t imgIndex, uint8_t x, uint8_t y);
+
 // should implement graphics functions such as draw line etc.
 
 // scroll menu function can be implemented if needed. Need to check data sheet for the graphic controller
