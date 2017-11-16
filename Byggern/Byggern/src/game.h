@@ -52,12 +52,15 @@ uint8_t* game_getParameters(void);
 void game_setController(controller_t currentController);
 controller_t game_getController(void);
 
+
+
 void game_insertHighscore(void);
 
+
+//Transmit
 void game_transmitControllerInput(void);
 
 void game_transmitParameters(void);
-
 
 
 #endif /* GAME_H_ */

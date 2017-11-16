@@ -36,8 +36,13 @@ uint8_t highscoreNames[5] = { 0 };
 
 
 void game_init(){
+	game_transmitParameters();
 	
+	game_setLives_message.data.u8[0] = game_settings.lives;
 	can_message_send(&game_setLives_message);
+	
+	game_setController_message.data.u8[0] = game_settings.controller;
+	can_message_send(&game_setController_message);
 }
 
 void game_setUser(user_t currentUser){
@@ -83,20 +88,18 @@ controller_t game_getController(void){
 
 
 void game_insertHighscore(){
-	//uint8_t index;
 	uint8_t i;
 	for (i = 4; i >= 0; i--){ //compare
 		if (game_settings.score > highscorePoints[i]){
-			//index = i;
 			break;
 		}
 	}
-	for (uint8_t j = 3; j >= i; j--){
+	for (uint8_t j = 3; j >= i; j--){ //make room for score
 		highscorePoints[ j + 1 ] = highscorePoints[ j ];
 		highscoreNames [ j + 1 ] = highscoreNames [ j ];
 	}
-	highscorePoints[ i ] = game_settings.score;
-	highscoreNames [ i ] = game_settings.user;
+	highscorePoints[ i ] = game_settings.score; //insert score
+	highscoreNames [ i ] = game_settings.user; //insert name of user
 }
 
 
@@ -125,5 +128,6 @@ void game_insertHighscore(){
 
 
 void game_transmitParameters(){
-		
+	return; 
+	#warning Not implemented
 }
