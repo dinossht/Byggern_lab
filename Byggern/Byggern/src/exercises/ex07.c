@@ -22,6 +22,8 @@
 #include "../drivers/CAN.h"
 #include "../drivers/sram.h"
 #include "../drivers/menu.h"
+#include "../drivers/timer.h"
+
 #include "../multiboard/oled.h"
 #include "../multiboard/joystick.h"
 #include "../multiboard/slider.h"
@@ -51,19 +53,51 @@ struct can_message button_message =
 	.data.u8[0] = 1
 };
 
-
-
-
 void ex07()
 {
 	can_init();
 	joystick_calib();
 	oled_init();
 	menu_init();
+	timer_init();
+	
+	sei();
+	
 	while(1)
 	{	
 		oled_clearScreen();
+
+		while(1)
+		{
+			static int i = 0;
+				
+			if(timer_isAFlagSet(EIGHT_KHZ_TIMER))
+			{	
+				if(i > 100)
+				{
+					oled_print("ks", 0, i / 100);
+				}
+
+				i++;
+				oled_updateScreen();
+				timer_reset(EIGHT_KHZ_TIMER);
+			}	
+		}
+
+	
+		
+		
+		
+		oled_clearScreen();
+		joyPos = joystick_getPos(POS_X);
+		
 		joystick_dir_t direction = joystick_getDir();
+		button_t button = button_getStat(BUTTON_JOYSTICK);
+		shoot = button_getStat(BUTTON_RIGHT);	
+		if(button == 1)
+		{
+			menu_selectCurrentEntry();
+		}	
 		
 		switch(direction)
 		{
@@ -79,13 +113,13 @@ void ex07()
 			
 			case RIGHT:
 				menu_navigateToCurrentEntry();
-				menu_selectCurrentEntry();
 			break;
 			
 			case LEFT:
 				menu_navigateToPreviusMenu();
 			break;
 		}		
+
 		menu_draw();
 		
 		oled_updateScreen();

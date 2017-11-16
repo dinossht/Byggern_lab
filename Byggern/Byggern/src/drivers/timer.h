@@ -9,8 +9,18 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
+#include <stdint.h>
 
 
+typedef enum
+{
+	EIGHT_KHZ_TIMER,
+	SIXTEEN_KHZ_TIMER
+}
+timer_n_t;
 
+void timer_init(void);
+void timer_reset(timer_n_t timer);
+uint8_t timer_isAFlagSet(timer_n_t timer);
 
 #endif /* TIMER_H_ */
