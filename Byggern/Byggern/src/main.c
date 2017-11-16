@@ -54,19 +54,19 @@ int main (void)
 				if (game_insertHighscore()){
 					//Save username and score to SRAM
 				}
- 				// FSM_setGlobalState(MENU);
+ 				//FSM_setGlobalState(MENU);
 			break;
 						
 			case LOGGING:
 				// Read CAN to recieve logged data
 				// Play logged data
-				// FSM_setGlobalState(TUNING);
+				FSM_setGlobalState(TUNING);
 			break;
 			
 			case TUNING:
 				// Draw tuning-menu
-				// Transmit new tuning parameters to node2
-				// FSM_setGlobalState(MENU);
+				game_transmitParameters();
+				FSM_setGlobalState(MENU);
 			break;
 		}
 	}	
