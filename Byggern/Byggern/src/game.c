@@ -87,19 +87,26 @@ controller_t game_getController(void){
 }
 
 
-void game_insertHighscore(){
+uint8_t game_insertHighscore(){
 	uint8_t i;
 	for (i = 4; i >= 0; i--){ //compare
-		if (game_settings.score > highscorePoints[i]){
+		if (game_settings.score < highscorePoints[i]){
+			i++;
 			break;
 		}
 	}
-	for (uint8_t j = 3; j >= i; j--){ //make room for score
-		highscorePoints[ j + 1 ] = highscorePoints[ j ];
-		highscoreNames [ j + 1 ] = highscoreNames [ j ];
+	if (i == 5){
+		return 0;
 	}
-	highscorePoints[ i ] = game_settings.score; //insert score
-	highscoreNames [ i ] = game_settings.user; //insert name of user
+	else{
+		for (uint8_t j = 3; j >= i; j--){ //make room for score
+			highscorePoints[ j + 1 ] = highscorePoints[ j ];
+			highscoreNames [ j + 1 ] = highscoreNames [ j ];
+		}
+		highscorePoints[ i ] = game_settings.score; //insert score
+		highscoreNames [ i ] = game_settings.user; //insert name of user
+		return ( i + 1 );
+	}
 }
 
 
@@ -128,6 +135,8 @@ void game_insertHighscore(){
 
 
 void game_transmitParameters(){
-	return; 
-	#warning Not implemented
+	for (uint8_t i = 0; i < 3; i++){
+		game_parameterTuning_message.data.u8[i] = game_settings.parameters[i];
+	}
+	can_message_send(&game_parameterTuning_message);
 }
