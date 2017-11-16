@@ -7,7 +7,7 @@
 
 #include "hardware_init.h"
 #include "FSM.h"
-#include "CAN_messages.h"
+#include "game.h"
 
 #include "drivers/mcp2515.h"
 #include "drivers/spi.h"
@@ -18,12 +18,8 @@
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
-#include "exercises/ex01.h"
-#include "exercises/ex02.h"
-#include "exercises/ex03.h"
-#include "exercises/ex04.h"
-#include "exercises/ex05.h"
-//#include "exercises/ex07.h"
+#include "CAN/CAN_wrapper.h"
+#include "CAN/CAN_messages.h"
 
 
 int main (void)
@@ -38,39 +34,37 @@ int main (void)
 		CAN_wrapper_updateStates();
 		switch(FSM_getGlobalState())
 		{
+			case MENU:
+				// Draw current menu
+				// Read menu choices
+				// if (choice == play){ FSM_setGlobalState(PLAYING) }
+				// else if (choice == logging){ FSM_setGlobalState(PLAYING) }
+				// else if (choice == tuning){ FSM_setGlobalState(TUNING) }
+			break;
+
 			case PLAYING:
-				joystick_message.data.i8[0] = joystick_getPos(POS_X);
-				joystick_message.data.i8[1] = joystick_getPos(POS_Y); 
-				joystick_message.data.u8[2] = button_getStat(BUTTON_JOYSTICK);
-				can_message_send(&joystick_message);
+			while (lives!=0){
+				game_transmitControllerInput();
 				
-				_delay_ms(10);
-				
-				slider_message.data.u8[0] = slider_getPos(SLIDER_LEFT);
-				slider_message.data.u8[1] = slider_getPos(SLIDER_RIGHT);
-				can_message_send(&slider_message);
-				printf("%d\n", slider_message.data.u8[1]);	
-				
-				_delay_ms(10);
-				
-				button_message.data.u8[0] = button_getStat(BUTTON_LEFT);
-				button_message.data.u8[1] = button_getStat(BUTTON_RIGHT);
-				can_message_send(&button_message);
-				
-				_delay_ms(10);
+			}
+ 		
+			// Retrieve score
+			// Draw game over screen
+			// Save username and score to SRAM
+ 			// FSM_setGlobalState(MENU);
+
+			break;
+						
+			case LOGGING:
+				// Read CAN to recieve logged data
+				// Play logged data
+				// FSM_setGlobalState(TUNING);
 			break;
 			
-			case(GAMEOVER):
-			#warning Automagically restarts game if you lose, shold be fixed
-				FSM_setGlobalState(PLAYING);
-			break;
-			
-			case(LOGGING):
-				
-			break;
-			
-			case (TUNING):
-				
+			case TUNING:
+				// Draw tuning-menu
+				// Transmit new tuning parameters to node2
+				// FSM_setGlobalState(MENU);
 			break;
 		}
 		
