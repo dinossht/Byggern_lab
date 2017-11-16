@@ -208,6 +208,12 @@
     <Compile Include="src\CAN_definitions.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\CAN_messages.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\CAN_messages.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\drivers\adc.c">
       <SubType>compile</SubType>
     </Compile>
