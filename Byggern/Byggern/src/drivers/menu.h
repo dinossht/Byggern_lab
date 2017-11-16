@@ -70,6 +70,11 @@ menu_t highScoreM;
 
 menu_t* currentMenu;
 
+extern int8_t joyPos;
+extern uint8_t shoot;
+
+char* numberToString(uint8_t number);
+
 void menu_init(void);
 
 void menu_draw(void);

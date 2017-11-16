@@ -44,7 +44,7 @@ menu_t mainM =
 
 entry_t gameEntries[NR_GAME_ENTRIES] =
 {
-	{.label = "User", .value = 0, .isModifiableEntry = 1},
+	{.label = "User", .value = 0, .maxValue = 5, .isModifiableEntry = 1},
 	{.label = "Input", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
 	{.label = "Start", .value = 0}
 };
@@ -104,7 +104,7 @@ menu_t animationM =
 
 menu_t gameScreenM = 
 {
-	.title = "GAME SCREEN",
+	.title = "Pong",
 	.id = 5,
 	.nrOfEntries = 0,
 	.currentEntryIndex = 0,
@@ -128,11 +128,20 @@ menu_t highScoreM =
 	.entrySelected = 0
 };
 
+int8_t joyPos;
+uint8_t shoot;
+
 static void menu_setCurrentMenu(menu_t* menu);
 static void menu_initEntries(menu_t* menu, entry_t* entries);
 
 static void main_navigateToCurrentEntry(void);
 static void game_navigateToCurrentEntry(void);
+
+static void menu_drawRegularMenu(void);
+static void animation_draw(void);
+static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t lives, uint8_t isBallHit);
+static void drawPong(uint8_t pongPosition, uint8_t isBallHit);
+static void drawShoot(uint8_t pongPosition);
 
 void menu_init()
 {
@@ -153,13 +162,13 @@ static void menu_initEntries(menu_t* menu, entry_t* entries)
 	}
 }
 
-void menu_draw()
+static void menu_drawRegularMenu()
 {
 	oled_print(currentMenu->title, 0, 0);
-	
+			
 	for(uint8_t i = 0; i < currentMenu->nrOfEntries; i++)
 	{
-		oled_print(currentMenu->entries[i].label, 2 + i, 9);	
+		oled_print(currentMenu->entries[i].label, 2 + i, 9);
 		if(i == currentMenu->currentEntryIndex)
 		{
 			oled_print(">",  2 + i, 0);
@@ -168,13 +177,104 @@ void menu_draw()
 				oled_print(currentMenu->entries[i].label, 2 + i, 10);
 			}
 		}
-		
+				
 		if(currentMenu->entries[i].isModifiableEntry == 1 || currentMenu->entries[i].isValueEntry == 1)
 		{
-			char str[2];
-			sprintf(str, "%d", currentMenu->entries[i].value);
-			oled_print(str, 2 + i, 104);	
+			oled_print(numberToString(currentMenu->entries[i].value), 2 + i, 104);
 		}
+	}
+}
+
+char* numberToString(uint8_t number)
+{
+	char str[3];
+	sprintf(str, "%d", number);
+	return str;
+}
+
+static void animation_draw()
+{
+	oled_clearScreen();
+	for(uint8_t i = 1; i < 9; i++)
+	{
+		oled_displayLoading(i, 56, 3);
+		oled_updateScreen();	
+	}
+}
+
+static void drawPongBoard(uint8_t pongPosition)
+{
+	uint8_t pongSize = 16;
+	for(uint8_t i = 0; i < pongSize; i++)
+	{
+		oled_drawPixel(pongPosition + i, 62);
+		oled_drawPixel(pongPosition + i, 63);
+	}
+}
+
+static void drawShoot(uint8_t pongPosition)
+{
+	uint8_t pongSize = 16;
+	uint8_t shootHeight = 14;
+	
+	uint8_t x = pongPosition;
+	uint8_t y = 54;
+	for(uint8_t i = 0; i < shootHeight; i++)
+	{
+		
+		for (uint8_t j = 0; j < pongSize - 2 * i; j++)
+		{
+			oled_drawPixel(x, y);		
+			x++;
+		}
+		y++;	
+		x = pongPosition + i;
+	}		
+}
+
+static void drawPong(uint8_t pongPosition, uint8_t isBallHit)
+{
+	drawPongBoard(pongPosition);
+	
+	if(isBallHit == 1)
+	{
+		drawShoot(pongPosition);	
+	}
+}
+
+static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t lives, uint8_t isBallHit)
+{
+	oled_print(currentMenu->title, 0, 0);
+	switch(gameState)
+	{
+		case 0: // playing
+			oled_print("Lives:", 0, 80);
+			oled_print(numberToString(lives), 1, 104);	
+			
+			drawPong(pongPosition, isBallHit);
+		break;
+	}				
+}
+
+void menu_draw()
+{
+	switch(currentMenu->id)
+	{
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 6:
+			menu_drawRegularMenu();
+		break;
+		
+		case 4:
+			animation_draw();
+		break;
+		
+		case 5:	
+			gameScreen_draw(joyPos, 0, 9, shoot);				
+		break;
 	}
 }
 
