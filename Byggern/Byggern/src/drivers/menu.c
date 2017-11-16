@@ -25,11 +25,11 @@
 
 entry_t mainEntries[NR_MAIN_ENTRIES] =
 {
-	{.label = "Game", .value = 0, .isValueEntry = 0},
-	{.label = "Tune-PID", .value = 0, .isValueEntry = 0},
-	{.label = "Data Logger", .value = 0, .isValueEntry = 0},
-	{.label = "Animation", .value = 0, .isValueEntry = 0},
-	{.label = "High Score", .value = 0, .isValueEntry = 1},
+	{.label = "Game", .value = 0},
+	{.label = "Tune-PID", .value = 0},
+	{.label = "Data Logger", .value = 0,},
+	{.label = "Animation", .value = 0,},
+	{.label = "High Score", .value = 0, .maxValue = 100, .isValueEntry = 1},
 };
 
 menu_t mainM =
@@ -39,14 +39,14 @@ menu_t mainM =
 	.nrOfEntries = NR_MAIN_ENTRIES,
 	.currentEntryIndex = 0,
 	.previousMenu = NULL,
-	.entries = mainEntries
+	.entrySelected = 0
 };
 
 entry_t gameEntries[NR_GAME_ENTRIES] =
 {
-	{.label = "User", .value = 0, .isValueEntry = 1},
-	{.label = "Input", .value = 0, .isValueEntry = 1},
-	{.label = "Start", .value = 0, .isValueEntry = 0}
+	{.label = "User", .value = 0, .isModifiableEntry = 1},
+	{.label = "Input", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
+	{.label = "Start", .value = 0}
 };
 
 menu_t gameM = 
@@ -55,14 +55,15 @@ menu_t gameM =
 	.id = 1,
 	.nrOfEntries = NR_GAME_ENTRIES,
 	.currentEntryIndex = 0,
-	.previousMenu = &mainM
+	.previousMenu = &mainM,
+	.entrySelected = 0
 };
 
 entry_t tuneEntries[NR_TUNE_ENTRIES] =
 {
-	{.label = "Kp", .value = 0, .isValueEntry = 1},
-	{.label = "Ki", .value = 0, .isValueEntry = 1},
-	{.label = "Kd",	.value = 0, .isValueEntry = 1}
+	{.label = "Kp", .value = 0, .maxValue = 100, .isModifiableEntry = 1},
+	{.label = "Ki", .value = 0, .maxValue = 100, .isModifiableEntry = 1},
+	{.label = "Kd",	.value = 0, .maxValue = 100, .isModifiableEntry = 1}
 };
 
 menu_t tunePidM = 
@@ -71,13 +72,14 @@ menu_t tunePidM =
 	.id = 2,
 	.nrOfEntries = NR_TUNE_ENTRIES, 
 	.currentEntryIndex = 0,
-	.previousMenu = &mainM
+	.previousMenu = &mainM,
+	.entrySelected = 0
 };
 
 entry_t loggingEntries[NR_LOGGING_ENTRIES] =
 {
-	{.label = "Start Logging", .value = 0},
-	{.label = "Start Playback", .value = 0}
+	{.label = "Log", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
+	{.label = "Playback", .value = 0, .maxValue = 1, .isModifiableEntry = 1}
 };
 
 menu_t dataLoggingM = 
@@ -86,7 +88,8 @@ menu_t dataLoggingM =
 	.id = 3,
 	.nrOfEntries = NR_LOGGING_ENTRIES, 
 	.currentEntryIndex = 0,
-	.previousMenu = &mainM
+	.previousMenu = &mainM,
+	.entrySelected = 0
 };
 
 menu_t animationM = 
@@ -95,7 +98,8 @@ menu_t animationM =
 	.id = 4,
 	.nrOfEntries = 0,
 	.currentEntryIndex = 0,
-	.previousMenu = &mainM
+	.previousMenu = &mainM,
+	.entrySelected = 0
 };
 
 menu_t gameScreenM = 
@@ -104,7 +108,24 @@ menu_t gameScreenM =
 	.id = 5,
 	.nrOfEntries = 0,
 	.currentEntryIndex = 0,
-	.previousMenu = &gameM
+	.previousMenu = &gameM,
+	.entrySelected = 0
+};
+
+entry_t highScoreEntries[NR_HIGHSCORE_ENTRIES] =
+{
+	{.label = "Player:", .value = 0, .maxValue = 10, .isValueEntry = 1},
+	{.label = "High Score:", .value = 0, .maxValue = 100, .isValueEntry = 1}
+};
+
+menu_t highScoreM =
+{
+	.title = "High Score",
+	.id = 6,
+	.nrOfEntries = 2,
+	.currentEntryIndex = 0,
+	.previousMenu = &mainM,
+	.entrySelected = 0
 };
 
 static void menu_setCurrentMenu(menu_t* menu);
@@ -138,15 +159,21 @@ void menu_draw()
 	
 	for(uint8_t i = 0; i < currentMenu->nrOfEntries; i++)
 	{
-		oled_print(currentMenu->entries[i].label, 2 + i, 1);	
+		oled_print(currentMenu->entries[i].label, 2 + i, 9);	
 		if(i == currentMenu->currentEntryIndex)
+		{
 			oled_print(">",  2 + i, 0);
+			if(currentMenu->entrySelected == 1)
+			{
+				oled_print(currentMenu->entries[i].label, 2 + i, 10);
+			}
+		}
 		
-		if(currentMenu->entries[i].isValueEntry == 1)
+		if(currentMenu->entries[i].isModifiableEntry == 1 || currentMenu->entries[i].isValueEntry == 1)
 		{
 			char str[2];
 			sprintf(str, "%d", currentMenu->entries[i].value);
-			oled_print(str, 2 + i, 14);	
+			oled_print(str, 2 + i, 104);	
 		}
 	}
 }
@@ -159,7 +186,10 @@ static void menu_setCurrentMenu(menu_t* menu)
 
 void menu_navigateToPreviusMenu()
 {
-	menu_setCurrentMenu(currentMenu->previousMenu);	
+	if(currentMenu->entrySelected == 0)
+	{
+		menu_setCurrentMenu(currentMenu->previousMenu);		
+	}
 }
 
 static void main_navigateToCurrentEntry()
@@ -197,22 +227,24 @@ static void game_navigateToCurrentEntry()
 
 void menu_navigateToCurrentEntry()
 {
-	switch(currentMenu->id)
+	if(currentMenu->entrySelected == 0)
 	{
-		case 0:
-			main_navigateToCurrentEntry();	
-		break;
-		
-		case 1:
-			game_navigateToCurrentEntry();	
-		break;
-	}
+		switch(currentMenu->id)
+		{
+			case 0:
+				main_navigateToCurrentEntry();
+			break;
 			
+			case 1:
+				game_navigateToCurrentEntry();
+			break;
+		}	
+	}		
 }
 
 void menu_scrollEntry(scroll_dir_t direction)
 {
-	if(currentMenu->nrOfEntries > 0)
+	if(currentMenu->nrOfEntries > 0 && currentMenu->entrySelected == 0)
 	{
 		switch(direction)
 		{
@@ -240,4 +272,35 @@ void menu_scrollEntry(scroll_dir_t direction)
 			break;
 		}	
 	}	
+}
+
+void menu_modEntry(uint8_t value)
+{
+	uint8_t index = currentMenu->currentEntryIndex;
+	if(currentMenu->entries[index].isModifiableEntry == 1)
+	{
+		currentMenu->entries[index].value = value;				
+	}
+}
+
+void menu_selectCurrentEntry()
+{
+	uint8_t index = currentMenu->currentEntryIndex;
+	if(currentMenu->entries[index].isModifiableEntry == 1)
+	{
+		currentMenu->entrySelected = currentMenu->entrySelected == 1 ? 0 : 1;	
+	}	
+}
+
+void menu_incrementEntryValue(uint8_t increment)
+{
+	uint8_t index = currentMenu->currentEntryIndex;
+	if(currentMenu->entries[index].isModifiableEntry == 1 && currentMenu->entrySelected == 1)
+	{
+		if(increment == 0 && currentMenu->entries[index].value > 0)
+			currentMenu->entries[index].value--;
+		
+		if(increment == 1 && currentMenu->entries[index].value < currentMenu->entries[index].maxValue)
+			currentMenu->entries[index].value++;		
+	}
 }

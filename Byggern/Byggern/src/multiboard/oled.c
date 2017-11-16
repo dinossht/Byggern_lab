@@ -198,7 +198,7 @@ void oled_print(char* string, uint8_t row, uint8_t col)
 	
 	while(currentChar != '\0')
 	{
-		oled_putChar(currentChar, row, (col + index) * FONT_WIDTH);
+		oled_putChar(currentChar, row, col + index * FONT_WIDTH);
 			
 		index++;
 		

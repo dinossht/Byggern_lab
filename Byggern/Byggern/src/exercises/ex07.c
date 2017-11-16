@@ -60,44 +60,35 @@ void ex07()
 	joystick_calib();
 	oled_init();
 	menu_init();
-	//menu_initEntries(%gameM, gameEntries);
 	while(1)
 	{	
 		oled_clearScreen();
 		joystick_dir_t direction = joystick_getDir();
 		
-		
-		
 		switch(direction)
 		{
 			case UP:
 				menu_scrollEntry(SCROLL_UP);
+				menu_incrementEntryValue(1);
 			break;
 			
 			case DOWN:
 				menu_scrollEntry(SCROLL_DOWN);
+				menu_incrementEntryValue(0);
 			break;
 			
 			case RIGHT:
 				menu_navigateToCurrentEntry();
+				menu_selectCurrentEntry();
 			break;
 			
 			case LEFT:
 				menu_navigateToPreviusMenu();
 			break;
-		}
-		
-		
-		//oled_print("Hei", x / 12, 0);
-		//menu_draw(&mainM);
-		//mainM.currentEntryIndex = x;
-		
-		//menu_navigateToPreviusMenu(&tunePidM);
-		
+		}		
 		menu_draw();
 		
 		oled_updateScreen();
 		_delay_ms(100);
-		//while(1);
 	}	
 }

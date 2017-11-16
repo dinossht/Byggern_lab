@@ -20,6 +20,8 @@ typedef struct
 {
 	char* label;
 	uint8_t value;
+	uint8_t maxValue;
+	uint8_t isModifiableEntry;
 	uint8_t isValueEntry;
 }entry_t;
 
@@ -33,6 +35,7 @@ struct menu_t
 	uint8_t nrOfEntries;
 	
 	menu_t* previousMenu;
+	uint8_t entrySelected;
 };
 
 typedef enum 
@@ -61,6 +64,10 @@ menu_t animationM;
 
 menu_t gameScreenM;
 
+#define NR_HIGHSCORE_ENTRIES 2
+entry_t highScoreEntries[NR_HIGHSCORE_ENTRIES];
+menu_t highScoreM;
+
 menu_t* currentMenu;
 
 void menu_init(void);
@@ -71,5 +78,9 @@ void menu_navigateToPreviusMenu(void);
 void menu_navigateToCurrentEntry(void);
 
 void menu_scrollEntry(scroll_dir_t direction);
+
+void menu_modEntry(uint8_t value);
+void menu_incrementEntryValue(uint8_t increment);
+void menu_selectCurrentEntry(void);
 
 #endif /* MENU_H_ */
