@@ -14,8 +14,7 @@
 
 #include "FSM.h"
 #include "game.h"
-#include "drivers/CAN.h"
-#include "CAN/CAN_wrapper.h"
+#include "drivers/can.h"
 
 
 static void navigateMenu(joystick_dir_t joystickDirection);

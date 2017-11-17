@@ -1,7 +1,7 @@
 /*
- * CAN_wrapper.h
+ * can_wrapper.h
  *
- * Created: 11/15/2017 6:51:42 PM
+ * Created: 11/17/2017 6:36:45 PM
  *  Author: dinos
  */ 
 
@@ -10,7 +10,7 @@
 #define CAN_WRAPPER_H_
 
 
-void CAN_wrapper_updateStates(void);
+
 
 
 #endif /* CAN_WRAPPER_H_ */

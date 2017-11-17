@@ -1,34 +1,6 @@
 /*
- * CAN_wrapper.c
+ * can_wrapper.c
  *
- * Created: 11/15/2017 6:51:15 PM
+ * Created: 11/17/2017 6:36:37 PM
  *  Author: dinos
  */ 
-
-#include <stdint.h>
-#include <asf.h>
-#include <stdio.h>
-#include "../drivers/CAN.h"
-#include "CAN_wrapper.h"
-#include "can_definitions.h"
-#include "../FSM.h"
-#include "../game.h"
-
-
-
-void CAN_wrapper_updateStates()
-{
-	struct can_message_t recieveMessage;
-
-	
-	recieveMessage = can_recieveMessage();
-	switch(recieveMessage.id)
-	{
-// 	case CAN_STATE_FROMNODE2_ID:
-// 		FSM_setGlobalState(recieveMessage.data.u8[0]);
-// 	break;
-// 	case CAN_REMAINING_LIVES_ID:
-// 		game_setLives(recieveMessage.data.u8[0]);
-	}
-	
-}

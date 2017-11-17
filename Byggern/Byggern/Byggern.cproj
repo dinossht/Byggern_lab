@@ -216,13 +216,13 @@
     <Compile Include="src\can\can_messages.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can\CAN_messages.h">
+    <Compile Include="src\can\can_messages.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can\CAN_wrapper.c">
+    <Compile Include="src\can\can_wrapper.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\can\CAN_wrapper.h">
+    <Compile Include="src\can\can_wrapper.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\adc.c">
