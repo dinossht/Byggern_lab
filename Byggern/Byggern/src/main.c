@@ -4,8 +4,10 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-#include "hardware_init.h"
 #include "drivers/timer.h"
+#include "drivers/uart.h"
+#include "drivers/latch.h"
+
 #include "FSM.h"
 #include "game.h"
 
@@ -29,13 +31,18 @@ static void updateMultiboard(void);
 
 int main (void)
 {
-	hardware_init();
+	// Enable external memory
+	MCUCR |= (1 << SRE);
+	uart_init();
+	latch_init();
 	can_init();
-	joystick_calib();
 	timer_init();
 	oled_init();
-	menu_init();
 	
+	joystick_calib();
+	fsm_init();
+	menu_init();
+
 	while(1)
 	{
 		if(timer_isAFlagSet(SIXTY_HZ_TIMER) == 1)

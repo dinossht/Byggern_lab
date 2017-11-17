@@ -331,12 +331,6 @@
     <Compile Include="src\game.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\hardware_init.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\hardware_init.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\multiboard\button.c">
       <SubType>compile</SubType>
     </Compile>

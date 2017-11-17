@@ -14,7 +14,7 @@
 #define BAUD 9600
 
 // UART0 initialization routine
-void uart0_init()
+void uart_init()
 {
 	/* Set UART baudrate */
 	UBRR0L = (F_CPU / 16 / BAUD - 1);

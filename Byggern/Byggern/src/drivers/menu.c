@@ -154,6 +154,8 @@ void menu_init()
 	menu_initEntries(&dataLoggingM, loggingEntries);
 	menu_initEntries(&animationM, NULL);
 	menu_initEntries(&gameScreenM, NULL);
+	
+	oled_clearScreen();
 }
 
 static void menu_initEntries(menu_t* menu, entry_t* entries)
