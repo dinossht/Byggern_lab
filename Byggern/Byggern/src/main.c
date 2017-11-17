@@ -17,6 +17,7 @@
 
 #include "multiboard_data.h"
 #include "ps3_data.h"
+#include "pong_data.h"
 #include "fsm.h"
 #include "game.h"
 
@@ -34,8 +35,9 @@ int main (void)
 	oled_init();
 	/*****************/
 	
-	ps3_init();
+	ps3_data_init();
 	multiboard_data_init();
+	pong_data_init();
 	fsm_init();
 	menu_init();
 

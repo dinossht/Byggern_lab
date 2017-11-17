@@ -8,7 +8,7 @@
 #include "ps3_data.h"
 
 
-void ps3_init()
+void ps3_data_init()
 {
 	ps3_data.joystickLeftPositionX = 0;
 	ps3_data.joystickLeftPositionY = 0;

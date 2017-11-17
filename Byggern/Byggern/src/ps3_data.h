@@ -22,7 +22,7 @@ struct ps3_inputs_t
 }
 ps3_data;
 
-void ps3_init(void);
+void ps3_data_init(void);
 
 
 
