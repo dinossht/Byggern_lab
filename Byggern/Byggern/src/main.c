@@ -84,9 +84,10 @@ int main (void)
 			case PLAYING:
 			#warning There is something wrong here! Screen doesnt work when something in here is not uncommented
 //				game_init(); //Transmits game data to Node2
-				while (game_getLives() > 0) {
-					game_transmitControllerInput();	
-				}
+//				while (game_getLives() > 0) {
+//					game_transmitControllerInput();	
+//				}
+			#warning Busy waiting will fuck up evrything 
 // 		
 //				// Retrieve score
 //				// Draw game over screen
