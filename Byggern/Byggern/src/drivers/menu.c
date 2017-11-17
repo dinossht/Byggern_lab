@@ -323,8 +323,7 @@ static void game_navigateToCurrentEntry()
 	{		
 		case 2:
 			menu_setCurrentMenu(&gameScreenM);
-			//FSM_setGlobalState(PLAYING);
-			#warning May cause strange behaviour
+			FSM_setGlobalState(GAME_PLAY);
 		break;
 	}	
 }
@@ -418,7 +417,7 @@ void menu_selectCurrentEntry()
 		else if(currentMenu->id == 3){
 			if(currentMenu->currentEntryIndex == 0 && currentMenu->entrySelected == 1)
 			{
-				FSM_setGlobalState(LOGGING);
+				FSM_setGlobalState(DATA_LOGGING);
 			}
 			else if(currentMenu->currentEntryIndex == 1 && currentMenu->entrySelected == 1)
 			{

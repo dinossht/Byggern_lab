@@ -72,7 +72,7 @@ void timer_reset(timer_n_t timer)
 {
 	switch(timer)
 	{		
-		case EIGHT_KHZ_TIMER:
+		case SIXTY_HZ_TIMER:
 		eight_kHz_flag = 0;
 		break;
 		
@@ -86,7 +86,7 @@ uint8_t timer_isAFlagSet(timer_n_t timer)
 {
 	switch(timer)
 	{		
-		case EIGHT_KHZ_TIMER:
+		case SIXTY_HZ_TIMER:
 		return eight_kHz_flag;
 		
 		case SIXTEEN_KHZ_TIMER:

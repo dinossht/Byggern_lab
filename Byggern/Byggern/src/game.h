@@ -43,12 +43,12 @@ struct multiboard_states_t
 	uint8_t	sliderLeftPosition;
 	uint8_t sliderRightPosition;
 
-	uint8_t leftButtonPressed;
-	uint8_t rightButtonPressed;
+	uint8_t buttonLeftPressed;
+	uint8_t buttonRightPressed;
 
 	joystick_dir_t joystickDirection;
 //	uint8_t inUse;
-} multiboardStates;
+} multiboardInputs;
 #warning This should probably be moved
 
 

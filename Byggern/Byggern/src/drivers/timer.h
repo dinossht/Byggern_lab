@@ -14,7 +14,7 @@
 
 typedef enum
 {
-	EIGHT_KHZ_TIMER,
+	SIXTY_HZ_TIMER,
 	SIXTEEN_KHZ_TIMER
 }
 timer_n_t;

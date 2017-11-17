@@ -79,21 +79,21 @@ void ex07()
 		
 		switch(direction)
 		{
-			case UP:
+			case JOY_UP:
 				menu_scrollEntry(SCROLL_UP);
 				menu_incrementEntryValue(1);
 			break;
 			
-			case DOWN:
+			case JOY_DOWN:
 				menu_scrollEntry(SCROLL_DOWN);
 				menu_incrementEntryValue(0);
 			break;
 			
-			case RIGHT:
+			case JOY_RIGHT:
 				menu_navigateToCurrentEntry();
 			break;
 			
-			case LEFT:
+			case JOY_LEFT:
 				menu_navigateToPreviusMenu();
 			break;
 		}		

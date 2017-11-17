@@ -36,7 +36,7 @@ void ex04(void)
 	
 	joystick_calib();
 	
-	joystick_dir_t currentDir = NEUTRAL;
+	joystick_dir_t currentDir = JOY_NEUTRAL;
 	uint8_t currentMenuIndex = 0;
 
 	while(1)
@@ -63,19 +63,19 @@ static void joystick_printDir(joystick_dir_t dir, uint8_t lineNr, uint8_t colNr)
 
 	switch(dir)
 	{
-		case UP:
+		case JOY_UP:
 			oled_print("UP", 5, colNr + 20);
 			break;
-		case DOWN:
+		case JOY_DOWN:
 			oled_print("DN", 5, colNr + 20);
 			break;
-		case LEFT:
+		case JOY_LEFT:
 			oled_print("LT", 5, colNr + 20);
 			break;
-		case RIGHT:
+		case JOY_RIGHT:
 			oled_print("RT", 5, colNr + 20);
 			break;
-		case NEUTRAL:
+		case JOY_NEUTRAL:
 			oled_print("NL", 5, colNr + 20);
 			break;
 	}	
@@ -115,11 +115,11 @@ static void slider_displaySlidersPos()
 
 static uint8_t joystick_updateCurrentMenu(joystick_dir_t current_dir, uint8_t index)
 {
-	if(current_dir == UP)
+	if(current_dir == JOY_UP)
 	{
 		index--;
 	}
-	else if(current_dir == DOWN)
+	else if(current_dir == JOY_DOWN)
 	{
 		index++;
 	}
