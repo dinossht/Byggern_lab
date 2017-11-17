@@ -9,6 +9,9 @@
 #ifndef PS3_H_
 #define PS3_H_
 
+#include <stdint.h>
+
+
 struct ps3_inputs_t
 {
 	int8_t joystickLeftPositionX;
@@ -19,12 +22,6 @@ struct ps3_inputs_t
 }
 ps3Inputs;
 
-void ps3_init()
-{
-	ps3Inputs.joystickLeftPositionX = 0;
-	ps3Inputs.joystickLeftPositionY = 0;
-	ps3Inputs.joystickRightPositionX = 0;	
-	ps3Inputs.joystickRightPositionY = 0;
-}
+void ps3_init(void);
 
 #endif /* PS3_H_ */

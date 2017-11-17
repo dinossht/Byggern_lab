@@ -13,7 +13,7 @@
 #include "multiboard/joystick.h"
 
 
-struct multiboard_states_t
+struct multiboard_inputs_t
 {
 	int8_t joystickPositionX;
 	int8_t joystickPositionY;
@@ -28,6 +28,9 @@ struct multiboard_states_t
 	joystick_dir_t joystickDirection;
 } 
 multiboardInputs;
+
+void multiboard_init(void);
+void multiboard_updateInputs(void);
 
 
 #endif /* MULTIBOARD_H_ */

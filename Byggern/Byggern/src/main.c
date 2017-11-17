@@ -54,7 +54,7 @@ int main (void)
 			//can_message_send();
 		}
 		
-		updateMultiboard();
+		multiboard_updateInputs();
 		
 		fsm_state_t fsmState = fsm_getCurrentState();
 		switch(fsmState)
@@ -104,16 +104,4 @@ static void navigateMenu(joystick_dir_t joystickDirection)
 			menu_navigateToPreviusMenu();
 		break;
 	}
-}
-
-static void updateMultiboard()
-{
-	multiboardInputs.joystickDirection = joystick_getDir();
-	multiboardInputs.joystickPositionX = joystick_getPos(POS_X);
-	multiboardInputs.joystickPositionY = joystick_getPos(POS_Y);
-	multiboardInputs.buttonLeftPressed = button_getStat(BUTTON_LEFT);
-	multiboardInputs.buttonRightPressed = button_getStat(BUTTON_RIGHT);
-	multiboardInputs.joystickPressed = button_getStat(BUTTON_JOYSTICK);
-	multiboardInputs.sliderLeftPosition = slider_getPos(SLIDER_LEFT);
-	multiboardInputs.sliderRightPosition = slider_getPos(SLIDER_RIGHT);
 }

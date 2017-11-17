@@ -312,6 +312,9 @@
     <Compile Include="src\game.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\multiboard.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\multiboard.h">
       <SubType>compile</SubType>
     </Compile>
@@ -337,6 +340,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\multiboard\slider.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ps3.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ps3.h">
