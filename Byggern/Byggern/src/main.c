@@ -56,6 +56,7 @@ int main (void)
 		{
 			can_wrapper_recieveMessages();
 			//send message
+			#warning Implement can send messaage function
 			timer_reset(SIXTEEN_KHZ_TIMER);
 		}
 		
@@ -69,9 +70,9 @@ int main (void)
 			break;
 			
 			case GAME_PLAY:
-				//playGame();
+				game_play();
 			break;
-			
+			#warning create datalogger and pid param headers and functions
 			case DATA_LOGGING:
 				//logData();
 			break;
