@@ -10,7 +10,7 @@
 #define CAN_WRAPPER_H_
 
 
-
-
+void can_wrapper_recieveMessages(void);
+void can_wapper_sendMessages(void);
 
 #endif /* CAN_WRAPPER_H_ */

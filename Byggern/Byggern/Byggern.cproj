@@ -324,6 +324,9 @@
     <Compile Include="src\multiboard\joystick.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\multiboard\multiboard.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\multiboard\oled.c">
       <SubType>compile</SubType>
     </Compile>

@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include "multiboard/joystick.h"
+#include "multiboard/multiboard.h"
 
 typedef enum {
 	MULTIBOARD,
@@ -33,22 +34,6 @@ typedef struct{
 	controller_t controller;
 } settings_t;
 
-
-struct multiboard_states_t
-{
-	int8_t joystickPositionX;
-	int8_t joystickPositionY;
-	uint8_t joystickPressed;
-	
-	uint8_t	sliderLeftPosition;
-	uint8_t sliderRightPosition;
-
-	uint8_t buttonLeftPressed;
-	uint8_t buttonRightPressed;
-
-	joystick_dir_t joystickDirection;
-//	uint8_t inUse;
-} multiboardInputs;
 #warning This should probably be moved
 
 
