@@ -14,7 +14,7 @@
 void can_wrapper_recieveMessages()
 {
 	struct can_message_t message;
-	#pragma message("fix so can_recieve returns boolean")
+	#pragma message("fix so can_recieve returns boolean as in node 1")
 	if(/*can_recieveMessage() == 1*/1)
 	{
 		switch(message.id)

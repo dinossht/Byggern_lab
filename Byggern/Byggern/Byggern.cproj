@@ -339,6 +339,9 @@
     <Compile Include="src\multiboard\slider.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ps3.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\settings.h">
       <SubType>compile</SubType>
     </Compile>

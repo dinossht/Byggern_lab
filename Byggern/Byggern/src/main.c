@@ -6,15 +6,17 @@
 #include "drivers/uart.h"
 #include "drivers/latch.h"
 #include "drivers/menu.h"
+#include "drivers/can.h"
 
 #include "multiboard/oled.h"
 #include "multiboard/joystick.h"
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
-#include "FSM.h"
+#include "multiboard.h"
+#include "ps3.h"
+#include "fsm.h"
 #include "game.h"
-#include "drivers/can.h"
 
 
 static void navigateMenu(joystick_dir_t joystickDirection);
@@ -31,7 +33,8 @@ int main (void)
 	oled_init();
 	/*****************/
 	
-	joystick_calib();
+	ps3_init();
+	//multiboard_init();
 	fsm_init();
 	menu_init();
 
