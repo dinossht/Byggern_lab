@@ -73,7 +73,7 @@ menu_t* currentMenu;
 extern int8_t joyPos;
 extern uint8_t shoot;
 
-char* numberToString(uint8_t number);
+void numberToString(uint8_t number, char* string);
 
 void menu_init(void);
 

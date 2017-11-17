@@ -184,16 +184,16 @@ static void menu_drawRegularMenu()
 				
 		if(currentMenu->entries[i].isModifiableEntry == 1 || currentMenu->entries[i].isValueEntry == 1)
 		{
-			oled_print(numberToString(currentMenu->entries[i].value), 2 + i, 104);
+			char numberString[3];
+			numberToString(currentMenu->entries[i].value, numberString);
+			oled_print(numberString, 2 + i, 104);
 		}
 	}
 }
 
-char* numberToString(uint8_t number)
+void numberToString(uint8_t number, char* string)
 {
-	char str[3];
-	sprintf(str, "%d", number);
-	return str;
+	sprintf(string, "%d", number);
 }
 
 static void animation_draw()
@@ -253,7 +253,10 @@ static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t liv
 	{
 		case 0: // playing
 			oled_print("Lives:", 0, 80);
-			oled_print(numberToString(lives), 1, 104);	
+			
+			char numberString[3];
+			numberToString(lives, numberString);
+			oled_print(numberString, 1, 104);	
 			
 			drawPong(pongPosition, isBallHit);
 		break;
