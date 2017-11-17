@@ -123,19 +123,19 @@ void game_updateControllerInput(){
 	multiboard_joystick_message.data.i8[0] = joystick_getPos(POS_X);
 	multiboard_joystick_message.data.i8[1] = joystick_getPos(POS_Y);
 	multiboard_joystick_message.data.u8[2] = button_getStat(BUTTON_JOYSTICK);
-	can_message_send(&multiboard_joystick_message);
+	can_sendMessage(&multiboard_joystick_message);
 	
 	_delay_ms(10);
 	
 	multiboard_slider_message.data.u8[0] = slider_getPos(SLIDER_LEFT);
 	multiboard_slider_message.data.u8[1] = slider_getPos(SLIDER_RIGHT);
-	can_message_send(&multiboard_slider_message);
+	can_sendMessage(&multiboard_slider_message);
 	
 	_delay_ms(10);
 	
 	multiboard_button_message.data.u8[0] = button_getStat(BUTTON_LEFT);
 	multiboard_button_message.data.u8[1] = button_getStat(BUTTON_RIGHT);
-	can_message_send(&multiboard_button_message);
+	can_sendMessage(&multiboard_button_message);
 	
 	_delay_ms(10);
  }
@@ -146,7 +146,7 @@ void game_transmitParameters(){
 	for (uint8_t i = 0; i < 3; i++){
 		game_parameterTuning_message.data.u8[i] = game_settings.parameters[i];
 	}
-	can_message_send(&game_parameterTuning_message);
+	can_sendMessage(&game_parameterTuning_message);
 }
 
 
@@ -167,10 +167,10 @@ void game_start(){
 	game_transmitParameters();
 	
 	game_setLives_message.data.u8[0] = game_settings.lives;
-	can_message_send(&game_setLives_message);
+	can_sendMessage(&game_setLives_message);
 	
 	game_setController_message.data.u8[0] = game_settings.controller;
-	can_message_send(&game_setController_message);
+	can_sendMessage(&game_setController_message);
 }
 
 uint8_t game_exit(){

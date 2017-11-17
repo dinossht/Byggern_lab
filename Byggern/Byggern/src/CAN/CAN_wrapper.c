@@ -18,10 +18,10 @@
 
 void CAN_wrapper_updateStates()
 {
-	struct can_message recieveMessage;
+	struct can_message_t recieveMessage;
 
 	
-	recieveMessage = can_message_recieve();
+	recieveMessage = can_recieveMessage();
 	switch(recieveMessage.id)
 	{
 // 	case CAN_STATE_FROMNODE2_ID:

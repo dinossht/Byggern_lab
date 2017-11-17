@@ -7,23 +7,14 @@
 
 #include "CAN.h"
 #include "mcp2515.h"
-#include "exercises/ex05.h"
 
 
 void  can_init(void)
 {
-	//Send config commands to MCP2515
-	// Write to MCP_CANCTRL	
 	mcp2515_init(MODE_NORMAL);
-	
-	//TODO
-	//Interrupts 
-	// CANINTE.RXnIE for interrupt when valid message has been received 
-
-	
 }
 
-void can_message_send(struct can_message* message)
+void can_sendMessage(struct can_message_t* message)
 {
 	// Send message
 	while(mcp2515_read(MCP_TXB0CTRL) & 0x03); // wait until buffer is pending transmission
@@ -51,9 +42,9 @@ void can_message_send(struct can_message* message)
 	// TXBnCTRL-TXREQ must be set for each buffer to request to transmit
 }
 
-struct can_message can_message_recieve()
+struct can_message_t can_recieveMessage()
 {
-	struct can_message message;
+	struct can_message_t message;
 	
 	uint8_t bufferN;
 	mcp2515_readRX(MCP_CANINTF, &bufferN, 1);
