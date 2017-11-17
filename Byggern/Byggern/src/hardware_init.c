@@ -22,5 +22,4 @@ void hardware_init()
 	board_init();
 	uart0_init();
 	latch_init();
-	//led_init(); //commented out to not conflict with sram address bus
 }
