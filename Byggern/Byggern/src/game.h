@@ -13,8 +13,13 @@
 #include "multiboard/joystick.h"
 #include "multiboard_data.h"
 
-typedef enum 
-{
+typedef enum {
+	GAMEIDLE,
+	GAMEPLAYING,
+	GAMEOVER
+} game_state_t;
+
+typedef enum {
 	MULTIBOARD,
 	PS3,
 } 

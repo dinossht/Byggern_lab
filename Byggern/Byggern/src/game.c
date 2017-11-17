@@ -11,14 +11,13 @@
  
  #include "drivers/CAN.h"
  
-
  #include "CAN/CAN_messages.h"
  
  #include "multiboard/oled.h"
  #include "multiboard/slider.h"
  #include "multiboard/button.h"
  
-  #include "game.h"
+ #include "game.h"
  
 static settings_t game_settings = { //defaults
 	.user = PLAYER1,
@@ -77,7 +76,7 @@ controller_t game_getController(void){
 }
 
 
-uint8_t game_insertHighscore(){
+uint8_t game_insertHighscore(){ //Returns place of users highscore, returns 0 if not in top 5
 	uint8_t i;
 	for (i = 4; i >= 0; i--){ //compare
 		if (game_settings.score < highscorePoints[i]){
@@ -157,10 +156,9 @@ typedef enum {
 	GAMEIDLE,
 	GAMEPLAYING,
 	GAMEOVER
-	//Finn nytt navn
-} gameState_t;
+} game_state_t;
 
-gameState_t gameState = GAMEIDLE;
+static game_state_t game_state = GAMEIDLE;
 
 
 void game_start(){
@@ -174,8 +172,11 @@ void game_start(){
 }
 
 uint8_t game_exit(){
-	
+	return multiboardInputs.buttonLeftPressed;
 }
+
+
+game_state_t game_state = GAMEIDLE;
 
 
 static uint8_t menu_entryIsClick();
@@ -183,21 +184,31 @@ static uint8_t game_state();
 #warning empty prototypes
 
 void game_play(){
-	while(gameState != GAMEOVER)
+	while(game_state != GAMEOVER)
 	{
 		if(menu_entryIsClick(/*gameEntry*/))
 		{
 			game_start();
+			//menu_setCurrentMenu(playingscreen)
+			game_state = GAMEPLAYING;
 		}
 		
-		if(game_exit()) //Left button is played
-		{
-			
-		}
 		
-		if(game_state(GAMEPLAYING))
+		if(game_state == GAMEPLAYING)
 		{
-			
+			while (game_settings.lives != 0)
+			{
+				game_transmitControllerInput();
+				menu_draw();
+				#warning This must be removed when we add timer interrupts
+				if(game_exit())
+				{
+					game_state = GAMEOVER;
+				}				
+			}
+			game_state = GAMEOVER;
 		}
 	}
+	//menu_showScoreAndPlace(game_insertHighscore());
+	game_state = GAMEIDLE;
 }
