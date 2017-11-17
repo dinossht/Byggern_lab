@@ -176,7 +176,7 @@ void game_play(){
 		{
 			game_transmitControllerInput();
 			//menu_draw();
-			#warning This must be added if we don't use timer interrupts			
+			#warning This must be added if we dont use timer interrupts			
 		}
 		game_state = GAMEOVER;
 	}
