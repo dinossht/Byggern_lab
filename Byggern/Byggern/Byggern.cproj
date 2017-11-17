@@ -207,22 +207,22 @@
     <Folder Include="src\config\" />
     <Folder Include="src\drivers" />
     <Folder Include="src\multiboard" />
-    <Folder Include="src\CAN" />
+    <Folder Include="src\can" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\CAN\can_definitions.h">
+    <Compile Include="src\can\can_definitions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN\CAN_messages.c">
+    <Compile Include="src\can\can_messages.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN\CAN_messages.h">
+    <Compile Include="src\can\CAN_messages.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN\CAN_wrapper.c">
+    <Compile Include="src\can\CAN_wrapper.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\CAN\CAN_wrapper.h">
+    <Compile Include="src\can\CAN_wrapper.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\adc.c">

@@ -1,10 +1,11 @@
 /*
- * CAN_messages.c
+ * can_messages.c
  *
- * Created: 11/15/2017 5:17:22 PM
+ * Created: 11/17/2017 6:23:01 PM
  *  Author: dinos
-*/ 
-#include "CAN_messages.h"
+ */ 
+
+#include "can_messages.h"
 
 
 //Multiboard
