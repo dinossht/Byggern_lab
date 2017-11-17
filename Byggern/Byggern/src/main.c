@@ -14,7 +14,7 @@
 #include "multiboard/button.h"
 
 #include "multiboard_data.h"
-#include "ps3.h"
+#include "ps3_data.h"
 #include "fsm.h"
 #include "game.h"
 
@@ -60,7 +60,7 @@ int main (void)
 		switch(fsmState)
 		{
 			case IDLE:
-				navigateMenu(multiboard_dataInputs.joystickDirection);
+				navigateMenu(multiboard_data.joystickDirection);
 			break;
 			
 			case GAME_PLAY:

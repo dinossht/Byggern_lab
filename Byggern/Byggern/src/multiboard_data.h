@@ -27,7 +27,7 @@ struct multiboard_inputs_t
 
 	joystick_dir_t joystickDirection;
 }
-multiboard_dataInputs;
+multiboard_data;
 
 void multiboard_data_init(void);
 void multiboard_data_updateInputs(void);

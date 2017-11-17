@@ -348,10 +348,10 @@
     <Compile Include="src\pong_data.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\ps3.c">
+    <Compile Include="src\ps3_data.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\ps3.h">
+    <Compile Include="src\ps3_data.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\settings.h">
