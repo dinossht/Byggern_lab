@@ -206,7 +206,6 @@
     <Folder Include="src\ASF\mega\utils\preprocessor\" />
     <Folder Include="src\config\" />
     <Folder Include="src\drivers" />
-    <Folder Include="src\exercises" />
     <Folder Include="src\multiboard" />
     <Folder Include="src\CAN" />
   </ItemGroup>
@@ -299,24 +298,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\uart.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex04.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex04.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex05.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex05.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex07.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex07.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\fsm.c">
