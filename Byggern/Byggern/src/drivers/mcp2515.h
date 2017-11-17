@@ -68,10 +68,18 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_CANINTF		0x2C
 #define MCP_EFLG		0x2D
 #define MCP_TXB0CTRL	0x30
+#define MCP_TXB0SIDH	0x31
+#define MCP_TXB0SIDL	0x32
+#define MCP_TXB0DLC		0x35
+#define MCP_TXB0DM		0x36
 #define MCP_TXB1CTRL	0x40
 #define MCP_TXB2CTRL	0x50
 #define MCP_RXB0CTRL	0x60
 #define MCP_RXB0SIDH	0x61
+#define MCP_RXB0SIDL	0x62
+#define MCP_RXB0DLC		0x65
+#define MCP_RXB0DM		0x66
+
 #define MCP_RXB1CTRL	0x70
 #define MCP_RXB1SIDH	0x71
 
@@ -164,19 +172,20 @@ Copyright 2003 Kimberly Otten Software Consulting
 #define MCP_WAKIF		0x40
 #define MCP_MERRF		0x80
 
-uint8_t mcp2515_init(uint8_t mode);
-void mcp2515_reset(void);
-uint8_t mcp2515_read(uint8_t address);
+// CANCTRL Register Bits
 
-void mcp2515_write(uint8_t address, uint8_t data);
-void mcp2515_bitModify(uint8_t address, uint8_t bitMask, uint8_t data);
+#define MCP_TXREQ		0x03
+
+uint8_t mcp2515_init(uint8_t mode);
+
+void mcp2515_reset(void);
+
 void mcp2515_requestToSend(uint8_t bufferNAddress);
 void mcp2515_requestToRead(uint8_t bufferNAddress);
-uint8_t mcp2515_readStatus(void);
 
+void mcp2515_bitModify(uint8_t address, uint8_t bitMask, uint8_t data);
 void mcp2515_readRX(uint8_t address, uint8_t* bufferRX, uint8_t length);
 void mcp2515_loadTX(uint8_t address, uint8_t* bufferTX, uint8_t length);
-
 
 #endif /* MCP2515_H_ */
 

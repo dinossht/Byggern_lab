@@ -16,7 +16,7 @@
 #define DD_MOSI DDB5
 #define DD_MISO DDB6
  
-void spi_masterInit()
+void spi_init()
 {
 	/* Set SCK, MOSI and _SS output, all others input */
 	DDRB = (1 << DD_CLK) | (1 << DD_MOSI) | (1 << PINB4); 

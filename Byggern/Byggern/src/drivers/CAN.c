@@ -16,69 +16,68 @@ void  can_init(void)
 
 void can_sendMessage(struct can_message_t* message)
 {
-	// Send message
-	while(mcp2515_read(MCP_TXB0CTRL) & 0x03); // wait until buffer is pending transmission
+	uint8_t txBuffer = 0x00;
 	
-	// Setup TX buffer 0
-
-
-	mcp2515_write(0x31, (message->id >> 3) & 0xFF); // high
-	mcp2515_write(0x32, (message->id << 5) & 0xE0); //low
-	
-	mcp2515_write(0x35, message->length);
-	
-	mcp2515_loadTX(0x36, &(message->data), message->length);
-	
-	mcp2515_requestToSend(MCP_RTS_TX0);
-	
-	//mcp2515_write(MCP_TXB0CTRL, 0x03); // /////////fuck
-
-	
-	// At a minimum: TXBnSIDH, TXBnSIDL and TXBnDLC must be loaded
-	// For extended identifiers, TXBnEIDm must be loaded
-	// If data bytes are present in message, TXBnDm must be loaded and TXBnSIDL.EXIDE must be set
-	// TXBnCTRL.TXREQ must be clear
-	// Transmit Priority: TXBnCTRL.TXP <1:0>
-	// TXBnCTRL-TXREQ must be set for each buffer to request to transmit
-}
-
-struct can_message_t can_recieveMessage()
-{
-	struct can_message_t message;
-	
-	uint8_t bufferN;
-	mcp2515_readRX(MCP_CANINTF, &bufferN, 1);
-	
-	if(bufferN & MCP_RX0IF)
+	/* Wait until buffer is pending transmission */
+	while(txBuffer &  MCP_TXREQ)
 	{
-		mcp2515_requestToRead(MCP_READ_RX0);
-		message.id = mcp2515_read(0x62) >> 5;
-		message.id |= ((uint16_t)mcp2515_read(MCP_RXB0SIDH)) << 3;
-		message.length = mcp2515_read(0x65);
-		uint8_t *data = &(message.data);
-		mcp2515_readRX(0x66, data, message.length);	
+		mcp2515_readRX(MCP_TXB0CTRL, &(txBuffer), 1);
 	}
 	
+	// Setup TX buffer 0
+	uint8_t messageId[] =
+	{
+		(message->id >> 0x03) & MSG_ID_HIGHER_BITS_MASK,
+		(message->id << 0x05) & MSG_ID_LOWER_BITS_MASK
+	};
 	
-	// 	if(bufferN & MCP_RX0IF)
-	// 	{
-	// 		mcp2515_requestToRead(MCP_READ_RX0);
-	// 		message.id = mcp2515_read(0x62) >> 5;
-	// 		message.id |= ((uint16_t)mcp2515_read(MCP_RXB0SIDH)) << 3;
-	// 		message.length = mcp2515_read(0x65);
-	// 		uint8_t *data = &message.data;
-	// 		mcp2515_readRX(0x66, data, message.length);
-	//
-	// 	}
-	// 	else if(bufferN & MCP_RX1IF)
-	// 	{
-	// 		mcp2515_requestToRead(MCP_READ_RX1);
-	// 		message.id = mcp2515_read(0x62) >> 5;
-	// 		message.id |= ((uint16_t)mcp2515_read(MCP_RXB0SIDH)) << 3;
-	// 		message.length = mcp2515_read(0x75);
-	// 		uint8_t *data = &message.data;
-	// 		mcp2515_readRX(0x76, data, message.length);
-	// 	}
-	return message;
+	uint8_t dataBuffer[sizeof(union can_data_t)];
+	for(uint8_t i = 0; i < message->length; i++)
+	{
+		dataBuffer[i] = message->data.u8[i];
+	}
+	
+	mcp2515_loadTX(MCP_TXB0SIDH, &(messageId[0]), 1);
+	mcp2515_loadTX(MCP_TXB0SIDL, &(messageId[1]), 1);
+	
+	mcp2515_loadTX(MCP_TXB0DLC, &(message->length), 1);
+	
+	mcp2515_loadTX(MCP_TXB0DM, dataBuffer, message->length);
+	
+	mcp2515_requestToSend(MCP_RTS_TX0);
 }
 
+bool can_recieveMessage(struct can_message_t* message)
+{
+	uint8_t recieveBufferN;
+	mcp2515_readRX(MCP_CANINTF, &(recieveBufferN), 1);
+	
+	if(recieveBufferN & MCP_RX0IF)
+	{
+		mcp2515_requestToRead(MCP_READ_RX0);
+		
+		uint8_t messageIdHigherNibble;
+		uint8_t messageIdLowerNibble;
+		uint8_t messageLength;
+		uint8_t data[sizeof(union can_data_t)];
+		
+		mcp2515_readRX(MCP_RXB0SIDL, &(messageIdLowerNibble), 1);
+		mcp2515_readRX(MCP_RXB0SIDH, &(messageIdHigherNibble), 1);
+		
+		mcp2515_readRX(MCP_RXB0DLC, &(messageLength), 1);
+		
+		mcp2515_readRX(MCP_RXB0DM, data, messageLength);
+		
+		message->id = (messageIdLowerNibble >> 0x05);
+		message->id |= (((uint16_t)messageIdHigherNibble) << 0x03);
+		
+		message->length = messageLength;
+		
+		for(uint8_t i = 0; i < message->length; i++)
+		{
+			message->data.u8[i] = data[i];
+		}
+		return true;
+	}
+	return false;
+}

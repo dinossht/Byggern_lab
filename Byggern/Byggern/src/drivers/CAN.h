@@ -31,6 +31,6 @@ struct can_message_t
 	
 void can_init(void);
 void can_sendMessage(struct can_message_t* message);
-struct can_message_t can_recieveMessage(void);
+bool can_recieveMessage(struct can_message_t* message);
 
 #endif /* CAN_H_ */

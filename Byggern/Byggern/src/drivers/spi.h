@@ -12,7 +12,7 @@
 #include "asf.h"
 
 
-void spi_masterInit(void);
+void spi_init(void);
 void spi_trancieve(uint8_t* tx_buffer, uint8_t* rx_buffer, int length);
 
 #endif /* SPI_H_ */
