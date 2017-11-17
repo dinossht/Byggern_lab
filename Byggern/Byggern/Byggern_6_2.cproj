@@ -239,12 +239,6 @@
     <Compile Include="src\drivers\CAN.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\drivers\can_controller.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\drivers\can_controller.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\drivers\fonts.h">
       <SubType>compile</SubType>
     </Compile>
@@ -302,24 +296,6 @@
     <Compile Include="src\drivers\uart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\exercises\ex01.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex01.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex02.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex02.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex03.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\exercises\ex03.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\exercises\ex04.c">
       <SubType>compile</SubType>
     </Compile>
@@ -348,12 +324,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\game.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\hardware_init.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\hardware_init.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\multiboard\button.c">
