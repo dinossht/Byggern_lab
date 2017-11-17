@@ -55,15 +55,15 @@ joystick_dir_t joystick_getDir()
 	int16_t pos_y = joystick_getPos(POS_Y);
 	
 	if(abs(pos_x) < NEUTRAL_RADIUS && abs(pos_y) < NEUTRAL_RADIUS)
-		return NEUTRAL;
+		return JOY_NEUTRAL;
 	
 	else if(abs(pos_x) > abs(pos_y))
-		return pos_x > 0 ? RIGHT : LEFT;
+		return pos_x > 0 ? JOY_RIGHT : JOY_LEFT;
 	
 	else if(abs(pos_x) < abs(pos_y))
-		return pos_y > 0 ? UP : DOWN;
+		return pos_y > 0 ? JOY_UP : JOY_DOWN;
 	
-	return NEUTRAL;
+	return JOY_NEUTRAL;
 }
 
 static void joystick_convertPos(int16_t* rawVal, int16_t rawValMax, int16_t convValMax)

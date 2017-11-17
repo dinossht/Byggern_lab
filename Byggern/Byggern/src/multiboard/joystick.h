@@ -12,11 +12,11 @@
 
 typedef enum
 {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	NEUTRAL,
+	JOY_UP,
+	JOY_DOWN,
+	JOY_LEFT,
+	JOY_RIGHT,
+	JOY_NEUTRAL
 }
 joystick_dir_t;
 

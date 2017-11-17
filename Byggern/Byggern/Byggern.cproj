@@ -319,10 +319,10 @@
     <Compile Include="src\exercises\ex07.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\FSM.c">
+    <Compile Include="src\fsm.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\FSM.h">
+    <Compile Include="src\fsm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\game.c">
