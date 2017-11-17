@@ -19,6 +19,8 @@ typedef enum {
 	GAMEOVER
 } game_state_t;
 
+game_state_t game_state;
+
 typedef enum {
 	MULTIBOARD,
 	PS3,

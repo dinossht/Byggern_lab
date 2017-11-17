@@ -16,6 +16,7 @@
  #include "multiboard/oled.h"
  #include "multiboard/slider.h"
  #include "multiboard/button.h"
+ #include "multiboard_data.h"
  
  #include "game.h"
  
@@ -151,63 +152,33 @@ void game_transmitParameters(){
 
 
 
-
-typedef enum {
-	GAMEIDLE,
-	GAMEPLAYING,
-	GAMEOVER
-} game_state_t;
-
-static game_state_t game_state = GAMEIDLE;
-
-
-void game_start(){
-	game_transmitParameters();
-	
-// 	game_setLives_message.data.u8[0] = game_settings.lives;
-// 	can_sendMessage(&game_setLives_message);
-// 	
-// 	game_setController_message.data.u8[0] = game_settings.controller;
-// 	can_sendMessage(&game_setController_message);
-}
-
-uint8_t game_exit(){
-	return multiboardInputs.buttonLeftPressed;
-}
-
-
 game_state_t game_state = GAMEIDLE;
 
 
+
+
+uint8_t game_exit(){
+	return multiboard_data.buttonLeftPressed;
+}
+
+
 static uint8_t menu_entryIsClick();
-static uint8_t game_state();
 #warning empty prototypes
 
 void game_play(){
 	while(game_state != GAMEOVER)
 	{
-		if(menu_entryIsClick(/*gameEntry*/))
+
+		//menu_setCurrentMenu(playingscreen)
+		game_state = GAMEPLAYING;
+
+		while (game_settings.lives > 0 && game_exit() != 1)
 		{
-			game_start();
-			//menu_setCurrentMenu(playingscreen)
-			game_state = GAMEPLAYING;
+			game_transmitControllerInput();
+			//menu_draw();
+			#warning This must be added if we don't use timer interrupts			
 		}
-		
-		
-		if(game_state == GAMEPLAYING)
-		{
-			while (game_settings.lives != 0)
-			{
-				game_transmitControllerInput();
-				menu_draw();
-				#warning This must be removed when we add timer interrupts
-				if(game_exit())
-				{
-					game_state = GAMEOVER;
-				}				
-			}
-			game_state = GAMEOVER;
-		}
+		game_state = GAMEOVER;
 	}
 	//menu_showScoreAndPlace(game_insertHighscore());
 	game_state = GAMEIDLE;
