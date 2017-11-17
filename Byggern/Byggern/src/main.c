@@ -13,7 +13,7 @@
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
-#include "../can/can_messages.h"
+#include "../can/can_wrapper.h"
 
 #include "multiboard_data.h"
 #include "ps3_data.h"
