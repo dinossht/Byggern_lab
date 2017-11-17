@@ -11,20 +11,20 @@
 
 /* NOTE: In PORTB, all the unused pins are set to input during initialization */
 
-// spi pin definitions
-#define DD_CLK DDB7
-#define DD_MOSI DDB5
-#define DD_MISO DDB6
+// spi port and pin definitions
+#define SPI_DD_PORT DDRB 
+
+#define SPI_CLK_PIN DDB7
+#define SPI_MOSI_PIN DDB5
+#define SPI_MISO_PIN DDB6
  
 void spi_init()
 {
 	/* Set SCK, MOSI and _SS output, all others input */
-	DDRB = (1 << DD_CLK) | (1 << DD_MOSI) | (1 << PINB4); 
+	SPI_DD_PORT = (1 << SPI_CLK_PIN) | (1 << SPI_MOSI_PIN); 
 
 	/* Enable SPI, Master, set clock rate fck/16 */
-	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0); //  
-//	SPCR |= (1 << DORD); // to set LSB transmit first
-//	SPCR |= (1 << SPIE); // enable SPI interrupt, 
+	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0); 
 }
 
 void spi_trancieve(uint8_t* tx_buffer, uint8_t* rx_buffer, int length)
