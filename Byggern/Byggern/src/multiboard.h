@@ -10,7 +10,7 @@
 #define MULTIBOARD_H_
 
 #include <stdint.h>
-#include "joystick.h"
+#include "multiboard/joystick.h"
 
 
 struct multiboard_states_t

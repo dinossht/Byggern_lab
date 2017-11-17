@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 #include "multiboard/joystick.h"
-#include "multiboard/multiboard.h"
+#include "multiboard.h"
 
 typedef enum {
 	MULTIBOARD,
