@@ -141,8 +141,6 @@ void oled_updateScreen()
 
 void oled_clearScreen()
 {
-	volatile char *ext_ram = (char *) 0x0000;
-	
 	for(uint8_t row = 0; row < OLED_NR_OF_PAGES; row++)
 	{
 		oled_goToRow(row);

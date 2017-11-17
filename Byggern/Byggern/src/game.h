@@ -34,9 +34,6 @@ typedef struct{
 	controller_t controller;
 } settings_t;
 
-#warning This should probably be moved
-
-
 void game_setUser(user_t currentUser);
 user_t game_getUser(void);
 

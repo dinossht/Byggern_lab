@@ -20,7 +20,6 @@
 
 
 static void navigateMenu(joystick_dir_t joystickDirection);
-static void updateMultiboard(void);
 
 int main (void)
 {
@@ -102,6 +101,9 @@ static void navigateMenu(joystick_dir_t joystickDirection)
 		
 		case JOY_LEFT:
 			menu_navigateToPreviusMenu();
+		break;
+		
+		case JOY_NEUTRAL:
 		break;
 	}
 }
