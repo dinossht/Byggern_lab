@@ -13,6 +13,8 @@
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
+#include "../can/can_messages.h"
+
 #include "multiboard_data.h"
 #include "ps3_data.h"
 #include "fsm.h"
@@ -50,7 +52,8 @@ int main (void)
 		
 		if(timer_isAFlagSet(SIXTEEN_KHZ_TIMER) == 1)
 		{
-			//can_message_send();
+			can_wrapper_recieveMessages();
+			//send message
 			timer_reset(SIXTEEN_KHZ_TIMER);
 		}
 		

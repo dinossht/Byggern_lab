@@ -13,26 +13,32 @@
 #include "multiboard/joystick.h"
 #include "multiboard_data.h"
 
-typedef enum {
+typedef enum 
+{
 	MULTIBOARD,
 	PS3,
-} controller_t;
+} 
+controller_t;
 
-typedef enum {
+typedef enum 
+{
 	PLAYER1 = 1,
 	PLAYER2,
 	PLAYER3,
 	PLAYER4,
 	PLAYER5,
-} user_t;
+} 
+user_t;
 
-typedef struct{
+typedef struct
+{
 	user_t user;
 	uint8_t score;
 	uint8_t lives;
 	uint8_t parameters[3];
 	controller_t controller;
-} settings_t;
+} 
+settings_t;
 
 void game_setUser(user_t currentUser);
 user_t game_getUser(void);
