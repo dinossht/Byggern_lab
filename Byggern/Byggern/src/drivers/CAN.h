@@ -9,7 +9,10 @@
 #ifndef CAN_H_
 #define CAN_H_
 
-#include "asf.h"
+#include <stdint.h>
+#include <stdbool.h>
+
+
 union can_data_t
 {
 	uint64_t	u64;

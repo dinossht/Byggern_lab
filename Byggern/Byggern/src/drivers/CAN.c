@@ -9,7 +9,10 @@
 #include "mcp2515.h"
 
 
-void  can_init(void)
+#define MSG_ID_HIGHER_BITS_MASK 0xFF
+#define MSG_ID_LOWER_BITS_MASK 0xE0
+
+void can_init(void)
 {
 	mcp2515_init(MODE_NORMAL);
 }

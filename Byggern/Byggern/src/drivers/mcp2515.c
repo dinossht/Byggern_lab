@@ -16,7 +16,7 @@
 
 #define CAN_PORT PORTB
 #define CAN_DD_PORT DDRB
-#define CAN_CS PINB7
+#define CAN_CS PINB4 
 
 static void mcp2515_enableCS(bool selectChip);
 
