@@ -5,7 +5,9 @@
  *  Author: dinos
  */ 
 
-#include "../multiboard.h"
+#include "../game.h"
+#include "../multiboard_data.h"
+#include "../ps3.h"
 #include "../drivers/can.h"
 #include "can_definitions.h"
 #include "can_wrapper.h"
@@ -22,19 +24,18 @@ void can_wrapper_recieveMessages()
 		{
 		#pragma message("Implement code here")
 			case CAN3_PS3_JOYSTICK_ID:
-				//multiboardInputs.				
+				ps3Inputs.joystickLeftPositionX = message.data.i8[0];	
+				ps3Inputs.joystickLeftPositionY = message.data.i8[1];	
+				ps3Inputs.joystickRightPositionX = message.data.i8[2];	
+				ps3Inputs.joystickRightPositionY = message.data.i8[3];				
 			break;
 			
-			case CAN3_PS3_BUTTONS_ID:
-			
-			break;
-			
-			case CAN3_PS3_DPAD_ID:
-			
+			case CAN2_DATA_PONG_DATA_ID:
+				
 			break;
 			
 			case CAN2_DATA_ENCODER_ID:
-				
+							
 			break;
 			
 		}

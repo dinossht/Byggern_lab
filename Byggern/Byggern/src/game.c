@@ -102,17 +102,17 @@ uint8_t game_insertHighscore(){
 
 void game_updateControllerInput(){
 	
-	multiboardInputs.joystickPositionX = joystick_getPos(POS_X);
-	multiboardInputs.joystickPositionY = joystick_getPos(POS_Y);
-	multiboardInputs.joystickPressed = button_getStat(BUTTON_JOYSTICK);
+	multiboard_dataInputs.joystickPositionX = joystick_getPos(POS_X);
+	multiboard_dataInputs.joystickPositionY = joystick_getPos(POS_Y);
+	multiboard_dataInputs.joystickPressed = button_getStat(BUTTON_JOYSTICK);
 	
-	multiboardInputs.sliderLeftPosition  = slider_getPos(SLIDER_LEFT);
-	multiboardInputs.sliderRightPosition = slider_getPos(SLIDER_RIGHT);
+	multiboard_dataInputs.sliderLeftPosition  = slider_getPos(SLIDER_LEFT);
+	multiboard_dataInputs.sliderRightPosition = slider_getPos(SLIDER_RIGHT);
 	
-	multiboardInputs.buttonLeftPressed  = button_getStat(BUTTON_LEFT);
-	multiboardInputs.buttonRightPressed = button_getStat(BUTTON_RIGHT);
+	multiboard_dataInputs.buttonLeftPressed  = button_getStat(BUTTON_LEFT);
+	multiboard_dataInputs.buttonRightPressed = button_getStat(BUTTON_RIGHT);
 	
-	multiboardInputs.joystickDirection = joystick_getDir();
+	multiboard_dataInputs.joystickDirection = joystick_getDir();
 //	multiboardStates.inUse = !game_settings.controller;
 }
 

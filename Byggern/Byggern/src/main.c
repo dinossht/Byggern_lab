@@ -13,7 +13,7 @@
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
-#include "multiboard.h"
+#include "multiboard_data.h"
 #include "ps3.h"
 #include "fsm.h"
 #include "game.h"
@@ -33,7 +33,7 @@ int main (void)
 	/*****************/
 	
 	ps3_init();
-	//multiboard_init();
+	multiboard_data_init();
 	fsm_init();
 	menu_init();
 
@@ -51,15 +51,16 @@ int main (void)
 		if(timer_isAFlagSet(SIXTEEN_KHZ_TIMER) == 1)
 		{
 			//can_message_send();
+			timer_reset(SIXTEEN_KHZ_TIMER);
 		}
 		
-		multiboard_updateInputs();
+		multiboard_data_updateInputs();
 		
 		fsm_state_t fsmState = fsm_getCurrentState();
 		switch(fsmState)
 		{
 			case IDLE:
-				navigateMenu(multiboardInputs.joystickDirection);
+				navigateMenu(multiboard_dataInputs.joystickDirection);
 			break;
 			
 			case GAME_PLAY:

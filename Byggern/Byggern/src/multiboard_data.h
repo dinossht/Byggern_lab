@@ -1,13 +1,13 @@
 /*
- * multiboard.h
+ * multiboard_data.h
  *
- * Created: 11/17/2017 6:46:16 PM
+ * Created: 11/17/2017 8:28:27 PM
  *  Author: dinos
  */ 
 
 
-#ifndef MULTIBOARD_H_
-#define MULTIBOARD_H_
+#ifndef MULTIBOARD_DATA_H_
+#define MULTIBOARD_DATA_H_
 
 #include <stdint.h>
 #include "multiboard/joystick.h"
@@ -26,11 +26,11 @@ struct multiboard_inputs_t
 	uint8_t buttonRightPressed;
 
 	joystick_dir_t joystickDirection;
-} 
-multiboardInputs;
+}
+multiboard_dataInputs;
 
-void multiboard_init(void);
-void multiboard_updateInputs(void);
+void multiboard_data_init(void);
+void multiboard_data_updateInputs(void);
 
 
-#endif /* MULTIBOARD_H_ */
+#endif /* MULTIBOARD_DATA_H_ */
