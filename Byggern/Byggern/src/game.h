@@ -52,8 +52,6 @@ struct multiboard_states_t
 #warning This should probably be moved
 
 
-void game_init(void);
-
 void game_setUser(user_t currentUser);
 user_t game_getUser(void);
 
@@ -83,6 +81,11 @@ void game_transmitControllerInput(void);
 void game_transmitParameters(void);
 
 
+void game_start(void);
+
+uint8_t game_exit(void);
+
+void game_play(void);
 
 
 #endif /* GAME_H_ */

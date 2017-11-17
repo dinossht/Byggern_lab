@@ -34,15 +34,6 @@ uint8_t highscorePoints[5] = { 0 };
 uint8_t highscoreNames[5] = { 0 };
 
 
-void game_init(){
-	game_transmitParameters();
-	
-	game_setLives_message.data.u8[0] = game_settings.lives;
-	can_message_send(&game_setLives_message);
-	
-	game_setController_message.data.u8[0] = game_settings.controller;
-	can_message_send(&game_setController_message);
-}
 
 void game_setUser(user_t currentUser){
 	game_settings.user = currentUser;
@@ -156,4 +147,57 @@ void game_transmitParameters(){
 		game_parameterTuning_message.data.u8[i] = game_settings.parameters[i];
 	}
 	can_message_send(&game_parameterTuning_message);
+}
+
+
+
+
+
+typedef enum {
+	GAMEIDLE,
+	GAMEPLAYING,
+	GAMEOVER
+	//Finn nytt navn
+} gameState_t;
+
+gameState_t gameState = GAMEIDLE;
+
+
+void game_start(){
+	game_transmitParameters();
+	
+	game_setLives_message.data.u8[0] = game_settings.lives;
+	can_message_send(&game_setLives_message);
+	
+	game_setController_message.data.u8[0] = game_settings.controller;
+	can_message_send(&game_setController_message);
+}
+
+uint8_t game_exit(){
+	
+}
+
+
+static uint8_t menu_entryIsClick();
+static uint8_t game_state();
+#warning empty prototypes
+
+void game_play(){
+	while(gameState != GAMEOVER)
+	{
+		if(menu_entryIsClick(/*gameEntry*/))
+		{
+			game_start();
+		}
+		
+		if(game_exit()) //Left button is played
+		{
+			
+		}
+		
+		if(game_state(GAMEPLAYING))
+		{
+			
+		}
+	}
 }
