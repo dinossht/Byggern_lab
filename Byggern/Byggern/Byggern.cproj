@@ -211,7 +211,7 @@
     <Folder Include="src\CAN" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\CAN\CAN_definitions.h">
+    <Compile Include="src\CAN\can_definitions.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\CAN\CAN_messages.c">

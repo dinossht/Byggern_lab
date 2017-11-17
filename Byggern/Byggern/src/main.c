@@ -23,13 +23,14 @@ static void updateMultiboard(void);
 
 int main (void)
 {
-	// Enable external memory
-	MCUCR |= (1 << SRE);
+	/* hardware init */
+	MCUCR |= (1 << SRE); /* external memory init */
 	uart_init();
 	latch_init();
 	can_init();
 	timer_init();
 	oled_init();
+	/*****************/
 	
 	joystick_calib();
 	fsm_init();
