@@ -200,10 +200,7 @@ void oled_print(char* string, uint8_t row, uint8_t col)
 	}
 }
 
-
-
-
-uint8_t loadingWheel[] =
+static uint8_t loadingWheel[] =
 {
 	0x80,0xF0,0xB8,0x38,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 	0x00,0x70,0x38,0x3C,0x04,0x07,0x07,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -229,13 +226,12 @@ void oled_displayLoading(uint8_t imgIndex, uint8_t x, uint8_t y)
 	oled_print("Loading..", y / 8 + 6, x - 20);	
 	for(uint8_t row = 0; row < 2; row++)
 	{
-		for (uint8_t col = /*(imgIndex) * 8*/0; col < 16/* * imgIndex*//*imgIndex * 8*//*128*/; col++)
+		for (uint8_t col = 0; col < 16; col++)
 		{
-			sram_write(loadingWheel[128 * row + col + (imgIndex - 1) * 16], 128 * (row + y) + col + x /*+ imgIndex * 8*/);				
+			sram_write(loadingWheel[128 * row + col + (imgIndex - 1) * 16], 128 * (row + y) + col + x);				
 		}
-		//oled_print("Loading...", y / 8 + 6, x - 20);
 	}
-	_delay_ms(80);
+	_delay_ms(60);
 }
 
 
