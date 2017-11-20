@@ -12,72 +12,57 @@
 #include "timer.h"
 
 
-uint8_t eight_kHz_flag;
-uint8_t sixteen_kHz_flag;
 uint8_t one_kHz_flag;
+uint8_t sixty_Hz_flag;
+uint8_t sixty1_Hz_flag;
+
 
 ISR(TIMER1_COMPA_vect)
 {
-	eight_kHz_flag = 1;
+	sixty_Hz_flag = 1;
 	TCNT1 = 0;
 }
 
-// ISR(TIMER3_COMPA_vect)
-// {
-// 	sixteen_kHz_flag = 1;
-// 	TCNT3 = 0;
-// }
+ISR(TIMER3_COMPA_vect)
+{
+	one_kHz_flag = 1;
 
+	TCNT3 = 0;
+
+}
 
 void timer_init()
 {
 	cli();
-
 	
- 	OCR1A = 49140; 
-	TCCR1B |= (1 << WGM12);
-	TCCR1B |= (1 << CS10);
+	TCCR1B = (1 << WGM12); // CTC
+	TCCR1B |= (1 << CS11); // prescaler 2	
 	
-	TIMSK |= (1 << OCIE1A);
-	TCNT1 = 0;
-// 	
-// 	TCCR1B = (1 << CS10) |(1 << WGM12); //CTC with prescaler 1
-// 	
-// 	TIMSK = (1 << OCIE1A); //enable interrupts
-/*	
-	// should be less than 65536
-	// OCR3A = f_clk / N / f_out - 1
-	// OCR3A = 4.9MHz / 1 / f_out - 1
-	// 4915200
-	OCR1A = 614; // 8kHz
-	OCR3A = 306; // 16kHz
-//	OCRA = 15999; // 1kHz
-
-	TCCR1A |= (1 << WGM12); // CTC mode
-	TCCR3A |= (1 << WGM32); // CTC mode
+	OCR1A = 40959; // 60 Hz
+	TIMSK = (1 << OCIE1A);
 	
-
-	TCCR1B |= (1 << CS10); // No prescaling
-	TCCR3B |= (1 << CS30); // No prescaling
+	TCCR3B = (1 << WGM32); // CTC
+	TCCR3B |= (1 << CS30); // prescaler 1
 	
-	TIMSK |= (1 << OCIE1A); // enable timer compare interrupt
-	ETIMSK |= (1 << OCIE3A); // enable timer compare interrupt
+	OCR3A = 4914; // 1KHz
+ 	
+// 	TCCR3B |= (1 << CS30 ) | (1 << CS31); // prescaler 64
+// 	OCR3A = 38399;
+	ETIMSK = (1 << OCIE3A);
 	
-	TCNT1 = 0; // Reset counter
-	TCNT3 = 0; // Reset counter
-*/
+	sei();
 }
 
 void timer_reset(timer_n_t timer)
 {
 	switch(timer)
 	{		
-		case SIXTY_HZ_TIMER:
-		eight_kHz_flag = 0;
+		case ONE_KHZ_TIMER:
+			one_kHz_flag = 0;
 		break;
 		
-		case SIXTEEN_KHZ_TIMER:
-		sixteen_kHz_flag = 0;
+		case SIXTY_HZ_TIMER:
+			sixty_Hz_flag = 0;
 		break;
 	}
 }
@@ -86,11 +71,11 @@ uint8_t timer_isAFlagSet(timer_n_t timer)
 {
 	switch(timer)
 	{		
-		case SIXTY_HZ_TIMER:
-		return eight_kHz_flag;
+		case ONE_KHZ_TIMER:
+			return one_kHz_flag;
 		
-		case SIXTEEN_KHZ_TIMER:
-		return sixteen_kHz_flag;
+		case SIXTY_HZ_TIMER:
+			return sixty_Hz_flag;
 	}
 	return 0;
 }
