@@ -77,6 +77,8 @@ void numberToString(uint8_t number, char* string);
 
 void menu_init(void);
 
+menu_t menu_returnCurrentMenu(void);
+
 void menu_draw(void);
 
 void menu_navigateToPreviusMenu(void);
