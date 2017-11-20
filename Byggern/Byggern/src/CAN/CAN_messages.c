@@ -7,11 +7,12 @@
 
 #include "can_definitions.h"
 #include "can_messages.h"
+#include "multiboard_data.h"
 
 struct can_message_t joystick_message =
 {
 	.id = CAN1_MULTIBOARD_JOYSTICK_ID,
-	.length = 2,
+	.length = 2, 
 };
 
 struct can_message_t slider_message =
