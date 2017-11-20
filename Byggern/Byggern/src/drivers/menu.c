@@ -158,6 +158,11 @@ void menu_init()
 	oled_clearScreen();
 }
 
+menu_t menu_returnCurrentMenu()
+{
+	return *currentMenu;	
+}
+
 static void menu_initEntries(menu_t* menu, entry_t* entries)
 {
 	for(uint8_t i = 0; i < menu->nrOfEntries; i++)
@@ -397,39 +402,6 @@ void menu_selectCurrentEntry()
 	if(currentMenu->entries[index].isModifiableEntry == 1)
 	{
 		currentMenu->entrySelected = currentMenu->entrySelected == 1 ? 0 : 1;
-		
-		if (currentMenu->id == 1)
-		{
-			if (currentMenu->currentEntryIndex == 0 && currentMenu->entrySelected == 1)
-			{
-				//Gi muligheten for å bla opp og ned i brukere
-				#warning Should be implemented
-			}
-			else if (currentMenu->currentEntryIndex == 1 && currentMenu->entrySelected == 1)
-			{
-				//Gi muligheten for å bla opp og ned mellom inputs
-				#warning Should be implemented
-			}
-		}
-		else if(currentMenu->id == 2)
-		{
-			if(currentMenu->entrySelected == 1)
-			{
-				FSM_setGlobalState(TUNING);
-			}
-		}
-		
-		else if(currentMenu->id == 3){
-			if(currentMenu->currentEntryIndex == 0 && currentMenu->entrySelected == 1)
-			{
-				FSM_setGlobalState(DATA_LOGGING);
-			}
-			else if(currentMenu->currentEntryIndex == 1 && currentMenu->entrySelected == 1)
-			{
-				//Gi muligheten for å spille av log
-				#warning Should be implemented
-			}			
-		}
 	}	
 }
 
