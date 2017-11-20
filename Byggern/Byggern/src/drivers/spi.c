@@ -21,7 +21,7 @@
 void spi_init()
 {
 	/* Set SCK, MOSI and _SS output, all others input */
-	SPI_DD_PORT = (1 << SPI_CLK_PIN) | (1 << SPI_MOSI_PIN); 
+	SPI_DD_PORT |= (1 << SPI_CLK_PIN) | (1 << SPI_MOSI_PIN); 
 
 	/* Enable SPI, Master, set clock rate fck/16 */
 	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR0); 
