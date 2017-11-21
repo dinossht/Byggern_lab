@@ -14,8 +14,7 @@ typedef enum
 	IDLE,
 	GAME_PLAY,
 	DATA_LOGGING,
-	DATA_PLAYBACK,
-	TUNING
+	DATA_PLAYBACK
 }
 fsm_state_t;
 
