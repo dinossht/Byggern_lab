@@ -42,7 +42,14 @@ typedef enum
 {
 	SCROLL_UP,
 	SCROLL_DOWN	
-}scroll_dir_t;
+}
+scroll_dir_t;
+
+typedef enum
+{
+	MAIN_ID, GAME_ID, TUNE_ID, DATALOG_ID, ANIM_ID, GAME_SCR_ID, HIGHSCORE_ID	
+}
+menu_id_t;
 
 #define NR_MAIN_ENTRIES 5
 entry_t mainEntries[NR_MAIN_ENTRIES];
@@ -89,5 +96,7 @@ void menu_scrollEntry(scroll_dir_t direction);
 void menu_modEntry(uint8_t value);
 void menu_incrementEntryValue(uint8_t increment);
 void menu_selectCurrentEntry(void);
+
+void menu_setCurrentMenu(menu_t* menu);
 
 #endif /* MENU_H_ */
