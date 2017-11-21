@@ -2,6 +2,7 @@
 #include <util/delay.h>
 #include <interrupt.h>
 #include <asf.h>
+#include <stdio.h>
 
 #include "drivers/timer.h"
 #include "drivers/uart.h"
@@ -65,17 +66,17 @@ int main (void)
 			case GAME_PLAY:
 				game_play();
 			break;
-			#warning create datalogger and pid param headers and functions
+	
 			case DATA_LOGGING:
-				// send datalogger command
+				can_wapper_sendMessages();
+		//		dataLoggingM.entries[0].value = 0;
+				fsm_setCurrentState(IDLE);
 			break;
 						
 			case DATA_PLAYBACK:
-				//playBack();
-			break;
-						
-			case TUNING:
-				//tunePID();
+				can_wapper_sendMessages();
+			//	dataLoggingM.entries[1].value = 0;
+				fsm_setCurrentState(IDLE);
 			break;
 		}
 		
