@@ -17,6 +17,7 @@ struct can_message_t slider_message;
 struct can_message_t button_message;
 struct can_message_t gamesData_message;
 struct can_message_t pid_message;
+struct can_message_t logging_message;
 
 
 #endif /* CAN_MESSAGES_H_ */

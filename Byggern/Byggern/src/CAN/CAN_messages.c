@@ -38,3 +38,9 @@ struct can_message_t gamesData_message =
 	.id = CAN1_DATA_GAME_ID,
 	.length = 2,
 };
+
+struct can_message_t logging_message = 
+{
+	.id = CAN1_LOGGING_STATE_ID,
+	.length = 2,	
+};

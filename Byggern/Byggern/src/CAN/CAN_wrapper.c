@@ -14,6 +14,7 @@
 #include "can_definitions.h"
 #include "CAN_messages.h"
 #include "can_wrapper.h"
+#include "../fsm.h"
 
 
 void can_wrapper_recieveMessages()
@@ -79,6 +80,13 @@ void can_wapper_sendMessages()
 			gamesData_message.data.u8[0] = game_state == GAMEPLAYING; // game state
 			gamesData_message.data.u8[1] = gameM.entries[1].value; // input
 			can_sendMessage(&gamesData_message);
+		break;
+		
+		case 5:
+			logging_message.data.u8[0] = (fsm_getCurrentState() == DATA_LOGGING);
+			logging_message.data.u8[1] = (fsm_getCurrentState() == DATA_PLAYBACK);
+			fsm_setCurrentState(IDLE);
+			can_sendMessage(&logging_message);			
 		break;
 	}
 }
