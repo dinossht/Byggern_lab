@@ -47,22 +47,13 @@ static uint8_t game_exit()
 
 void game_play()
 {
-	if(game_exit() != 1 && (game_state == GAMEIDLE || game_state == GAMEPLAYING))
+	if(game_exit() != 1 && game_state != GAMEOVER)
 	{
-		if(game_state != GAMEOVER)
-		{
-			if(game_settings.lives <= 0 )
-				game_state = GAMEOVER;	
-			
-			menu_setCurrentMenu(&gameScreenM);	
-			game_updateData();	
-			
-			game_state = GAMEPLAYING; 
-		}	
-		else
-		{
-			game_state = GAMEIDLE;	
-		}
+		if(game_settings.lives <= 0 )
+			game_state = GAMEOVER;	
+		
+		menu_setCurrentMenu(&gameScreenM);	
+		game_updateData();	
 	}
 	else
 	{
