@@ -34,12 +34,22 @@ void fsm_updateStates()
 {
 	menu_t currentMenu = menu_returnCurrentMenu();
 	
-	if(gameScreenM.id == currentMenu.id)
+	if(currentMenu.id == gameScreenM.id)
+	{
 		fsm_setCurrentState(GAME_PLAY);
+	}
 		
-	//else if(currentMenu)
-	else
+	else if(currentMenu.id == dataLoggingM.id && dataLoggingM.entries[0].value == 1){
+		fsm_setCurrentState(DATA_LOGGING);
+	}
+	
+	else if(currentMenu.id == dataLoggingM.id && dataLoggingM.entries[1].value == 1){
+		fsm_setCurrentState(DATA_PLAYBACK);
+	}
+	
+	else{
 		fsm_setCurrentState(IDLE);
+	}
 }
 
 
