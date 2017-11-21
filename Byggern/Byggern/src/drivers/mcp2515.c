@@ -18,7 +18,12 @@
 #define CAN_DD_PORT DDRB
 #define CAN_CS PINB4 
 
+#define MCP_16Mhz_1000kBPS_CFG1 (0x00)
+#define MCP_16Mhz_1000kBPS_CFG2 (0xCA)
+#define MCP_16Mhz_1000kBPS_CFG3 (0x81)
+
 static void mcp2515_enableCS(bool selectChip);
+static void mcp2515_setBaudrate(void);
 
 uint8_t mcp2515_init(uint8_t mode)
 {
@@ -29,6 +34,9 @@ uint8_t mcp2515_init(uint8_t mode)
 
 	/* Set to configuration mode */
 	mcp2515_reset();
+	
+	/* Set baudrate to 1000 Mbit/s */
+	mcp2515_setBaudrate();
 	
 	/* Enable receive interrupt */
 	mcp2515_bitModify(MCP_CANINTE, MCP_RX0IF, 1);
@@ -138,4 +146,15 @@ static void mcp2515_enableCS(bool selectChip)
 	{
 		CAN_PORT |= (1 << CAN_CS);
 	}
+}
+
+static void mcp2515_setBaudrate()
+{
+	uint8_t cfg1 = MCP_16Mhz_1000kBPS_CFG1;
+	uint8_t cfg2 = MCP_16Mhz_1000kBPS_CFG2;
+	uint8_t cfg3 = MCP_16Mhz_1000kBPS_CFG3;
+	
+	mcp2515_loadTX(MCP_CNF1, &cfg1, 1);
+	mcp2515_loadTX(MCP_CNF2, &cfg2, 1);
+	mcp2515_loadTX(MCP_CNF3, &cfg3, 1);
 }
