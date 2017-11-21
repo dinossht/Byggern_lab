@@ -39,11 +39,11 @@ void fsm_updateStates()
 		fsm_setCurrentState(GAME_PLAY);
 	}
 		
-	else if(currentMenu.id == dataLoggingM.id && dataLoggingM.entries[0].value == 1){
+	else if((currentMenu.id == dataLoggingM.id) && (dataLoggingM.currentEntryIndex == 0) && dataLoggingM.entrySelected){
 		fsm_setCurrentState(DATA_LOGGING);
 	}
 	
-	else if(currentMenu.id == dataLoggingM.id && dataLoggingM.entries[1].value == 1){
+	else if((currentMenu.id == dataLoggingM.id) && (dataLoggingM.currentEntryIndex == 1) && dataLoggingM.entrySelected){
 		fsm_setCurrentState(DATA_PLAYBACK);
 	}
 	

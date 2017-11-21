@@ -45,7 +45,7 @@ int main (void)
 	game_init();
 	sei();
 	//DDRB |= (1 << PINB0);
-	printf("Node 1 is ready...");
+	//printf("Node 1 is ready...");
 	while(1)
 	{	
 		oled_clearScreen();
@@ -56,7 +56,7 @@ int main (void)
 		
 		menu_loadEntryValueFromSram();
 		
-		fsm_state_t fsmState = fsm_getCurrentState();
+		volatile fsm_state_t fsmState = fsm_getCurrentState();
 		switch(fsmState)
 		{
 			case IDLE:
@@ -68,21 +68,21 @@ int main (void)
 			break;
 	
 			case DATA_LOGGING:
-				can_wapper_sendMessages();
-		//		dataLoggingM.entries[0].value = 0;
+				can_wrapper_sendMessages();
+				dataLoggingM.entrySelected = 0;
 				fsm_setCurrentState(IDLE);
 			break;
 						
 			case DATA_PLAYBACK:
-				can_wapper_sendMessages();
-			//	dataLoggingM.entries[1].value = 0;
+				can_wrapper_sendMessages();
+				dataLoggingM.entrySelected = 0;
 				fsm_setCurrentState(IDLE);
 			break;
 		}
 		
 		if(timer_isAFlagSet(ONE_KHZ_TIMER) == 1)
 		{	
-			can_wapper_sendMessages();
+			can_wrapper_sendMessages();
 			can_wrapper_recieveMessages();	
 			 	
 			timer_reset(ONE_KHZ_TIMER);

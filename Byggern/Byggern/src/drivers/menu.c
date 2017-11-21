@@ -40,7 +40,7 @@ entry_t gameEntries[NR_GAME_ENTRIES] =
 	{.label = "User", .value = 0, .maxValue = 5, .isModifiableEntry = 1},
 	{.label = "Input", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
 	{.label = "Start", .value = 0},
-	{.label = "Difficulty", .value = 0, maxValue = 10, .isModifiableEntry = 1}
+	{.label = "Difficulty", .value = 0, .maxValue = 10, .isModifiableEntry = 1}
 };
 
 menu_t gameM = 
@@ -258,7 +258,6 @@ static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t liv
 			drawPong(pongPosition, isBallHit);
 		break;
 	}	
-	oled_print("LB [EX]", 7, 0);			
 }
 
 void menu_draw()
@@ -278,7 +277,7 @@ void menu_draw()
 		break;
 		
 		case GAME_SCR_ID:	
-			gameScreen_draw(0, 0, 9, shoot);	
+			gameScreen_draw(0, 0, game_settings.lives, multiboard_data.buttonRightPressed);	
 		break;
 	}
 }
