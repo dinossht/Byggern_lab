@@ -27,6 +27,8 @@ void fsm_init(void);
 void fsm_setCurrentState(fsm_state_t state);
 fsm_state_t fsm_getCurrentState(void);
 
+void fsm_updateStates(void);
+
 
 void FSM_setGlobalState(fsm_state_t new_state);
 
