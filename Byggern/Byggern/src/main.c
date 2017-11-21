@@ -41,6 +41,7 @@ int main (void)
  	pong_data_init();
  	fsm_init();
 	menu_init();
+	game_init();
 	sei();
 	//DDRB |= (1 << PINB0);
 
@@ -51,6 +52,8 @@ int main (void)
 		fsm_updateStates();
 		
 		multiboard_data_updateInputs();		
+		
+		menu_loadEntryValueFromSram();
 		
 		fsm_state_t fsmState = fsm_getCurrentState();
 		switch(fsmState)
@@ -79,7 +82,6 @@ int main (void)
 		if(timer_isAFlagSet(ONE_KHZ_TIMER) == 1)
 		{	
 			can_wapper_sendMessages();
-			
 			can_wrapper_recieveMessages();	
 			 	
 			timer_reset(ONE_KHZ_TIMER);
@@ -125,4 +127,6 @@ static void navigateMenu(joystick_dir_t joystickDirection)
 	{
 		menu_selectCurrentEntry();
 	}
+	
+	//menu_writeEntryValueToSram();
 }

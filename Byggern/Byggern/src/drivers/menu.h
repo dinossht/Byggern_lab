@@ -99,4 +99,8 @@ void menu_selectCurrentEntry(void);
 
 void menu_setCurrentMenu(menu_t* menu);
 
+void menu_loadEntryValueFromSram(void);
+
+void menu_writeEntryValueToSram(void);
+
 #endif /* MENU_H_ */

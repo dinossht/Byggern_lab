@@ -8,22 +8,13 @@
 #include <asf.h>
 #include <stdio.h>
 #include "../multiboard/oled.h"
-#include "menu.h"
+#include "../multiboard_data.h"
+#include "sram.h"
 #include "../FSM.h"
 #include "../game.h"
+#include "sram.h"
+#include "menu.h"
 
-
-// struct menu_t
-// {
-// 	char* title;
-// 	
-// 	entry_t entries[MAX_NR_OF_ENTRIES];
-// 	uint8_t currentEntryIndex;		
-// 	uint8_t nrOfEntries;
-// 	
-// 	menu_t* previousMenu;
-// 	menu_t* nextMenu;
-// };
 
 entry_t mainEntries[NR_MAIN_ENTRIES] =
 {
@@ -37,7 +28,7 @@ entry_t mainEntries[NR_MAIN_ENTRIES] =
 menu_t mainM =
 {
 	.title = "Main",
-	.id = 0,
+	.id = MAIN_ID,
 	.nrOfEntries = NR_MAIN_ENTRIES,
 	.currentEntryIndex = 0,
 	.previousMenu = NULL,
@@ -54,7 +45,7 @@ entry_t gameEntries[NR_GAME_ENTRIES] =
 menu_t gameM = 
 {
 	.title = "Game",
-	.id = 1,
+	.id = GAME_ID,
 	.nrOfEntries = NR_GAME_ENTRIES,
 	.currentEntryIndex = 0,
 	.previousMenu = &mainM,
@@ -71,7 +62,7 @@ entry_t tuneEntries[NR_TUNE_ENTRIES] =
 menu_t tunePidM = 
 {
 	.title = "Tune-PID",
-	.id = 2,
+	.id = TUNE_ID,
 	.nrOfEntries = NR_TUNE_ENTRIES, 
 	.currentEntryIndex = 0,
 	.previousMenu = &mainM,
@@ -87,7 +78,7 @@ entry_t loggingEntries[NR_LOGGING_ENTRIES] =
 menu_t dataLoggingM = 
 {
 	.title = "Data logger",
-	.id = 3,
+	.id = DATALOG_ID,
 	.nrOfEntries = NR_LOGGING_ENTRIES, 
 	.currentEntryIndex = 0,
 	.previousMenu = &mainM,
@@ -97,7 +88,7 @@ menu_t dataLoggingM =
 menu_t animationM = 
 {
 	.title = "Animation",
-	.id = 4,
+	.id = ANIM_ID,
 	.nrOfEntries = 0,
 	.currentEntryIndex = 0,
 	.previousMenu = &mainM,
@@ -107,7 +98,7 @@ menu_t animationM =
 menu_t gameScreenM = 
 {
 	.title = "Pong",
-	.id = 5,
+	.id = GAME_SCR_ID,
 	.nrOfEntries = 0,
 	.currentEntryIndex = 0,
 	.previousMenu = &gameM,
@@ -123,31 +114,30 @@ entry_t highScoreEntries[NR_HIGHSCORE_ENTRIES] =
 menu_t highScoreM =
 {
 	.title = "High Score",
-	.id = 6,
+	.id = HIGHSCORE_ID,
 	.nrOfEntries = 2,
 	.currentEntryIndex = 0,
 	.previousMenu = &mainM,
 	.entrySelected = 0
 };
 
-int8_t joyPos;
 uint8_t shoot;
 
-static void menu_setCurrentMenu(menu_t* menu);
 static void menu_initEntries(menu_t* menu, entry_t* entries);
 
 static void main_navigateToCurrentEntry(void);
 static void game_navigateToCurrentEntry(void);
 
 static void menu_drawRegularMenu(void);
-static void animation_draw(void);
+
+static void menu_playLoadScreen(void);
+
 static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t lives, uint8_t isBallHit);
 static void drawPong(uint8_t pongPosition, uint8_t isBallHit);
 static void drawShoot(uint8_t pongPosition);
 
 void menu_init()
 {
-	currentMenu = &mainM;
 	menu_initEntries(&mainM, mainEntries);
 	menu_initEntries(&gameM, gameEntries);
 	menu_initEntries(&tunePidM, tuneEntries);
@@ -155,7 +145,7 @@ void menu_init()
 	menu_initEntries(&animationM, NULL);
 	menu_initEntries(&gameScreenM, NULL);
 	
-	oled_clearScreen();
+	menu_setCurrentMenu(&mainM);
 }
 
 menu_t menu_returnCurrentMenu()
@@ -201,10 +191,11 @@ void numberToString(uint8_t number, char* string)
 	sprintf(string, "%d", number);
 }
 
-static void animation_draw()
+#define NR_OF_GIF_FRAMES 9
+static void menu_playLoadScreen()
 {
 	oled_clearScreen();
-	for(uint8_t i = 1; i < 9; i++)
+	for(uint8_t i = 1; i < NR_OF_GIF_FRAMES; i++)
 	{
 		oled_displayLoading(i, 56, 3);
 		oled_updateScreen();	
@@ -249,7 +240,7 @@ static void drawPong(uint8_t pongPosition, uint8_t isBallHit)
 	{
 		drawShoot(pongPosition);	
 	}
-}
+}			
 
 static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t lives, uint8_t isBallHit)
 {
@@ -265,32 +256,33 @@ static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t liv
 			
 			drawPong(pongPosition, isBallHit);
 		break;
-	}				
+	}	
+	oled_print("LB [EX]", 7, 0);			
 }
 
 void menu_draw()
 {
 	switch(currentMenu->id)
 	{
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 6:
+		case MAIN_ID:
+		case GAME_ID:
+		case TUNE_ID:
+		case DATALOG_ID:
+		case HIGHSCORE_ID:
 			menu_drawRegularMenu();
 		break;
 		
-		case 4:
-			animation_draw();
+		case ANIM_ID:
+			menu_playLoadScreen();
 		break;
 		
-		case 5:	
-			gameScreen_draw(joyPos, 0, 9, shoot);				
+		case GAME_SCR_ID:	
+			gameScreen_draw(0, 0, 9, shoot);	
 		break;
 	}
 }
 
-static void menu_setCurrentMenu(menu_t* menu)
+void menu_setCurrentMenu(menu_t* menu)
 {
 	if(menu != NULL)
 		currentMenu = menu;	
@@ -299,9 +291,7 @@ static void menu_setCurrentMenu(menu_t* menu)
 void menu_navigateToPreviusMenu()
 {
 	if(currentMenu->entrySelected == 0)
-	{
 		menu_setCurrentMenu(currentMenu->previousMenu);		
-	}
 }
 
 static void main_navigateToCurrentEntry()
@@ -333,7 +323,7 @@ static void game_navigateToCurrentEntry()
 	{		
 		case 2:
 			menu_setCurrentMenu(&gameScreenM);
-			FSM_setGlobalState(GAME_PLAY);
+			//FSM_setGlobalState(GAME_PLAY);
 		break;
 	}	
 }
@@ -417,3 +407,20 @@ void menu_incrementEntryValue(uint8_t increment)
 			currentMenu->entries[index].value++;		
 	}
 }
+
+void menu_loadEntryValueFromSram()
+{
+	tunePidM.entries[0].value = sram_read(128 * 8 + 1);
+	tunePidM.entries[1].value = sram_read(128 * 8 + 2);
+	tunePidM.entries[2].value = sram_read(128 * 8 + 3);
+}
+
+void menu_writeEntryValueToSram()
+{
+	sram_write(tunePidM.entries[0].value, 128 * 8 + 1);
+	sram_write(tunePidM.entries[1].value, 128 * 8 + 2);
+	sram_write(tunePidM.entries[2].value, 128 * 8 + 3);
+}
+
+
+

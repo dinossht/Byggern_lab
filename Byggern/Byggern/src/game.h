@@ -13,74 +13,34 @@
 #include "multiboard/joystick.h"
 #include "multiboard_data.h"
 
-typedef enum {
+typedef enum 
+{
 	GAMEIDLE,
 	GAMEPLAYING,
 	GAMEOVER
-} game_state_t;
-
-game_state_t game_state;
-
-typedef enum {
-	MULTIBOARD,
-	PS3,
 } 
-controller_t;
+game_state_t;
 
 typedef enum 
 {
-	PLAYER1 = 1,
-	PLAYER2,
-	PLAYER3,
-	PLAYER4,
-	PLAYER5,
+	MULTIBOARD,
+	PS3
 } 
-user_t;
+controller_t;
 
-typedef struct
+struct
 {
-	user_t user;
-	uint8_t score;
+	uint8_t user_id;
 	uint8_t lives;
 	uint8_t parameters[3];
 	controller_t controller;
 } 
-settings_t;
+game_settings;
 
-void game_setUser(user_t currentUser);
-user_t game_getUser(void);
-
-void game_setScore(uint8_t currentScore);
-uint8_t game_getScore(void);
-
-void game_setLives(uint8_t currentScore);
-uint8_t game_getLives(void);
-
-void game_setParameters(uint8_t* currentParameters);
-uint8_t* game_getParameters(void);
-
-void game_setController(controller_t currentController);
-controller_t game_getController(void);
-
-
-
-uint8_t game_insertHighscore(void);
-
-
-
-void game_updateControllerInput(void);
-
-//Transmit
-void game_transmitControllerInput(void);
-
-void game_transmitParameters(void);
-
-
-void game_start(void);
-
-uint8_t game_exit(void);
+game_state_t game_state;
 
 void game_play(void);
 
+void game_init(void);
 
 #endif /* GAME_H_ */
