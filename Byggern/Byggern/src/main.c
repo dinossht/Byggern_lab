@@ -44,7 +44,7 @@ int main (void)
 	game_init();
 	sei();
 	//DDRB |= (1 << PINB0);
-
+	printf("Node 1 is ready...");
 	while(1)
 	{	
 		oled_clearScreen();
@@ -127,6 +127,4 @@ static void navigateMenu(joystick_dir_t joystickDirection)
 	{
 		menu_selectCurrentEntry();
 	}
-	
-	//menu_writeEntryValueToSram();
 }

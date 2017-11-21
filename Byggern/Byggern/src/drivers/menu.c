@@ -39,7 +39,8 @@ entry_t gameEntries[NR_GAME_ENTRIES] =
 {
 	{.label = "User", .value = 0, .maxValue = 5, .isModifiableEntry = 1},
 	{.label = "Input", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
-	{.label = "Start", .value = 0}
+	{.label = "Start", .value = 0},
+	{.label = "Difficulty", .value = 0, maxValue = 10, .isModifiableEntry = 1}
 };
 
 menu_t gameM = 
@@ -54,9 +55,9 @@ menu_t gameM =
 
 entry_t tuneEntries[NR_TUNE_ENTRIES] =
 {
-	{.label = "Kp", .value = 0, .maxValue = 100, .isModifiableEntry = 1},
-	{.label = "Ki", .value = 0, .maxValue = 100, .isModifiableEntry = 1},
-	{.label = "Kd",	.value = 0, .maxValue = 100, .isModifiableEntry = 1}
+	{.label = "Kp", .value = 0, .maxValue = 255, .isModifiableEntry = 1},
+	{.label = "Ki", .value = 0, .maxValue = 255, .isModifiableEntry = 1},
+	{.label = "Kd",	.value = 0, .maxValue = 255, .isModifiableEntry = 1}
 };
 
 menu_t tunePidM = 
@@ -323,7 +324,6 @@ static void game_navigateToCurrentEntry()
 	{		
 		case 2:
 			menu_setCurrentMenu(&gameScreenM);
-			//FSM_setGlobalState(GAME_PLAY);
 		break;
 	}	
 }
@@ -404,7 +404,9 @@ void menu_incrementEntryValue(uint8_t increment)
 			currentMenu->entries[index].value--;
 		
 		if(increment == 1 && currentMenu->entries[index].value < currentMenu->entries[index].maxValue)
-			currentMenu->entries[index].value++;		
+			currentMenu->entries[index].value++;	
+	
+		menu_writeEntryValueToSram();	
 	}
 }
 
@@ -413,6 +415,7 @@ void menu_loadEntryValueFromSram()
 	tunePidM.entries[0].value = sram_read(128 * 8 + 1);
 	tunePidM.entries[1].value = sram_read(128 * 8 + 2);
 	tunePidM.entries[2].value = sram_read(128 * 8 + 3);
+	mainM.entries[4].value = 100 - 10 * game_settings.lives;	
 }
 
 void menu_writeEntryValueToSram()

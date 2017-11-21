@@ -55,7 +55,7 @@ menu_id_t;
 entry_t mainEntries[NR_MAIN_ENTRIES];
 menu_t mainM;
 
-#define NR_GAME_ENTRIES 3
+#define NR_GAME_ENTRIES 4
 entry_t gameEntries[NR_GAME_ENTRIES];
 menu_t gameM;
 

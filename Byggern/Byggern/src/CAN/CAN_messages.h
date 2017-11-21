@@ -15,7 +15,8 @@
 struct can_message_t joystick_message;
 struct can_message_t slider_message;
 struct can_message_t button_message;
-//struct can_message_t gamesData_message;
+struct can_message_t gamesData_message;
 struct can_message_t pid_message;
+
 
 #endif /* CAN_MESSAGES_H_ */

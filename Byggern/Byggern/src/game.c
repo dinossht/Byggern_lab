@@ -10,11 +10,12 @@
  
  #include "drivers/menu.h"
  
+ #include "pong_data.h"
  #include "multiboard_data.h"
  #include "drivers/sram.h"
+
  #include "game.h"
-
-
+ 
 
 void game_init()
 {
@@ -29,7 +30,9 @@ void game_init()
 
 void game_updateData()
 {
-	game_settings.lives = 0;
+	if(pong_data.irTriggered == 1)
+		game_settings.lives--;
+		
 	game_settings.controller = gameM.entries[1].value; // Input
 	game_settings.parameters[0] = tunePidM.entries[0].value;
 	game_settings.parameters[1] = tunePidM.entries[1].value;
@@ -42,61 +45,30 @@ static uint8_t game_exit()
 	return multiboard_data.buttonLeftPressed == 1;
 }
 
-// void game_saveGameData()
-// {
-// 	sram_write(game_settings.parameters[0], 128 * 8 + 1);
-// 	sram_write(game_settings.parameters[1], 128 * 8 + 2);
-// 	sram_write(game_settings.parameters[2], 128 * 8 + 3);
-// }
-
 void game_play()
 {
-	if(game_exit() != 1 && game_state == GAMEIDLE)
+	if(game_exit() != 1 && (game_state == GAMEIDLE || game_state == GAMEPLAYING))
 	{
 		if(game_state != GAMEOVER)
 		{
-			if(game_settings.lives <= -1)
+			if(game_settings.lives <= 0 )
 				game_state = GAMEOVER;	
 			
 			menu_setCurrentMenu(&gameScreenM);	
 			game_updateData();	
 			
-			//send playing state
-			//game_updateLives();
-			//send inputs
-			
-			// 			//multiboard_data_updateInputs();
-			// 			//game_transmitControllerInput();
-			// 			//menu_draw();
+			game_state = GAMEPLAYING; 
 		}	
 		else
 		{
-			//update highscore && print
 			game_state = GAMEIDLE;	
-			//oled_print("Gameover", )	
 		}
 	}
 	else
 	{
 		game_state = GAMEIDLE;
-		menu_setCurrentMenu(&gameM);	
+		menu_setCurrentMenu(&gameM);
+		game_settings.lives = gameM.entries[4].value;
+		#warning fix this
 	}
-	
-// 	if(game_state != GAMEOVER)
-// 	{
-// 		//menu_setCurrentMenu(playingscreen)
-// 		
-// 
-// 		if (game_exit() != 1/* && game_settings.lives > 0*/)
-// 		{
-// 			//multiboard_data_updateInputs();
-// 			//game_transmitControllerInput();
-// 			//menu_draw();
-// 			#warning This must be added if we dont use timer interrupts			
-// 		}
-// 		game_state = GAMEOVER;
-// 	}
-// 	//menu_showScoreAndPlace(game_insertHighscore());
-// 	game_state = GAMEIDLE;
-// 	fsm_setCurrentState(IDLE);
 }

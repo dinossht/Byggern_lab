@@ -32,3 +32,9 @@ struct can_message_t pid_message =
 	.id = CAN1_DATA_PID_PARAM_ID,
 	.length = 3,
 };
+
+struct can_message_t gamesData_message =
+{
+	.id = CAN1_DATA_GAME_ID,
+	.length = 2,
+};
