@@ -43,11 +43,11 @@ void can_wrapper_recieveMessages()
 
 #define NUM_OF_CAN_MSGS 5
 static uint8_t i = 0;
-void can_wapper_sendMessages()
+void can_wrapper_sendMessages()
 {
 		
 	i++;
-	i = i % NUM_OF_CAN_MSGS;
+	i = i % (NUM_OF_CAN_MSGS + 1);
 	switch(i)
 	{
 		case 0:
@@ -85,8 +85,8 @@ void can_wapper_sendMessages()
 		case 5:
 			logging_message.data.u8[0] = (fsm_getCurrentState() == DATA_LOGGING);
 			logging_message.data.u8[1] = (fsm_getCurrentState() == DATA_PLAYBACK);
-			fsm_setCurrentState(IDLE);
 			can_sendMessage(&logging_message);			
+			fsm_setCurrentState(IDLE);
 		break;
 	}
 }
