@@ -1,5 +1,6 @@
 #include "settings.h"
 #include <util/delay.h>
+#include <interrupt.h>
 #include <asf.h>
 
 #include "drivers/timer.h"
@@ -13,7 +14,7 @@
 #include "multiboard/slider.h"
 #include "multiboard/button.h"
 
-#include "../can/can_wrapper.h"
+#include "can/can_wrapper.h"
 
 #include "multiboard_data.h"
 #include "ps3_data.h"
@@ -29,38 +30,27 @@ int main (void)
 	/* hardware init */
 	MCUCR |= (1 << SRE); /* external memory init */
 	uart_init();
-	latch_init();
-	can_init();
-	timer_init();
+ 	latch_init();
+ 	can_init();
+ 	timer_init();
 	oled_init();
 	/*****************/
 	
-	ps3_data_init();
-	multiboard_data_init();
-	pong_data_init();
-	fsm_init();
+ 	ps3_data_init();
+ 	multiboard_data_init();
+ 	pong_data_init();
+ 	fsm_init();
 	menu_init();
+	sei();
+	//DDRB |= (1 << PINB0);
 
 	while(1)
-	{
-		if(timer_isAFlagSet(SIXTY_HZ_TIMER) == 1)
-		{
-			oled_clearScreen();
-			menu_draw();
-			oled_updateScreen();
-			
-			timer_reset(SIXTY_HZ_TIMER);
-		}
+	{	
+		oled_clearScreen();
 		
-		if(timer_isAFlagSet(SIXTEEN_KHZ_TIMER) == 1)
-		{
-			can_wrapper_recieveMessages();
-			//send message
-			#warning Implement can send messaage function
-			timer_reset(SIXTEEN_KHZ_TIMER);
-		}
+		fsm_updateStates();
 		
-		multiboard_data_updateInputs();
+		multiboard_data_updateInputs();		
 		
 		fsm_state_t fsmState = fsm_getCurrentState();
 		switch(fsmState)
@@ -68,22 +58,39 @@ int main (void)
 			case IDLE:
 				navigateMenu(multiboard_data.joystickDirection);
 			break;
-			
+						
 			case GAME_PLAY:
 				game_play();
 			break;
 			#warning create datalogger and pid param headers and functions
 			case DATA_LOGGING:
-				//logData();
+				// send datalogger command
 			break;
-			
+						
 			case DATA_PLAYBACK:
 				//playBack();
 			break;
-			
+						
 			case TUNING:
 				//tunePID();
 			break;
+		}
+		
+		if(timer_isAFlagSet(ONE_KHZ_TIMER) == 1)
+		{	
+			can_wapper_sendMessages();
+			
+			can_wrapper_recieveMessages();	
+			 	
+			timer_reset(ONE_KHZ_TIMER);
+		}
+		
+		if(timer_isAFlagSet(SIXTY_HZ_TIMER) == 1)
+		{
+			menu_draw();
+			oled_updateScreen();
+
+			timer_reset(SIXTY_HZ_TIMER);
 		}
 	}
 }
@@ -112,5 +119,10 @@ static void navigateMenu(joystick_dir_t joystickDirection)
 		
 		case JOY_NEUTRAL:
 		break;
+	}
+	
+	if(multiboard_data.buttonRightPressed == 1)
+	{
+		menu_selectCurrentEntry();
 	}
 }
