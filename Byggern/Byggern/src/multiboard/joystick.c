@@ -48,7 +48,7 @@ int16_t joystick_getPos(pos_t pos)
 	return adcVal;
 }
 
-#define NEUTRAL_RADIUS 5
+#define NEUTRAL_RADIUS 50
 joystick_dir_t joystick_getDir()
 {
 	int16_t pos_x = joystick_getPos(POS_X);	
