@@ -39,8 +39,8 @@ entry_t gameEntries[NR_GAME_ENTRIES] =
 {
 	{.label = "User", .value = 0, .maxValue = 5, .isModifiableEntry = 1},
 	{.label = "Input", .value = 0, .maxValue = 1, .isModifiableEntry = 1},
-	{.label = "Start", .value = 0},
-	{.label = "Difficulty", .value = 0, .maxValue = 10, .isModifiableEntry = 1}
+	{.label = "Difficulty", .value = 1, .maxValue = 10, .isModifiableEntry = 1},
+	{.label = "Start", .value = 0}
 };
 
 menu_t gameM = 
@@ -213,34 +213,31 @@ static void drawPongBoard(uint8_t pongPosition)
 	}
 }
 
-static void drawShoot(uint8_t pongPosition)
-{
-	uint8_t pongSize = 16;
-	uint8_t shootHeight = 14;
-	
-	uint8_t x = pongPosition;
-	uint8_t y = 54;
-	for(uint8_t i = 0; i < shootHeight; i++)
-	{
-		
-		for (uint8_t j = 0; j < pongSize - 2 * i; j++)
-		{
-			oled_drawPixel(x, y);		
-			x++;
-		}
-		y++;	
-		x = pongPosition + i;
-	}		
-}
-
+static uint8_t shootTicks = 0;
+static uint8_t startShootTick = 0;
 static void drawPong(uint8_t pongPosition, uint8_t isBallHit)
 {
 	drawPongBoard(pongPosition);
 	
 	if(isBallHit == 1)
+		startShootTick = 1;	
+	
+	if(startShootTick == 1)	
 	{
-		drawShoot(pongPosition);	
+		shootTicks++;
+		if(shootTicks > 10)
+		{
+			startShootTick = 0;		
+			shootTicks = 0;
+		}
 	}
+	
+	if(shootTicks > 1)
+	{
+		oled_print("^", 7, pongPosition + 4);
+		oled_print("^", 6, pongPosition + 4);	
+	}
+	
 }			
 
 static uint16_t flashTicks = 0;
@@ -273,6 +270,7 @@ static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t liv
 			drawPong(pongPosition, isBallHit);
 		break;
 	}	
+	flashingExitMsg();
 }
 
 void menu_draw()
@@ -292,7 +290,7 @@ void menu_draw()
 		break;
 		
 		case GAME_SCR_ID:	
-			gameScreen_draw(0, 0, game_settings.lives, multiboard_data.buttonRightPressed);	
+			gameScreen_draw(multiboard_data.sliderRightPosition, 0, game_settings.lives, multiboard_data.buttonRightPressed);	
 		break;
 	}
 }
@@ -336,7 +334,7 @@ static void game_navigateToCurrentEntry()
 {
 	switch(gameM.currentEntryIndex)
 	{		
-		case 2:
+		case 3: // start
 			menu_setCurrentMenu(&gameScreenM);
 		break;
 	}	

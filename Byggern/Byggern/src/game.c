@@ -37,7 +37,7 @@ void game_init()
 void game_play()
 {
 	if (game_state == GAMEIDLE){
-		game_settings.lives = gameM.entries[3].value;
+		game_settings.lives = gameM.entries[2].value;
 		game_state = GAMEPLAYING;
 	}
 	if(game_exit() != 1 && game_state != GAMEOVER)
