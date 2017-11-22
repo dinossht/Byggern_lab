@@ -37,7 +37,7 @@ struct
 } 
 game_settings;
 
-game_state_t game_state;
+volatile game_state_t game_state;
 
 void game_play(void);
 
