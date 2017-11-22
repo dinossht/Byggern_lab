@@ -43,18 +43,12 @@ static void multiboard_data_updateButtons()
 {
 	if(prevButtons[0] == 1 && button_getStat(BUTTON_LEFT) == 0)
 		multiboard_data.buttonLeftPressed = prevButtons[0];
-	else
-		multiboard_data.buttonLeftPressed = 0;
 		
 	if(prevButtons[1] == 1 && button_getStat(BUTTON_RIGHT) == 0)
 		multiboard_data.buttonRightPressed = prevButtons[1];
-	else
-		multiboard_data.buttonRightPressed = 0;	
 		
 	if(prevButtons[2] == 1 && button_getStat(BUTTON_JOYSTICK) == 0)
 		multiboard_data.joystickPressed = prevButtons[2];
-	else
-		multiboard_data.joystickPressed = 0;
 		
 	prevButtons[0] = button_getStat(BUTTON_LEFT);
 	prevButtons[1] = button_getStat(BUTTON_RIGHT);

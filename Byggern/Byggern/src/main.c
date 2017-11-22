@@ -45,7 +45,7 @@ int main (void)
 	game_init();
 	sei();
 	//DDRB |= (1 << PINB0);
-	//printf("Node 1 is ready...");
+	printf("Node 1 is ready...\n");
 	while(1)
 	{	
 		oled_clearScreen();
@@ -68,15 +68,11 @@ int main (void)
 			break;
 	
 			case DATA_LOGGING:
-				can_wrapper_sendMessages();
-				dataLoggingM.entrySelected = 0;
-				fsm_setCurrentState(IDLE);
+				sendLog = 1;
 			break;
 						
 			case DATA_PLAYBACK:
-				can_wrapper_sendMessages();
-				dataLoggingM.entrySelected = 0;
-				fsm_setCurrentState(IDLE);
+				sendPlayback = 1;
 			break;
 		}
 		
@@ -95,6 +91,10 @@ int main (void)
 
 			timer_reset(SIXTY_HZ_TIMER);
 		}
+		multiboard_data.buttonLeftPressed = 0;
+		multiboard_data.buttonRightPressed = 0;
+		multiboard_data.joystickPressed = 0;
+		
 	}
 }
 

@@ -17,6 +17,9 @@
 #include "../fsm.h"
 
 
+uint8_t sendLog = 0;
+uint8_t sendPlayback = 0;
+
 void can_wrapper_recieveMessages()
 {
 	struct can_message_t message;
@@ -83,10 +86,15 @@ void can_wrapper_sendMessages()
 		break;
 		
 		case 5:
-			logging_message.data.u8[0] = (fsm_getCurrentState() == DATA_LOGGING);
-			logging_message.data.u8[1] = (fsm_getCurrentState() == DATA_PLAYBACK);
-			can_sendMessage(&logging_message);			
-			fsm_setCurrentState(IDLE);
+			if(sendLog == 1 || sendPlayback == 1)
+			{
+				logging_message.data.u8[0] = sendLog == 1;
+				logging_message.data.u8[1] = sendPlayback == 1;
+				can_sendMessage(&logging_message);
+				fsm_setCurrentState(IDLE);
+				sendLog = 0;
+				sendPlayback = 0;
+			}
 		break;
 	}
 }

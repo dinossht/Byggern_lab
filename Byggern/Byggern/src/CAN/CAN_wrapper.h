@@ -9,6 +9,8 @@
 #ifndef CAN_WRAPPER_H_
 #define CAN_WRAPPER_H_
 
+uint8_t sendLog;
+uint8_t sendPlayback;
 
 void can_wrapper_recieveMessages(void);
 void can_wrapper_sendMessages(void);

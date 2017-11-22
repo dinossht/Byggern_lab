@@ -243,6 +243,21 @@ static void drawPong(uint8_t pongPosition, uint8_t isBallHit)
 	}
 }			
 
+static uint16_t flashTicks = 0;
+static void flashingExitMsg()
+{
+	flashTicks++;
+	flashTicks %= 20;
+	if(flashTicks > 10)
+	{
+		oled_print("LB to exit", 3, 30);
+	}
+	else
+	{
+		oled_print("", 6, 0);	
+	}
+			
+}
 static void gameScreen_draw(uint8_t pongPosition, uint8_t gameState, uint8_t lives, uint8_t isBallHit)
 {
 	oled_print(currentMenu->title, 0, 0);
