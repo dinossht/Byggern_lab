@@ -427,7 +427,12 @@ void menu_loadEntryValueFromSram()
 	tunePidM.entries[0].value = sram_read(128 * 8 + 1);
 	tunePidM.entries[1].value = sram_read(128 * 8 + 2);
 	tunePidM.entries[2].value = sram_read(128 * 8 + 3);
-	mainM.entries[4].value = 100 - 10 * game_settings.lives;	
+	mainM.entries[4].value = sram_read(128 * 8 + 4); 
+	if(mainM.entries[4].value < 100 - 10 * game_settings.lives)
+	{
+		mainM.entries[4].value = 100 - 10 * game_settings.lives;
+	}
+		
 }
 
 void menu_writeEntryValueToSram()
@@ -435,6 +440,7 @@ void menu_writeEntryValueToSram()
 	sram_write(tunePidM.entries[0].value, 128 * 8 + 1);
 	sram_write(tunePidM.entries[1].value, 128 * 8 + 2);
 	sram_write(tunePidM.entries[2].value, 128 * 8 + 3);
+	sram_write(mainM.entries[4].value, 128 * 8 + 4);
 }
 
 

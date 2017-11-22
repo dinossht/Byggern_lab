@@ -25,7 +25,7 @@ static uint8_t game_exit(void);
 void game_init()
 {
 	game_state = GAMEIDLE;
-	game_settings.lives = 3;
+	game_settings.lives = 10;
 	game_settings.controller = 0;
 	game_settings.parameters[0] = 0;
 	game_settings.parameters[1] = 0;
