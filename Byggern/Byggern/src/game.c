@@ -25,12 +25,13 @@ static uint8_t game_exit(void);
 void game_init()
 {
 	game_state = GAMEIDLE;
-	game_settings.lives = 10;
+	game_settings.lives = 0;
 	game_settings.controller = 0;
 	game_settings.parameters[0] = 0;
 	game_settings.parameters[1] = 0;
 	game_settings.parameters[2] = 0;
 	game_settings.user_id = 0;
+	
 }
 
 
@@ -60,7 +61,7 @@ void game_play()
 static void game_updateData()
 {
 	if(pong_data.irTriggered == 1)
-	game_settings.lives--;
+		game_settings.lives--;
 	
 	game_settings.controller = gameM.entries[1].value; // Input
 	game_settings.parameters[0] = tunePidM.entries[0].value;

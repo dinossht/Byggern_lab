@@ -428,9 +428,9 @@ void menu_loadEntryValueFromSram()
 	tunePidM.entries[1].value = sram_read(128 * 8 + 2);
 	tunePidM.entries[2].value = sram_read(128 * 8 + 3);
 	mainM.entries[4].value = sram_read(128 * 8 + 4); 
-	if(mainM.entries[4].value < 100 - 10 * game_settings.lives)
+	if(mainM.entries[4].value < 10 * game_settings.lives)
 	{
-		mainM.entries[4].value = 100 - 10 * game_settings.lives;
+		mainM.entries[4].value = 10 * game_settings.lives;
 	}
 		
 }
