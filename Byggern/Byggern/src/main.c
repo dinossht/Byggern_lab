@@ -91,10 +91,6 @@ int main (void)
 
 			timer_reset(SIXTY_HZ_TIMER);
 		}
-		multiboard_data.buttonLeftPressed = 0;
-		multiboard_data.buttonRightPressed = 0;
-		multiboard_data.joystickPressed = 0;
-		
 	}
 }
 

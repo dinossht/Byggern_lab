@@ -66,10 +66,19 @@ void can_wrapper_sendMessages()
 		break;
 		
 		case 2:
-			button_message.data.u8[0] = multiboard_data.buttonLeftPressed;
-			button_message.data.u8[1] = multiboard_data.buttonRightPressed;
-			button_message.data.u8[2] = multiboard_data.joystickPressed;
-			can_sendMessage(&button_message);
+			if(
+			multiboard_data.buttonLeftPressed == 1 ||
+			multiboard_data.buttonRightPressed == 1 ||
+			multiboard_data.joystickPressed == 1)
+			{
+				button_message.data.u8[0] = multiboard_data.buttonLeftPressed;
+				button_message.data.u8[1] = multiboard_data.buttonRightPressed;
+				button_message.data.u8[2] = multiboard_data.joystickPressed;
+				can_sendMessage(&button_message);
+			}
+			multiboard_data.buttonLeftPressed = 0;
+			multiboard_data.buttonRightPressed = 0;
+			multiboard_data.joystickPressed = 0;
 		break;
 		
 		case 3:
