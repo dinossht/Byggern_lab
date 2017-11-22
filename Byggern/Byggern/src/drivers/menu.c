@@ -182,7 +182,7 @@ static void menu_drawRegularMenu()
 		{
 			char numberString[3];
 			numberToString(currentMenu->entries[i].value, numberString);
-			oled_print(numberString, 2 + i, 104);
+			oled_print(numberString, 2 + i, 102);
 		}
 	}
 }
