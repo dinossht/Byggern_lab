@@ -174,7 +174,7 @@ static void menu_drawRegularMenu()
 			oled_print(">",  2 + i, 0);
 			if(currentMenu->entrySelected == 1)
 			{
-				oled_print(currentMenu->entries[i].label, 2 + i, 10);
+				oled_print(currentMenu->entries[i].label, 2 + i, 11);
 			}
 		}
 				
